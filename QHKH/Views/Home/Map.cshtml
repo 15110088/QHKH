@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    #viewDiv {
+        width: 100%;
+        height: 100vh;
+        margin-top: 30px; /*position: fixed;
+        margin-top:200px;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background: rgba(51,51,51,0.7);*/
+    }
+</style>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="viewDiv"></div>
+
+<script>
+    require(["esri/config", "esri/Map", "esri/views/MapView"], function (esriConfig, Map, MapView) {
+        esriConfig.apiKey = "AAPKcf5d235ac0524b2dacf60020ea3968615zgFIieNncDmP-DJ7dACIO-l7xoTVvfFQHaxpBCuttdFeX8f44xCep0YwIpgqljZ";
+
+        const map = new Map({
+            basemap: "arcgis-topographic" // Basemap layer service
+        });
+
+        const view = new MapView({
+            map: map,
+            center: [-118.805, 34.027], // Longitude, latitude
+            zoom: 13, // Zoom level
+            container: "viewDiv" // Div element
+        });
+    });
+</script>

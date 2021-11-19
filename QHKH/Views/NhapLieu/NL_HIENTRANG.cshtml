@@ -1,0 +1,806 @@
+﻿
+
+@{
+    ViewBag.Title = "NL_HIENTRANG";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Template/css/theme.css" rel="stylesheet">
+@*@model KEHOACHQH.DAL.HIENTRANG*@
+@model KHQH.Models.DB.CombineHienTrang
+<br />
+<br />
+<br />
+
+<style>
+</style>
+<p class="SRheader">@Model.SetupPage.TITLE</p>
+<input id="IDKYQH" value=0 class="input-text js-input" type="hidden">
+<input id="IDROW" value=0 class="input-text js-input" type="hidden">
+<input id="ISCAPTINH" value=0 class="input-text js-input" type="hidden">
+
+<br />
+
+<div class="row">
+    @**@
+    <div class="col-md-4">
+        <a href="#" id="btnAdd" class="button4" style="background-color:#4ef18f" >Thêm mới</a>
+    </div>
+    <div class="col-md-4">
+        @(Html.DevExtreme().SelectBox()
+                .DataSource(d => d.WebApi()
+                            .RouteName("GetDanhMuc")
+                            .LoadAction("KYQH")
+                            .Key("ID"))
+                             .DisplayExpr("TEN").Width(300)
+                             .SearchEnabled(true).Placeholder("Chọn kỳ kế hoạch quy hoạch ")
+                            .AcceptCustomValue(true).OnValueChanged("CapNhatGrid").ID("NameKYQH")
+        )
+    </div>
+
+
+</div>
+
+</br>
+
+@if (Model.SetupPage.TYPE == 1)
+{
+
+
+
+@(Html.DevExtreme().DataGrid<KEHOACHQH.DAL.HIENTRANG>()
+                           .ID("grv")
+                           .Selection(s => s.Mode(SelectionMode.Single))
+                       //.DataSource(d => d.WebApi()
+                       //               .RouteName("NhapLieu").LoadAction("GetHienTrangByID").Key("ID").LoadParams(new { @ID=1})
+                       //           //.InsertAction("PostKYQH")
+                       //           //.UpdateAction("PutKYQH")
+                       //           //.DeleteAction("DeleteKYQH")
+                       //           )
+
+                       .ShowBorders(true)
+                       .ColumnAutoWidth(true)
+                       .FilterRow(f => f.Visible(true))
+                       .HeaderFilter(f => f.Visible(true))
+                       .ShowRowLines(true)
+                       .ColumnHidingEnabled(true)
+                       .Paging(p => p.PageSize(20))
+                       .SearchPanel(searchPanel => searchPanel.Visible(true))
+                       .Columns(columns =>
+                       {
+                           columns.AddFor(m => m.ID).Caption("STT").AllowEditing(true);
+                           columns.AddFor(m => m.TENVUNG).Caption("Tên vùng").AllowEditing(true);
+                           columns.AddFor(m => m.MAHT).Caption("MAHT").AllowEditing(true);
+                           columns.AddFor(m => m.DIENTICH).Caption("Diện tích").AllowEditing(true);
+                           columns.AddFor(m => m.ID_MDSD).Caption("Mục đích sử dụng")
+                                      .Lookup(lookup => lookup
+                                      .DataSource(Model.LstMDSD.Select(n => new { n.ID, n.TEN }))
+                                      .DisplayExpr("TEN")
+                                      .ValueExpr("ID"));
+                           columns.AddFor(m => m.MAXA).Caption("Xã/phường")
+                                  .Lookup(lookup => lookup
+                                  .DataSource(Model.LstXa.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
+                                  .DisplayExpr("TEN_KVHC")
+                                  .ValueExpr("MA_KVHC"));
+                           columns.AddFor(m => m.MAHUYEN).Caption("Huyện")
+                                   .Lookup(lookup => lookup
+                                   .DataSource(Model.LstHuyen.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
+                                   .DisplayExpr("TEN_KVHC")
+                                   .ValueExpr("MA_KVHC"));
+                           columns.AddFor(m => m.CAPTINH).DataType(GridColumnDataType.Boolean).Caption("Cấp Tỉnh").AllowEditing(true);
+
+
+                       }).OnEditingStart("onRowClick")
+                           .Editing(e => e.Mode(GridEditMode.Popup)
+                           .AllowUpdating(true)
+                           .AllowAdding(false)
+                           .AllowDeleting(true)
+                           .UseIcons(true)
+                           .Popup(p => p
+                               .Title("Thông tin hiện trạng")
+                               .ShowTitle(true)
+                               .Width(700)
+                               .Height(525)
+                           )
+                           .Form(f => f.Items(items =>
+                           {
+                               items.AddGroup()
+                                   .ColCount(1)
+                                   .ColSpan(2)
+                                   .Items(groupItems =>
+                                   {
+                                       groupItems.AddSimpleFor(m => m.TENVUNG);
+                                       groupItems.AddSimpleFor(m => m.MAHT);
+                                       groupItems.AddSimpleFor(m => m.ID_MDSD);
+
+
+
+
+                                   });
+                               items.AddGroup()
+                              .ColCount(2)
+                              .ColSpan(2)
+                              .Items(groupItems =>
+                              {
+
+                                  groupItems.AddSimpleFor(m => m.MAXA);
+                                  groupItems.AddSimpleFor(m => m.MAHUYEN);
+                                  groupItems.AddSimpleFor(m => m.DIENTICH);
+                                  groupItems.AddSimpleFor(m => m.CAPTINH);
+
+                                  //groupItems.AddSimpleFor(m => m.TOINAM);
+                                  //groupItems.AddSimpleFor(m => m.IS_KEHOACH_DIEUCHINH);
+                              });
+                           }))
+                ))
+<br />
+}
+
+@if (Model.SetupPage.TYPE == 3)
+{
+    @(Html.DevExtreme().DataGrid<KEHOACHQH.DAL.KHUCHUCNANG>()
+                           .ID("grv")
+                           .Selection(s => s.Mode(SelectionMode.Single))
+
+
+                       .ShowBorders(true)
+                       .ColumnAutoWidth(true)
+                       .FilterRow(f => f.Visible(true))
+                       .HeaderFilter(f => f.Visible(true))
+                       .ShowRowLines(true)
+                       .ColumnHidingEnabled(true)
+                       .Paging(p => p.PageSize(20))
+                       .SearchPanel(searchPanel => searchPanel.Visible(true))
+                       .Columns(columns =>
+                       {
+                           columns.AddFor(m => m.ID).Caption("STT").AllowEditing(true);
+                           columns.AddFor(m => m.TENVUNG).Caption("Tên vùng").AllowEditing(true);
+                           columns.AddFor(m => m.MAKHUCN).Caption("MAHT").AllowEditing(true);
+                           columns.AddFor(m => m.MALOAIKHUCN).Caption("Loại chức năng")
+                                      .Lookup(lookup => lookup
+                                      .DataSource(Model.LstLoaiKCN.Select(n => new { n.ID, n.TEN }))
+                                      .DisplayExpr("TEN")
+                                      .ValueExpr("ID"));
+                           columns.AddFor(m => m.MAXA).Caption("Xã/phường")
+                                  .Lookup(lookup => lookup
+                                  .DataSource(Model.LstXa.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
+                                  .DisplayExpr("TEN_KVHC")
+                                  .ValueExpr("MA_KVHC"));
+                           columns.AddFor(m => m.MAHUYEN).Caption("Huyện")
+                                   .Lookup(lookup => lookup
+                                   .DataSource(Model.LstHuyen.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
+                                   .DisplayExpr("TEN_KVHC")
+                                   .ValueExpr("MA_KVHC"));
+                           columns.AddFor(m => m.CAPTINH).DataType(GridColumnDataType.Boolean).Caption("Cấp Tỉnh").AllowEditing(true);
+
+
+                       }).OnEditingStart("onRowClick")
+                           .Editing(e => e.Mode(GridEditMode.Popup)
+                           .AllowUpdating(true)
+                           .AllowAdding(false)
+                           .AllowDeleting(true)
+                           .UseIcons(true)
+                           .Popup(p => p
+                               .Title("Thông tin khu chức năng")
+                               .ShowTitle(true)
+                               .Width(700)
+                               .Height(525)
+                           )
+                           .Form(f => f.Items(items =>
+                           {
+                               items.AddGroup()
+                                   .ColCount(1)
+                                   .ColSpan(2)
+                                   .Items(groupItems =>
+                                   {
+                                       groupItems.AddSimpleFor(m => m.TENVUNG);
+                                       groupItems.AddSimpleFor(m => m.MAKHUCN);
+                                       groupItems.AddSimpleFor(m => m.MALOAIKHUCN);
+
+
+
+
+                                   });
+                               items.AddGroup()
+                              .ColCount(2)
+                              .ColSpan(2)
+                              .Items(groupItems =>
+                              {
+
+                                  groupItems.AddSimpleFor(m => m.MAXA);
+                                  groupItems.AddSimpleFor(m => m.MAHUYEN);
+                                  groupItems.AddSimpleFor(m => m.CAPTINH);
+
+                                  //groupItems.AddSimpleFor(m => m.TOINAM);
+                                  //groupItems.AddSimpleFor(m => m.IS_KEHOACH_DIEUCHINH);
+                              });
+                           }))
+                ))
+    <br />
+}
+
+
+@if (Model.SetupPage.TYPE == 4)
+{
+
+
+
+    @(Html.DevExtreme().DataGrid<KEHOACHQH.DAL.QUYHOACH>()
+                       .ID("grv")
+                       .Selection(s => s.Mode(SelectionMode.Single))
+                       .ShowBorders(true)
+                       .ColumnAutoWidth(true)
+                       .FilterRow(f => f.Visible(true))
+                       .HeaderFilter(f => f.Visible(true))
+                       .ShowRowLines(true)
+                       .ColumnHidingEnabled(true)
+                       .Paging(p => p.PageSize(20))
+                       .SearchPanel(searchPanel => searchPanel.Visible(true))
+                       .Columns(columns =>
+                       {
+                           columns.AddFor(m => m.ID).Caption("STT").AllowEditing(true);
+                           columns.AddFor(m => m.TENVUNG).Caption("Tên vùng").AllowEditing(true);
+                           columns.AddFor(m => m.MAQH).Caption("MAQH").AllowEditing(true);
+                           columns.AddFor(m => m.DIENTICH).Caption("Diện tích").AllowEditing(true);
+                           columns.AddFor(m => m.ID_MDSD).Caption("Mục đích sử dụng")
+                                      .Lookup(lookup => lookup
+                                      .DataSource(Model.LstMDSD.Select(n => new { n.ID, n.TEN }))
+                                      .DisplayExpr("TEN")
+                                      .ValueExpr("ID"));
+
+                           columns.AddFor(m => m.ID_KHUCN).Caption("Khu chức năng")
+                                      .Lookup(lookup => lookup
+                                      .DataSource(Model.LstLoaiKCN.Select(n => new { n.ID, n.TEN }))
+                                      .DisplayExpr("TEN")
+                                      .ValueExpr("ID"));
+
+                           columns.AddFor(m => m.MAXA).Caption("Xã/phường")
+                                  .Lookup(lookup => lookup
+                                  .DataSource(Model.LstXa.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
+                                  .DisplayExpr("TEN_KVHC")
+                                  .ValueExpr("MA_KVHC"));
+                           columns.AddFor(m => m.MAHUYEN).Caption("Huyện")
+                                   .Lookup(lookup => lookup
+                                   .DataSource(Model.LstHuyen.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
+                                   .DisplayExpr("TEN_KVHC")
+                                   .ValueExpr("MA_KVHC"));
+                           columns.AddFor(m => m.CAPTINH).DataType(GridColumnDataType.Boolean).Caption("Cấp Tỉnh").AllowEditing(true);
+
+
+                       }).OnEditingStart("onRowClick")
+                           .Editing(e => e.Mode(GridEditMode.Popup)
+                           .AllowUpdating(true)
+                           .AllowAdding(false)
+                           .AllowDeleting(true)
+                           .UseIcons(true)
+                           .Popup(p => p
+                               .Title("Thông tin quy hoạch")
+                               .ShowTitle(true)
+                               .Width(700)
+                               .Height(525)
+                           )
+                           .Form(f => f.Items(items =>
+                           {
+                               items.AddGroup()
+                                   .ColCount(1)
+                                   .ColSpan(2)
+                                   .Items(groupItems =>
+                                   {
+                                       groupItems.AddSimpleFor(m => m.TENVUNG);
+                                       groupItems.AddSimpleFor(m => m.MAQH);
+                                       groupItems.AddSimpleFor(m => m.ID_MDSD);
+
+
+
+
+                                   });
+                               items.AddGroup()
+                              .ColCount(2)
+                              .ColSpan(2)
+                              .Items(groupItems =>
+                              {
+
+                                  groupItems.AddSimpleFor(m => m.MAXA);
+                                  groupItems.AddSimpleFor(m => m.MAHUYEN);
+                                  groupItems.AddSimpleFor(m => m.DIENTICH);
+                                  groupItems.AddSimpleFor(m => m.CAPTINH);
+
+                              });
+                           }))
+                ))
+    <br />
+}
+
+@if (Model.SetupPage.TYPE == 2)
+{
+
+
+
+    @(Html.DevExtreme().DataGrid<KEHOACHQH.DAL.KEHOACH>()
+                           .ID("grv")
+                           .Selection(s => s.Mode(SelectionMode.Single))
+                       //.DataSource(d => d.WebApi()
+                       //               .RouteName("NhapLieu").LoadAction("GetHienTrangByID").Key("ID").LoadParams(new { @ID=1})
+                       //           //.InsertAction("PostKYQH")
+                       //           //.UpdateAction("PutKYQH")
+                       //           //.DeleteAction("DeleteKYQH")
+                       //           )
+
+                       .ShowBorders(true)
+                       .ColumnAutoWidth(true)
+                       .FilterRow(f => f.Visible(true))
+                       .HeaderFilter(f => f.Visible(true))
+                       .ShowRowLines(true)
+                       .ColumnHidingEnabled(true)
+                       .Paging(p => p.PageSize(20))
+                       .SearchPanel(searchPanel => searchPanel.Visible(true))
+                       .Columns(columns =>
+                       {
+                           columns.AddFor(m => m.ID).Caption("STT").AllowEditing(true);
+                           columns.AddFor(m => m.TENVUNG).Caption("Tên vùng").AllowEditing(true);
+                           columns.AddFor(m => m.MAKH).Caption("MAQH").AllowEditing(true);
+                           columns.AddFor(m => m.DIENTICH).Caption("Diện tích").AllowEditing(true);
+                           columns.AddFor(m => m.ID_MDSD).Caption("Mục đích sử dụng")
+                                      .Lookup(lookup => lookup
+                                      .DataSource(Model.LstMDSD.Select(n => new { n.ID, n.TEN }))
+                                      .DisplayExpr("TEN")
+                                      .ValueExpr("ID"));
+
+                           columns.AddFor(m => m.ID_KHUCHUCNANG).Caption("Khu chức năng")
+                                      .Lookup(lookup => lookup
+                                      .DataSource(Model.LstLoaiKCN.Select(n => new { n.ID, n.TEN }))
+                                      .DisplayExpr("TEN")
+                                      .ValueExpr("ID"));
+
+                           columns.AddFor(m => m.MAXA).Caption("Xã/phường")
+                                  .Lookup(lookup => lookup
+                                  .DataSource(Model.LstXa.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
+                                  .DisplayExpr("TEN_KVHC")
+                                  .ValueExpr("MA_KVHC"));
+                           columns.AddFor(m => m.MAHUYEN).Caption("Huyện")
+                                   .Lookup(lookup => lookup
+                                   .DataSource(Model.LstHuyen.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
+                                   .DisplayExpr("TEN_KVHC")
+                                   .ValueExpr("MA_KVHC"));
+                           columns.AddFor(m => m.CAPTINH).DataType(GridColumnDataType.Boolean).Caption("Cấp Tỉnh").AllowEditing(true);
+
+
+                       }).OnEditingStart("onRowClick")
+                           .Editing(e => e.Mode(GridEditMode.Popup)
+                           .AllowUpdating(true)
+                           .AllowAdding(false)
+                           .AllowDeleting(true)
+                           .UseIcons(true)
+                           .Popup(p => p
+                               .Title("Thông tin kế hoạch")
+                               .ShowTitle(true)
+                               .Width(700)
+                               .Height(525)
+                           )
+                           .Form(f => f.Items(items =>
+                           {
+                               items.AddGroup()
+                                   .ColCount(1)
+                                   .ColSpan(2)
+                                   .Items(groupItems =>
+                                   {
+                                       groupItems.AddSimpleFor(m => m.TENVUNG);
+                                       groupItems.AddSimpleFor(m => m.MAKH);
+                                       groupItems.AddSimpleFor(m => m.ID_MDSD);
+
+
+
+
+                                   });
+                               items.AddGroup()
+                              .ColCount(2)
+                              .ColSpan(2)
+                              .Items(groupItems =>
+                              {
+                                  groupItems.AddSimpleFor(m => m.MAXA);
+                                  groupItems.AddSimpleFor(m => m.MAHUYEN);
+                                  groupItems.AddSimpleFor(m => m.DIENTICH);
+                                  groupItems.AddSimpleFor(m => m.CAPTINH);
+                              });
+                           }))
+                ))
+    <br />
+}
+
+
+
+    <div class="modal fade" id="modalHienTrang" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h2 class="SRheader" style="color:#36C970">
+                        <i style="width:50px" class="bi bi-pencil-square"></i>
+                        Thông tin @Model.SetupPage.TITLE
+                    </h2>
+                    <button type="button" style="position:absolute;right:0px;top:0px;margin:10px" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+@using (Html.DevExtreme().ValidationGroup("ValidateText"))
+{
+
+                    <div class="row RowMagin">
+
+                        <div class="col-sm">
+                            <p class="SRtitle2" style="font-weight:bold;text-align:center" id="TenKy"></p>
+                        </div>
+                    </div>
+
+                    <div class="row RowMagin">
+
+                        <div class="col-sm">
+                            <label style="text-align:left" class="SRBody">Tên Vùng</label>
+                            @(Html.DevExtreme().TextBoxFor(n => n.HienTrang.TENVUNG).IsValid(true))
+                        </div>
+                    </div>
+                    <div class="row RowMagin">
+
+                        <div class="col-sm">
+                            <label style="text-align:left" class="SRBody">Mã HT</label>
+                            @(Html.DevExtreme().TextBoxFor(n => n.HienTrang.MAHT).IsValid(true))
+                        </div>
+                    </div>
+
+                    <div class="row RowMagin">
+
+                        <div class="col-sm">
+
+                            @if (Model.SetupPage.TYPE == 1 || Model.SetupPage.TYPE == 4 || Model.SetupPage.TYPE == 2)
+                            {
+                                <label style="text-align:left" class="SRBody">Mục đích SD</label>
+
+                                        @(Html.DevExtreme().SelectBoxFor(n=>n.HienTrang.ID_MDSD)
+                                            .DataSource(Model.LstMDSD.Select(n => new { n.ID, n.TEN }))
+                                            .SearchEnabled(true).Placeholder("Mục đích sử dụng")
+                                            .AcceptCustomValue(true)
+                                            .ValueExpr("ID").ID("IDMDSD").IsValid(true)
+                                            .DisplayExpr("TEN")
+                                        )
+                            }
+                            @if (Model.SetupPage.TYPE == 3)
+                            {
+                                <label style="text-align:left" class="SRBody">Loại KCN</label>
+
+                                        @(Html.DevExtreme().SelectBoxFor(n => n.HienTrang.ID_LOAIKCN)
+                                        .DataSource(Model.LstLoaiKCN.Select(n => new { n.ID, n.TEN }))
+                                        .SearchEnabled(true).Placeholder("Loại khu chức năng")
+                                        .AcceptCustomValue(true)
+                                        .ValueExpr("ID").ID("IDLoaiKCN").IsValid(true)
+                                        .DisplayExpr("TEN")
+                                        )
+                            }
+                        </div>
+
+                        <div class="col-sm">
+                            @if (Model.SetupPage.TYPE == 1 || Model.SetupPage.TYPE == 4 || Model.SetupPage.TYPE == 2)
+                            {
+                                <label style="text-align:left" class="SRBody">Diện tích</label>
+                                        @(Html.DevExtreme().TextBoxFor(n => n.HienTrang.DIENTICH).IsValid(true))
+
+
+                            }
+
+                            @if (Model.SetupPage.TYPE == 3)
+                            {
+                                <label style="text-align:left" class="SRBody">Cấp tỉnh</label>
+                                            <br />
+                                            @(Html.DevExtreme().CheckBoxFor(n => n.HienTrang.CAPTINH).OnValueChanged("CapTinhCheck"))
+                            }
+
+                        </div>
+
+                        <div class="col-sm">
+                            <label style="text-align:left" class="SRBody">TP/Huyện</label>
+                              @(Html.DevExtreme().SelectBoxFor(n => n.HienTrang.MAHUYEN)
+                                .DataSource(Model.LstHuyen.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
+                                .SearchEnabled(true).Placeholder("Huyện")
+                                .AcceptCustomValue(true).IsValid(true)
+                                .ValueExpr("MA_KVHC")
+                                .DisplayExpr("TEN_KVHC").ID("IDHUYEN")
+                              )
+                        </div>
+                        <div class="col-sm">
+                            <label style="text-align:left" class="SRBody">Phường/Xã</label>
+
+                            @(Html.DevExtreme().SelectBoxFor(n => n.HienTrang.MAXA)
+                            .DataSource(Model.LstXa.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
+                            .SearchEnabled(true).Placeholder("Xã")
+                            .AcceptCustomValue(true)
+                            .ValueExpr("MA_KVHC").IsValid(true)
+                            .DisplayExpr("TEN_KVHC").ID("IDXA")
+                            )
+                        </div>
+                    </div>
+
+                    <div class="row RowMagin">
+
+
+
+                        <div class="col-sm">
+                            @if (Model.SetupPage.TYPE == 1|| Model.SetupPage.TYPE == 4 || Model.SetupPage.TYPE == 2)
+                            {
+                                <label style="text-align:left" class="SRBody">Năm</label>
+                                @(Html.DevExtreme().TextBoxFor(n => n.HienTrang.NAM))
+                            }
+                        </div>
+
+                        <div class="col-sm">
+                            @if (Model.SetupPage.TYPE == 1|| Model.SetupPage.TYPE == 4 || Model.SetupPage.TYPE == 2)
+                            {
+                                <label style="text-align:left" class="SRBody">Cấp tỉnh</label>
+                                <br />
+                                @(Html.DevExtreme().CheckBoxFor(n => n.HienTrang.CAPTINH).OnValueChanged("CapTinhCheck"))
+                            }
+
+
+                        </div>
+
+                        <div class="col-sm">
+                            @if (Model.SetupPage.TYPE == 4||Model.SetupPage.TYPE == 2)
+                            {
+                                <label style="text-align:left" class="SRBody">Khu chức năng</label>
+
+                                @(Html.DevExtreme().SelectBoxFor(n => n.HienTrang.ID_LOAIKCN)
+                                .DataSource(Model.LstLoaiKCN.Select(n => new { n.ID, n.TEN }))
+                                .SearchEnabled(true).Placeholder("Loại khu chức năng")
+                                .AcceptCustomValue(true)
+                                .ValueExpr("ID").ID("IDLoaiKCN").IsValid(true)
+                                .DisplayExpr("TEN")
+                                )
+                            }
+                        </div>
+                        <div class="col-sm">
+
+                        </div>
+                    </div>
+
+                    <div class="row RowMagin">
+                        <div class="col-sm">
+                            <div id="fileuploader-container">
+                                <input type="file" id="customFile" value="Choose file" multiple />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row rone mx-1 my-3">
+
+                        <button type="submit" id="btnSave" style="background:#36C970;border-color:#36C970" class="btn btn-primary SRbutton">Lưu</button>
+                    </div>
+}
+                        <p style="color:red" class=".SRBody" id="lbError"></p>
+
+
+
+                    </div>
+                </div>
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                    <img id="ImgLoading" class="unActiveLoading" src="~/Content/img/Spinner-1s-200px.gif" alt="">
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+@*<div id="preloader"></div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>*@
+
+<script>
+    // var apiRootUrl = "http://localhost:63563/"
+    var host = '//' + window.location.host
+
+  
+
+    var DataGirdCRUDModel = (function () {
+        function DataGirdCRUDModel(key, actionLoad, actionInsert, actionUpdate, actionDelete) {
+            this.Key = key;
+            this.ActionLoad = API_HOST + actionLoad;
+            this.ActionInsert = actionInsert;
+            this.ActionUpdate = actionUpdate;
+            this.ActionDelete = API_HOST + actionDelete;
+        }
+        return DataGirdCRUDModel;
+    }());
+    InitDataSource = function (obj) {
+        var gridSource = {
+            store: (DevExpress.data).AspNet.createStore({
+                key: obj.Key,
+                loadUrl: obj.ActionLoad,
+                insertUrl: obj.ActionInsert,
+                updateUrl: obj.ActionUpdate,
+                deleteUrl: obj.ActionDelete,
+                loadParams: obj.LoadParams,
+            })
+        };
+        return gridSource;
+    };
+    window.onload = function () {
+        //var grid = $("#grv").dxDataGrid("instance");
+        //var objAction = new DataGirdCRUDModel("ID", "api/NhapLieu/GetHienTrangByID?ID=" + $('#IDKYQH').val(), null, null, "api/ApiCrane/DeleteCrane");
+        //grid.option("dataSource", InitDataSource(objAction));
+    }
+    function onRowClick(e) {
+        console.log(e)
+        $('#IDROW').val(e.key)
+
+    }
+
+    function validateText() {
+        console.log(DevExpress.validationEngine)
+        return DevExpress.validationEngine.validateGroup("ValidateText").isValid;
+        }
+    function CapNhatGrid(e) {
+        console.log(e)
+        $('#IDKYQH').val(e.value.ID)
+
+        if ('@Model.SetupPage.TYPE' == '1')
+        {
+            var grid = $("#grv").dxDataGrid("instance");
+            var objAction = new DataGirdCRUDModel("ID", "api/NhapLieu/GetHienTrangByID?ID=" + e.value.ID, "/api/NhapLieu/PostHienTrang?IDKYQH=" + e.value.ID, "/api/NhapLieu/PutHienTrang", "/api/NhapLieu/DeleteHienTrang");
+            grid.option("dataSource", InitDataSource(objAction));
+        }
+
+         if ('@Model.SetupPage.TYPE' == '3')
+        {
+            var grid = $("#grv").dxDataGrid("instance");
+            var objAction = new DataGirdCRUDModel("ID", "api/NhapLieu/GetKhuChucNangByID?ID=" + e.value.ID, "/api/NhapLieu/PostKhuChucNang?IDKYQH=" + e.value.ID, "/api/NhapLieu/PutKhuChucNang", "/api/NhapLieu/DeleteKhuChucNang");
+            grid.option("dataSource", InitDataSource(objAction));
+        }
+
+        if ('@Model.SetupPage.TYPE' == '4')
+        {
+            var grid = $("#grv").dxDataGrid("instance");
+            var objAction = new DataGirdCRUDModel("ID", "api/NhapLieu/GetQuyhoachByID?ID=" + e.value.ID, "/api/NhapLieu/PostQuyhoach?IDKYQH=" + e.value.ID, "/api/NhapLieu/PutQuyhoach", "/api/NhapLieu/DeleteQuyhoach");
+            grid.option("dataSource", InitDataSource(objAction));
+         }
+
+         if ('@Model.SetupPage.TYPE' == '2')
+        {
+            var grid = $("#grv").dxDataGrid("instance");
+            var objAction = new DataGirdCRUDModel("ID", "api/NhapLieu/GetKehoachByID?ID=" + e.value.ID, "/api/NhapLieu/PostKehoach?IDKYQH=" + e.value.ID, "/api/NhapLieu/PutKehoach", "/api/NhapLieu/DeleteKehoach");
+            grid.option("dataSource", InitDataSource(objAction));
+        }
+
+
+    }
+
+    function CapTinhCheck(e) {
+        $('#ISCAPTINH').val(e.value)
+
+    }
+    $(document).ready(function () {
+
+
+        //function validateText() {
+        //    console.log(DevExpress.validationEngine)
+        //    return DevExpress.validationEngine.validateGroup("ValidateText).isValid;
+        //}
+
+        $('#btnAdd').click(function () {
+            console.log('bind du liẹu')
+            console.log($('#NameKYQH').dxSelectBox("instance").option().displayValue)
+            if ($('#NameKYQH').dxSelectBox("instance").option().displayValue!=null)
+            {
+                $('#modalHienTrang').modal('show');
+
+            }
+            else {
+                alert("Vui lòng chọn kỳ quy hoạch")
+            }
+
+            $('#TenKy').text("" + $('#NameKYQH').dxSelectBox("instance").option().displayValue)
+        })
+
+        $('#btnSave').click(function () {
+            if (!validateText()) {
+
+                return;
+            }
+
+
+            $("#ImgLoading").removeClass("unActiveLoading");
+            $("#ImgLoading").addClass("ActiveLoading");
+
+            var files = $("#customFile").get(0).files;
+            console.log($("#customFile"))
+            console.log(files)
+             var CountExtenFile= 0;
+            if (files.length < 3) {
+                alert("Vui lòng chọn shape file gồm 3 file sha,shx,dbf")
+                $("#ImgLoading").removeClass("ActiveLoading");
+                $("#ImgLoading").addClass("unActiveLoading");
+                return;
+            }
+            else {
+                for (var index = 0; index < files.length; index++) {
+                    var ext = $("#customFile").val().split('.').pop();
+                    if (ext == "shp" || ext == "dbf" || ext == "shx")
+                    {
+                        CountExtenFile++;
+
+                    }
+                }
+             }
+            if (CountExtenFile != 3)
+            {
+                alert("Vui lòng chọn shape file gồm 3 file sha,shx,dbf")
+                $("#ImgLoading").removeClass("ActiveLoading");
+                $("#ImgLoading").addClass("unActiveLoading");
+                return;
+            }
+
+
+            var data = new FormData();
+            data.append("IDKYQH", $('#IDKYQH').val());
+
+            if (@Model.SetupPage.TYPE==1||@Model.SetupPage.TYPE==4||@Model.SetupPage.TYPE==2)
+            {
+                data.append("ID_MDSD", $('#IDMDSD').dxSelectBox("instance").option().value);
+                data.append("NAM", $('#HienTrang_NAM').val());
+                data.append("DIENTICH", $('#HienTrang_DIENTICH').val());
+            }
+
+            if (@Model.SetupPage.TYPE==3||@Model.SetupPage.TYPE==4||@Model.SetupPage.TYPE==2)
+            {
+                data.append("IDLoaiKCN", $('#IDLoaiKCN').dxSelectBox("instance").option().value);
+
+            }
+
+
+            data.append("MAXA", $('#IDXA').dxSelectBox("instance").option().value);
+            data.append("MAHUYEN", $('#IDHUYEN').dxSelectBox("instance").option().value);
+            data.append("CAPTINH", $('#ISCAPTINH').val() == 0 ? false : $('#ISCAPTINH').val());
+            data.append("TENVUNG", $('#HienTrang_TENVUNG').val());
+            data.append("MAHT", $('#HienTrang_MAHT').val());
+
+
+            for (var index = 0; index < files.length; index++) {
+                    data.append("shapeUpload", files[index]);
+            }
+
+
+           // console.log($('#IDMDSD').dxSelectBox("instance").option().value)
+           // console.log($('#HienTrang_DIENTICH').val())
+
+            $.ajax({
+                url: host + '/api/NhapLieu/Upload?TYPE='+@Model.SetupPage.TYPE,
+                type: 'post',
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function (data) {
+                    console.log(data)
+                    if (data)
+                    {
+                        window.location.href = host + '/NhapLieu/NL_HIENTRANG?ID='+@Model.SetupPage.TYPE
+
+                    }
+                    else {
+                        $("#ImgLoading").removeClass("ActiveLoading");
+                        $("#ImgLoading").addClass("unActiveLoading");
+                    }
+
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+
+            });
+
+        })
+
+
+
+
+
+
+    });
+</script>

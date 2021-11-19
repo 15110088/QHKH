@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "MDSD";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<br />
+<p class="SRheader">DANH MỤC MỤC ĐÍCH SỬ DỤNG</p>
+@(Html.DevExtreme().DataGrid<KEHOACHQH.DAL.DM_MUCDICHSUDUNG>()
+                   .ID("grvMDSD")
+                   .Selection(s => s.Mode(SelectionMode.Single))
+     .DataSource(d => d.WebApi()
+                    .RouteName("GetDanhMuc").LoadAction("MucDichSuDung").Key("ID")
+                    .InsertAction("PostMDSD")
+                    .UpdateAction("PutMDSD")
+                    .DeleteAction("DeleteMDSD")
+                ).ShowBorders(true)
+               .ColumnAutoWidth(true)
+                .FilterRow(f => f.Visible(true))
+    .HeaderFilter(f => f.Visible(true))
+               .ShowRowLines(true)
+               .Paging(p => p.PageSize(20))
+                 .SearchPanel(searchPanel => searchPanel.Visible(true))
+               .Columns(columns =>
+               {
+                   columns.AddFor(m => m.ID).Caption("STT").AllowEditing(false);
+                   columns.AddFor(m => m.KIHIEU).Caption("Ký Hiệu").AllowEditing(true);
+                   columns.AddFor(m => m.TEN).Caption("Tên Mục Đích").AllowEditing(true);
+                   columns.AddFor(m => m.CHIMUC).Caption("Chỉ Mục").AllowEditing(true);
+
+                   columns.AddFor(m => m.ID_CAPTREN).Caption("Cấp Cha")
+                              .Lookup(lookup => lookup
+                              .DataSource(d => d.WebApi().RouteName("GetDanhMuc")
+                              .LoadAction("MucDichSuDung").Key("ID"))
+                              .DisplayExpr("TEN")
+                              .ValueExpr("ID"));
+                   columns.AddFor(m => m.TT01).DataType(GridColumnDataType.Boolean).Caption("TT01").AllowEditing(true);
+                   columns.AddFor(m => m.TT23).DataType(GridColumnDataType.Boolean).Caption("TT23").AllowEditing(true);
+                   columns.AddFor(m => m.TT24).DataType(GridColumnDataType.Boolean).Caption("TT24").AllowEditing(true);
+                   columns.AddFor(m => m.TT25).DataType(GridColumnDataType.Boolean).Caption("TT25").AllowEditing(true);
+                   columns.AddFor(m => m.CAPTINH).DataType(GridColumnDataType.Boolean).Caption("Cấp Tỉnh").AllowEditing(true);
+
+
+               }).Editing(e => e.Mode(GridEditMode.Popup)
+           .AllowUpdating(true)
+           .AllowAdding(true)
+           .AllowDeleting(true)
+           .UseIcons(true)
+           .Popup(p => p
+               .Title("Thông tin mục đích sử dụng")
+               .ShowTitle(true)
+               .Width(700)
+               .Height(525)
+           )
+           .Form(f => f.Items(items =>
+           {
+               items.AddGroup()
+                   .ColCount(2)
+                   .ColSpan(2)
+                   .Items(groupItems =>
+                   {
+                       groupItems.AddSimpleFor(m => m.KIHIEU);
+                       groupItems.AddSimpleFor(m => m.TEN);
+                       groupItems.AddSimpleFor(m => m.CHIMUC);
+                       groupItems.AddSimpleFor(m => m.CAPTINH).IsRequired(false);
+                       groupItems.AddSimpleFor(m => m.ID_CAPTREN).IsRequired(false).ColSpan(2);
+
+                   });
+
+               items.AddGroup()
+                   .Caption("Loại thông tư")
+                   .ColCount(4)
+                   .ColSpan(2)
+                   .Items(groupItems =>
+                   {
+                       groupItems.AddSimpleFor(m => m.TT01).IsRequired(false);
+                       groupItems.AddSimpleFor(m => m.TT23).IsRequired(false);
+                       groupItems.AddSimpleFor(m => m.TT24).IsRequired(false);
+                       groupItems.AddSimpleFor(m => m.TT25).IsRequired(false);
+                   });
+           }))
+        ))
+        

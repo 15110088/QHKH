@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "NL_QUYHOACH";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("UploadFile", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        @Html.TextBox("file", "", new { type = "file" }) <br />
+        <input type="submit" value="Upload" />
+        @ViewBag.Message
+    </div>
+}
+
+<input type="file" id="customFile" value="Choose file" multiple />
+
+<button type="button" id="btnSaveDocument" class="btn btn-primary">Save</button>
+
+
+<script>
+
+    $(document).ready(function () {
+        $('#btnSaveDocument').click(function () {
+            var data = new FormData();
+            var files = $("#customFile").get(0).files;
+
+            console.log(files)
+            // Add the uploaded image content to the form data collection
+                if (files.length > 0) {
+                for (var index = 0; index < files.length; index++) {
+                    data.append("shape1", files[index]);
+                }
+                data.append("DocumentName", $('#Doc_DocumentName').val());
+                data.append("DocumentTypeID", DocumentTypeID);
+                data.append("Remarks", $('#Doc_Remarks').val());
+                data.append("StartDate", StatrDate);
+                data.append("EndDate", EndDate);
+                data.append("DocumentID", DocumentID);
+
+              
+
+                $.ajax({
+                    url: host + '/api/NhapLieu/Upload',
+                    type: 'post',
+                    contentType: false,
+                    processData: false,
+                    data: data,
+                    success: function (data) {
+                        console.log(data)
+
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+
+                });
+
+            }
+            //data.append("DocumentName", $('#Doc_DocumentName').val());
+            //data.append("DocumentTypeID", DocumentTypeID);
+            //data.append("Remarks", $('#Doc_Remarks').val());
+            //data.append("StartDate", StatrDate);
+            //data.append("EndDate", EndDate);
+            //data.append("DocumentID", DocumentID);
+
+            
+        })
+
+
+
+
+
+
+
+    });
+</script>
