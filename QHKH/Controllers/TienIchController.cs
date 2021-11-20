@@ -29,5 +29,13 @@ namespace KHQH.Controllers
             cb.LstXa = dataKVHC.Where(n => n.ID_CAP_KVHC == 1).ToList();
             return View(cb);
         }
+        public ActionResult XuatBieuMau()
+        {
+            CombineHienTrang cb = new CombineHienTrang();
+            cb.LstPage = PageDB.data.Where(n => n.TYPE >10).ToList();
+
+            return View(cb);
+        }
+
     }
 }

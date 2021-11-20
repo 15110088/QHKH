@@ -500,6 +500,53 @@ namespace KHQH.API
         }
         #endregion
 
+        #region Nhập liệu KCN_MDSD Thêm/Xóa/Sửa
+        [HttpGet]
+        public HttpResponseMessage GetKCN_MDSDByID(DataSourceLoadOptions loadOptions, int ID)
+        {
+            //List<DM_CHUYENMUCDICH> data = db.EGetAll<DM_CHUYENMUCDICH>().Where(n => n.ENABLED == true).ToList();
+            var data = dbEF.KHUCHUCNANG_MDSD.Where(n => n.ID_KHUCN == ID).Select(n => new { n.ID, n.ID_MDSD, n.DIENTICH, n.ID_KHUCN }).ToList();
+            return Request.CreateResponse(DataSourceLoader.Load(data, loadOptions));
+        }
+
+        [HttpPost]
+        public HttpResponseMessage PostKCN_MDSD(FormDataCollection form, int ID_KHUCN)
+        {
+            var values = form.Get("values");
+            KHUCHUCNANG_MDSD info = new KHUCHUCNANG_MDSD();
+            JsonConvert.PopulateObject(values, info);
+            info.ID_KHUCN = ID_KHUCN;
+
+            dbEF.KHUCHUCNANG_MDSD.AddObject(info);
+            dbEF.SaveChanges();
+            return Request.CreateResponse(HttpStatusCode.Created);
+        }
+
+        [HttpPut]
+        public HttpResponseMessage PutKCN_MDSD(FormDataCollection form)
+        {
+            var key = Convert.ToInt32(form.Get("key"));
+            var values = form.Get("values");
+            KHUCHUCNANG_MDSD info = dbEF.KHUCHUCNANG_MDSD.Where(n => n.ID == key).FirstOrDefault();
+            JsonConvert.PopulateObject(values, info);
+
+
+            dbEF.SaveChanges();
+
+            return Request.CreateResponse(HttpStatusCode.Created);
+        }
+
+        [HttpDelete]
+        public HttpResponseMessage DeleteKHUCHUCNANG_MDSD(FormDataCollection form)
+        {
+            var key = Convert.ToInt32(form.Get("key"));
+            var values = form.Get("values");
+            KHUCHUCNANG_MDSD info = dbEF.KHUCHUCNANG_MDSD.Where(n => n.ID == key).FirstOrDefault();
+            dbEF.KHUCHUCNANG_MDSD.DeleteObject(info);
+            dbEF.SaveChanges();
+            return Request.CreateResponse(HttpStatusCode.Created);
+        }
+        #endregion
 
         #region Nhập liệu Công trình Thêm/Xóa/Sửa
         [HttpGet]

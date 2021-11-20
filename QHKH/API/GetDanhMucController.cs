@@ -141,6 +141,21 @@ namespace KHQH.API
             return Request.CreateResponse(DataSourceLoader.Load(data, loadOptions));
         }
 
+        public HttpResponseMessage KhuChucNangMDSD(DataSourceLoadOptions loadOptions)
+        {
+            //List<DM_CHUYENMUCDICH> data = db.EGetAll<DM_CHUYENMUCDICH>().Where(n => n.ENABLED == true).ToList();
+            var data = dbEF.KHUCHUCNANGs.Select(n => new { n.CAPTINH, n.ID, n.MAHUYEN, n.MAXA,n.MAKHUCN,n.MALOAIKHUCN,n.ID_KYQH,n.TENVUNG }).ToList();
+            return Request.CreateResponse(DataSourceLoader.Load(data, loadOptions));
+        }
+
+        public HttpResponseMessage KhuChucNangCH(DataSourceLoadOptions loadOptions)
+        {
+            //List<DM_CHUYENMUCDICH> data = db.EGetAll<DM_CHUYENMUCDICH>().Where(n => n.ENABLED == true).ToList();
+            var data = dbEF.KHUCHUCNANGs.Where(n => n.CAPTINH == false ).Select(n => new { n.CAPTINH, n.ID, n.MAHUYEN, n.MAXA, n.MAKHUCN, n.MALOAIKHUCN, n.ID_KYQH, n.TENVUNG }).ToList();
+            return Request.CreateResponse(DataSourceLoader.Load(data, loadOptions));
+        }
+
+
         [HttpPost]
         public HttpResponseMessage PostKCN(FormDataCollection form)
         {

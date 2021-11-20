@@ -19,26 +19,16 @@ namespace KHQH.Common
 
         }
 
-        public static DataTable ExecuteProcedure(string PROC_NAME, params object[] parameters)
+        public static DataTable ExecuteProcedure(string PROC_NAME, List<OracleParameter> parameters)
         {
             try
             {
-                if (parameters.Length % 2 != 0)
-                    throw new ArgumentException("Wrong number of parameters sent to procedure. Expected an even number.");
+                //if (parameters.Length % 2 != 0)
+                //    throw new ArgumentException("Wrong number of parameters sent to procedure. Expected an even number.");
                 DataTable a = new DataTable();
-                List<SqlParameter> filters = new List<SqlParameter>();
-
                 string query = PROC_NAME;
-
-                bool first = true;
-                for (int i = 0; i < parameters.Length; i += 2)
-                {
-                    filters.Add(new SqlParameter(parameters[i] as string, parameters[i + 1]));
-                    query += (first ? " " : ", ") + ((string)parameters[i]);
-                    first = false;
-                }
-
-                a = Query(query, filters);
+               
+                a = Query(query, parameters);
                 return a;
             }
             catch (Exception ex)
@@ -59,7 +49,7 @@ namespace KHQH.Common
                 for (int i = 0; i < parameters.Length; i += 2)
                     filters.Add(new SqlParameter(parameters[i] as string, parameters[i + 1]));
 
-                a = Query(query, filters);
+                //a = Query(query, filters);
                 return a;
             }
             catch (Exception ex)
@@ -106,7 +96,7 @@ namespace KHQH.Common
 
         #region Private Methods
 
-        private static DataTable Query(String consulta, IList<SqlParameter> parametros)
+        private static DataTable Query(String consulta, IList<OracleParameter> parametros)
         {
             try
             {
@@ -124,12 +114,13 @@ namespace KHQH.Common
                     command.Connection = connection;
                     command.CommandText = consulta;
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add("preloop", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
+                    // command.Parameters.Add("IDKYQH", OracleDbType.Decimal).Value = 3;
 
                     if (parametros != null)
                     {
                         command.Parameters.AddRange(parametros.ToArray());
                     }
+                    command.Parameters.Add("preloop", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
                     command.ExecuteNonQuery();
 
                     da = new OracleDataAdapter(command);

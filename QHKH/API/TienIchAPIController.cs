@@ -1,15 +1,24 @@
-﻿using ExcelDataReader;
+﻿using Dapper;
+using ExcelDataReader;
 using KEHOACHQH.DAL;
 using KHQH.Common;
 using KHQH.Models.DB;
+using KHQH.Models.JSONDATA;
+using OfficeOpenXml;
+using Oracle.ManagedDataAccess.Client;
+using QHKH.Common;
+using QHKH.Models.Excel;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
 
@@ -376,11 +385,146 @@ namespace KHQH.API
 
 
         [HttpGet]
-        public object DATA()
+        public HttpResponseMessage XuatBieuMau(int ID=1,int IDKYQH=0)
         {
             DBOracleHelper db = new DBOracleHelper();
-                           DataTable dt = DBOracleHelper.ExecuteProcedure("ST_BieuMau01CT");
-            return dt.Columns.Count;
+     
+            List<OracleParameter> parameters = new List<OracleParameter>();
+            OracleParameter p1 = new OracleParameter();
+            p1.ParameterName = "IDKYQH";
+            p1.Value = IDKYQH;
+            p1.OracleDbType = OracleDbType.Int32;
+            parameters.Add(p1);
+            string SQLBIEUMAU = "";
+            string TEMPLATE = "";
+
+            switch (ID)
+            {
+                case 10:
+                    SQLBIEUMAU = "ST_BieuMau01CT";
+                    TEMPLATE = "BM01CT.xlsx";
+                    break;
+                case 11:
+                    SQLBIEUMAU = "ST_BieuMau02CT";
+                    TEMPLATE = "BM02CT.xlsx";
+                    break;
+                case 12:
+                    SQLBIEUMAU = "ST_BieuMau03CT";
+                    TEMPLATE = "BM03CT.xlsx";
+                    break;
+                case 13:
+                    SQLBIEUMAU = "ST_BieuMau04CT";
+                    TEMPLATE = "BM04CT.xlsx";
+                    break;
+                case 14:
+                    SQLBIEUMAU = "ST_BieuMau05CT";
+                    break;
+
+                case 15:
+                    SQLBIEUMAU = "ST_BieuMau06CT";
+                    break;
+
+                case 16:
+                    SQLBIEUMAU = "ST_BieuMau07CT";
+                    break;
+
+                case 17:
+                    SQLBIEUMAU = "ST_BieuMau08CT";
+                    break;
+
+                case 18:
+                    SQLBIEUMAU = "ST_BieuMau09CT";
+                    break;
+
+                case 19:
+                    SQLBIEUMAU = "ST_BieuMau10CT";
+                    break;
+
+                case 20:
+                    SQLBIEUMAU = "ST_BieuMau11CT";
+                    break;
+
+            }
+            DataTable dt = DBOracleHelper.ExecuteProcedure(SQLBIEUMAU, parameters);
+            List<BM01CT> data = new List<BM01CT>();
+            data = DataHelper.ConvertDataTable<BM01CT>(dt);
+            string timestamp = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture).ToUpper().Replace(':', '_').Replace('.', '_').Replace(' ', '_').Trim();
+            var path = new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BIEUMAUEXCEL", TEMPLATE));
+            // var stream = ExportToExcelHelper.UpdateDataIntoExcelTemplate<BM01CT>(data, path);
+
+            Stream stream = new MemoryStream();
+            if (path.Exists)
+            {
+                using (ExcelPackage p = new ExcelPackage(path))
+                {
+                    var excelApp = new Microsoft.Office.Interop.Excel.Application();
+                    var workbook = excelApp.Workbooks.Add();
+
+                    // single worksheet
+                    //Excel._Worksheet wsEstimate = excelApp.ActiveSheet;
+                    ExcelWorksheet wsEstimate = p.Workbook.Worksheets[0];
+                    var DanhMucHuyen = dbEF.DM_KVHC.Where(n => n.ID_CAP_KVHC == 2).OrderBy(n=>n.MA_KVHC).ToList();
+
+                    if(ID==11)
+                    {
+                        int ColHeader = 6;
+
+                        foreach (var item in DanhMucHuyen)
+                        {
+                            wsEstimate.Cells[4, ColHeader].Value = item.TEN_KVHC;
+
+                            if (data.Where(n => n.MAHUYEN == item.MA_KVHC).FirstOrDefault() != null)
+                            {
+                                wsEstimate.Cells[6, ColHeader].LoadFromCollection(data.Where(n => n.MAHUYEN == item.MA_KVHC).Select(n => n.DIENTICH));
+                            }
+
+                            ColHeader++;
+
+                        }
+                    }
+                    if (ID == 12)
+                    {
+                         wsEstimate.Cells[7, 4].LoadFromCollection(data.Select(n => n.DIENTICH));
+                               
+                    }
+
+                    if (ID == 13)
+                    {
+                        int ColHeader = 5;
+
+                        foreach (var item in DanhMucHuyen)
+                        {
+                            wsEstimate.Cells[4, ColHeader].Value = item.TEN_KVHC;
+
+                            if (data.Where(n => n.MAHUYEN == item.MA_KVHC).FirstOrDefault() != null)
+                            {
+                                wsEstimate.Cells[5, ColHeader].LoadFromCollection(data.Where(n => n.MAHUYEN == item.MA_KVHC).Select(n => n.DIENTICH));
+                            }
+
+                            ColHeader++;
+
+                        }
+                    }
+
+                    p.SaveAs(stream);
+                    stream.Position = 0;
+                }
+            }
+
+
+            // processing the stream.
+
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new StreamContent(stream);
+            response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+            response.Content.Headers.ContentDisposition.FileName = PageDB.data.Where(n => n.TYPE ==ID).FirstOrDefault().TableSDE+ ".xlsx";
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+
+            return response;
+
+            //return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "CertificationsReport-" + timestamp + ".xlsx");
+
+
         }
     }
 }

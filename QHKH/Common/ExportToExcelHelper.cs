@@ -8,7 +8,7 @@ namespace KHQH.Common
 {
     public class ExportToExcelHelper
     {
-        public static Stream UpdateDataIntoExcelTemplate(List<Certification> cList, FileInfo path)
+        public static Stream UpdateDataIntoExcelTemplate<T>(List<T> data, FileInfo path)
         {
             Stream stream = new MemoryStream();
             if (path.Exists)
@@ -20,8 +20,9 @@ namespace KHQH.Common
 
                     // single worksheet
                     //Excel._Worksheet wsEstimate = excelApp.ActiveSheet;
-                    ExcelWorksheet wsEstimate = p.Workbook.Worksheets["Certifications"];
-                    wsEstimate.Cells["B5:E8"].LoadFromCollection(cList);
+                    ExcelWorksheet wsEstimate = p.Workbook.Worksheets["data"];
+                    wsEstimate.Cells[4, 6].Value = "nghia";
+                    //wsEstimate.Cells["F6:E8"].LoadFromCollection(data);
                     p.SaveAs(stream);
                     stream.Position = 0;
                 }

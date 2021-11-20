@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewBag.Title = "XuatBieuMau";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model KHQH.Models.DB.CombineHienTrang
+<style>
+    [class*="badger"] {
+        position: relative
+    }
+
+        [class*="badger"]:after {
+            content: attr(data-badger);
+            position: absolute;
+            top: 0;
+            padding: 3px 7px;
+            font-size: 12px;
+            font-weight: bold;
+            background: #999;
+            color: #fff
+        }
+
+    .badger-left {
+        border-top-left-radius: 6px
+    }
+
+    .badger-right {
+        border-top-right-radius: 6px
+    }
+
+    .badger-left:after {
+        left: 0;
+        border-radius: 6px 0 6px 0
+    }
+
+    .badger-right:after {
+        right: 0;
+        border-radius: 0 6px 0 6px
+    }
+
+    .badger-danger:after {
+        background: #d9534f
+    }
+
+    .badger-warning:after {
+        background: #f0ad4e
+    }
+
+    .badger-success:after {
+        background: #36C970
+    }
+
+    .badger-info:after {
+        background: #5bc0de
+    }
+
+    .badger-inverse:after {
+        background: #222
+    }
+    .borderN {
+        margin: 15px 0;
+        padding: 0px 0px 5px;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, .64)
+    }
+</style>
+
+<br />
+<br />
+<br />
+
+
+<p class="SRheader">XUẤT BIỂU MẪU CẤP TỈNH</p>
+@using (Html.DevExtreme().ValidationGroup("ValidateText"))
+{
+<label style="text-align:left" class="SRBody">Chọn kỳ kế hoạch quy hoạch</label>
+@(Html.DevExtreme().SelectBoxFor(n => n.HienTrang.ID_KYQH)
+                    .DataSource(d => d.WebApi()
+                                .RouteName("GetDanhMuc")
+                                .LoadAction("KYQH")
+                                .Key("ID"))
+                                .ValueExpr("ID")
+                                .DisplayExpr("TEN")
+                                .SearchEnabled(true).Placeholder("")
+                                .AcceptCustomValue(true)
+                                .ID("IDKYQH")
+)
+}
+@for (int i = 1; i < Model.LstPage.Where(n => n.TYPE < 31 && n.TYPE > 10).Count(); i=i+2)
+{
+    <div class="row">
+        <div class="col-sm">
+            <div class="borderN">
+                <div class="badger-left badger-success" data-badger="@Model.LstPage.Where(n => n.TYPE == i + 10).FirstOrDefault().TableSDE">
+                    <br />
+                    <label class="SRbody" style="margin:10px">@Model.LstPage.Where(n => n.TYPE == i+10).FirstOrDefault().TITLE</label>
+                </div>
+
+            </div>
+            <a style="position:absolute;right:30px;top:20px" onclick="Xuat(@Model.LstPage.Where(n => n.TYPE == i+10).FirstOrDefault().TYPE)"><i class="bi bi-file-earmark-arrow-down-fill" style="width:50px"></i></a>
+
+        </div>
+        <div class="col-sm">
+            <div class="borderN">
+                <div class="badger-left badger-success" data-badger="@Model.LstPage.Where(n => n.TYPE == i + 10+1).FirstOrDefault().TableSDE">
+                    <br />
+                    <label class="SRbody" style="margin:10px">@Model.LstPage.Where(n => n.TYPE == i + 10+1).FirstOrDefault().TITLE</label>
+                </div>
+            </div>
+            <a style="position:absolute;right:30px;top:20px" onclick="Xuat(@Model.LstPage.Where(n => n.TYPE == i+10+1).FirstOrDefault().TYPE)"><i class="bi bi-file-earmark-arrow-down-fill" style="width:50px"></i></a>
+
+        </div>
+
+    </div>
+}
+
+<div class="row">
+    <div class="col-sm">
+        <div class="borderN">
+            <div class="badger-left badger-success" data-badger="@Model.LstPage.Where(n => n.TYPE == 21).FirstOrDefault().TableSDE">
+                <br />
+                <label class="SRbody" style="margin:10px">@Model.LstPage.Where(n => n.TYPE == 21).FirstOrDefault().TITLE</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm">
+       
+    </div>
+
+</div>
+
+
+
+
+
+
+
+<script>
+    function validateText() {
+
+        return DevExpress.validationEngine.validateGroup("ValidateText").isValid;
+    }
+    function Xuat(TYPE)
+    {
+        console.log('123')
+        console.log(TYPE)
+        if (!validateText()) {
+
+            return;
+        }
+        window.location.href = API_HOST + '/api/TienIchAPI/XuatBieuMau?ID=' + TYPE + '&IDKYQH=' +$('#IDKYQH').dxSelectBox("instance").option().value;
+
+        //$.ajax({
+        //    url: host + '/api/TienIchAPI/XuatBieuMau?ID=' + TYPE + '&IDKYQH=' +$('#IDKYQH').dxSelectBox("instance").option().value,
+        //    type: 'GET',
+        //    success: function (data) {
+
+        //        console.log(data)
+
+        //    },
+        //    error: function (err) {
+        //        console.log(err)
+        //    }
+
+        //});
+
+
+    }
+    $(document).on('click', '.panel-heading span.clickable', function (e) {
+        var $this = $(this);
+        if (!$this.hasClass('panel-collapsed')) {
+            $this.parents('.panel').find('.panel-body').slideUp();
+            $this.addClass('panel-collapsed');
+            $this.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+        } else {
+            $this.parents('.panel').find('.panel-body').slideDown();
+            $this.removeClass('panel-collapsed');
+            $this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+        }
+    })
+</script>

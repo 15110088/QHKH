@@ -29,6 +29,9 @@
 <div class="row">
     @**@
     <div class="col-md-4">
+       
+    @if (Model.SetupPage.TYPE != 10)
+    {
         @(Html.DevExtreme().SelectBox()
                 .DataSource(d => d.WebApi()
                             .RouteName("GetDanhMuc")
@@ -37,7 +40,21 @@
                              .DisplayExpr("TEN").Width(300)
                              .SearchEnabled(true).Placeholder("Chọn kỳ kế hoạch quy hoạch ")
                             .AcceptCustomValue(true).OnValueChanged("CapNhatGrid").ID("NameKYQH")
-        )    </div>
+        )
+    }
+    else
+    {
+        @(Html.DevExtreme().SelectBox()
+                .DataSource(d => d.WebApi()
+                            .RouteName("GetDanhMuc")
+                            .LoadAction("KhuChucNangMDSD")
+                            .Key("ID"))
+                             .DisplayExpr("MAKHUCN").Width(300)
+                             .SearchEnabled(true).Placeholder("Chọn khu chức năng")
+                            .AcceptCustomValue(true).OnValueChanged("CapNhatGrid").ID("NameKCN")
+        )
+    }
+          </div>
     <div class="col-md-4">
        
     </div>
@@ -192,6 +209,52 @@
                            .UseIcons(true)
 
                 ))
+
+    @if (Model.SetupPage.TYPE == 10)
+    {
+        @(Html.DevExtreme().DataGrid<KHQH.Models.DB.>()
+                           .ID("grv")
+                           .Selection(s => s.Mode(SelectionMode.Single))
+                       .ShowBorders(true)
+                       .ColumnAutoWidth(true)
+                       .FilterRow(f => f.Visible(true))
+                       .HeaderFilter(f => f.Visible(true))
+                       .ShowRowLines(true)
+                       .ColumnHidingEnabled(true)
+                       .Paging(p => p.PageSize(20))
+                       .SearchPanel(searchPanel => searchPanel.Visible(true))
+                       .Columns(columns =>
+                       {
+                           columns.AddFor(m => m.ID).Caption("STT").AllowEditing(false);
+                           columns.AddFor(m => m.).Caption("Năm").AllowEditing(true);
+                           columns.AddFor(m => m.DIENTICH).Caption("Diện tích").AllowEditing(true);
+
+                           columns.AddFor(m => m.ID_MDSD).Caption("Mục đích sử dụng")
+                                      .Lookup(lookup => lookup
+                                      .DataSource(Model.LstMDSD.Select(n => new { n.ID, n.TEN }))
+                                      .DisplayExpr("TEN")
+                                      .ValueExpr("ID"));
+                           columns.AddFor(m => m.MAXA).Caption("Xã/phường")
+                                  .Lookup(lookup => lookup
+                                  .DataSource(Model.LstXa.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
+                                  .DisplayExpr("TEN_KVHC")
+                                  .ValueExpr("MA_KVHC"));
+                           columns.AddFor(m => m.MAHUYEN).Caption("Huyện")
+                                   .Lookup(lookup => lookup
+                                   .DataSource(Model.LstHuyen.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
+                                   .DisplayExpr("TEN_KVHC")
+                                   .ValueExpr("MA_KVHC"));
+
+
+                       }).OnEditingStart("onRowClick")
+                           .Editing(e => e.Mode(GridEditMode.Batch)
+                           .AllowUpdating(true)
+                           .AllowAdding(true)
+                           .AllowDeleting(true)
+                           .UseIcons(true)
+
+                ))
+
     <br />
 }
 
