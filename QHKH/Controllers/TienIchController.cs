@@ -32,8 +32,19 @@ namespace KHQH.Controllers
         public ActionResult XuatBieuMau()
         {
             CombineHienTrang cb = new CombineHienTrang();
-            cb.LstPage = PageDB.data.Where(n => n.TYPE >10).ToList();
+            cb.LstPage = PageDB.data.Where(n => n.TYPE >10&& n.TYPE<=31).ToList();
 
+            return View(cb);
+        }
+
+        public ActionResult XuatBieuMauCapHuyen()
+        {
+            var dataKVHC = dbEF.DM_KVHC.Where(n => (n.DELETED == null || n.DELETED == false)).ToList();
+
+            CombineHienTrang cb = new CombineHienTrang();
+            cb.LstPage = PageDB.data.Where(n => n.TYPE > 30&&n.TYPE<=43).ToList();
+            cb.LstHuyen = dataKVHC.Where(n => n.ID_CAP_KVHC == 2).ToList();
+            cb.LstXa = dataKVHC.Where(n => n.ID_CAP_KVHC == 1).ToList();
             return View(cb);
         }
 

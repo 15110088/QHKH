@@ -400,47 +400,54 @@ namespace KHQH.API
 
             switch (ID)
             {
-                case 10:
+                case 11:
                     SQLBIEUMAU = "ST_BieuMau01CT";
                     TEMPLATE = "BM01CT.xlsx";
                     break;
-                case 11:
+                case 12:
                     SQLBIEUMAU = "ST_BieuMau02CT";
                     TEMPLATE = "BM02CT.xlsx";
                     break;
-                case 12:
+                case 13:
                     SQLBIEUMAU = "ST_BieuMau03CT";
                     TEMPLATE = "BM03CT.xlsx";
                     break;
-                case 13:
+                case 14:
                     SQLBIEUMAU = "ST_BieuMau04CT";
                     TEMPLATE = "BM04CT.xlsx";
                     break;
-                case 14:
-                    SQLBIEUMAU = "ST_BieuMau05CT";
-                    break;
-
                 case 15:
-                    SQLBIEUMAU = "ST_BieuMau06CT";
+                    SQLBIEUMAU = "ST_BieuMau05CT";
+                    TEMPLATE = "BM05CT.xlsx";
                     break;
 
                 case 16:
-                    SQLBIEUMAU = "ST_BieuMau07CT";
+                    SQLBIEUMAU = "ST_BieuMau06CT";
+                    TEMPLATE = "BM06CT.xlsx";
+
                     break;
 
                 case 17:
-                    SQLBIEUMAU = "ST_BieuMau08CT";
+                    SQLBIEUMAU = "ST_BieuMau07CT";
+                    TEMPLATE = "BM07CT.xlsx";
+                
                     break;
 
                 case 18:
-                    SQLBIEUMAU = "ST_BieuMau09CT";
+                    SQLBIEUMAU = "ST_BieuMau08CT";
                     break;
 
                 case 19:
-                    SQLBIEUMAU = "ST_BieuMau10CT";
+                    SQLBIEUMAU = "ST_BieuMau09CT";
                     break;
 
                 case 20:
+                    SQLBIEUMAU = "ST_BieuMau10CT";
+                    TEMPLATE = "BM10CT.xlsx";
+
+                    break;
+
+                case 21:
                     SQLBIEUMAU = "ST_BieuMau11CT";
                     break;
 
@@ -464,8 +471,9 @@ namespace KHQH.API
                     //Excel._Worksheet wsEstimate = excelApp.ActiveSheet;
                     ExcelWorksheet wsEstimate = p.Workbook.Worksheets[0];
                     var DanhMucHuyen = dbEF.DM_KVHC.Where(n => n.ID_CAP_KVHC == 2).OrderBy(n=>n.MA_KVHC).ToList();
+                    var DanhMucKCN = dbEF.DM_LOAIKHUCHUCNANG.Where(n => n.CAPTINH==true).OrderBy(n => n.ID).ToList();
 
-                    if(ID==11)
+                    if (ID==11)
                     {
                         int ColHeader = 6;
 
@@ -488,7 +496,25 @@ namespace KHQH.API
                                
                     }
 
-                    if (ID == 13)
+                    if (ID == 15)
+                    {
+                        int ColHeader = 4;
+
+                        foreach (var item in DanhMucHuyen)
+                        {
+                            wsEstimate.Cells[4, ColHeader].Value = item.TEN_KVHC;
+
+                            if (data.Where(n => n.MAHUYEN == item.MA_KVHC).FirstOrDefault() != null)
+                            {
+                                wsEstimate.Cells[6, ColHeader].LoadFromCollection(data.Where(n => n.MAHUYEN == item.MA_KVHC).Select(n => n.DIENTICH));
+                            }
+
+                            ColHeader++;
+
+                        }
+                    }
+
+                    if (ID == 17)
                     {
                         int ColHeader = 5;
 
@@ -498,10 +524,28 @@ namespace KHQH.API
 
                             if (data.Where(n => n.MAHUYEN == item.MA_KVHC).FirstOrDefault() != null)
                             {
-                                wsEstimate.Cells[5, ColHeader].LoadFromCollection(data.Where(n => n.MAHUYEN == item.MA_KVHC).Select(n => n.DIENTICH));
+                                wsEstimate.Cells[6, ColHeader].LoadFromCollection(data.Where(n => n.MAHUYEN == item.MA_KVHC).Select(n => n.DIENTICH));
                             }
 
                             ColHeader++;
+
+                        }
+                    }
+
+                    if (ID == 20)
+                    {
+                        int ColHeader = 4;
+
+                        foreach (var item in DanhMucKCN)
+                        {
+                            // wsEstimate.Cells[4, ColHeader].Value = item.TEN_KVHC;
+
+                            if (data.Where(n => n.MAHUYEN == item.KYHIEU).FirstOrDefault() != null)
+                            {
+                                wsEstimate.Cells[6, ColHeader].LoadFromCollection(data.Where(n => n.MAHUYEN == item.KYHIEU).Select(n => n.DIENTICH));
+                            }
+
+                            ColHeader = ColHeader + 2;
 
                         }
                     }
@@ -518,6 +562,222 @@ namespace KHQH.API
             response.Content = new StreamContent(stream);
             response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
             response.Content.Headers.ContentDisposition.FileName = PageDB.data.Where(n => n.TYPE ==ID).FirstOrDefault().TableSDE+ ".xlsx";
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+
+            return response;
+
+            //return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "CertificationsReport-" + timestamp + ".xlsx");
+
+
+        }
+
+
+        //ID Loai bieu mau 
+        //IDKYQH Ky QHKH
+        //MAHUYEN thong ke cac xa trong huyen
+
+        [HttpGet]
+        public HttpResponseMessage XuatBieuMauCapHuyen(int ID = 1, int IDKYQH = 0, string MAHUYEN = "")
+        {
+            DBOracleHelper db = new DBOracleHelper();
+
+            List<OracleParameter> parameters = new List<OracleParameter>();
+            OracleParameter p1 = new OracleParameter();
+            p1.ParameterName = "IDKYQH";
+            p1.Value = IDKYQH;
+            p1.OracleDbType = OracleDbType.Int32;
+            parameters.Add(p1);
+            OracleParameter p2 = new OracleParameter();
+            p2.ParameterName = "IDHUYEN";
+            p2.Value = MAHUYEN;
+            p2.OracleDbType = OracleDbType.Varchar2;
+            parameters.Add(p2);
+
+            string SQLBIEUMAU = "";
+            string TEMPLATE = "";
+
+            switch (ID)
+            {
+                case 31:
+                    SQLBIEUMAU = "ST_BieuMau01CH";
+                    TEMPLATE = "BM01CH.xlsx";
+                    break;
+                case 32:
+                    SQLBIEUMAU = "ST_BieuMau02CH";
+                    TEMPLATE = "BM02CH.xlsx";
+                    break;
+                case 33:
+                    SQLBIEUMAU = "ST_BieuMau03CH";
+                    TEMPLATE = "BM03CH.xlsx";
+                    break;
+                case 34:
+                    SQLBIEUMAU = "ST_BieuMau04CH";
+                    TEMPLATE = "BM04CH.xlsx";
+                    break;
+                case 35:
+                    SQLBIEUMAU = "ST_BieuMau05CH";
+                    TEMPLATE = "BM05CH.xlsx";
+                    break;
+
+                case 36:
+                    SQLBIEUMAU = "ST_BieuMau06CH";
+                    TEMPLATE = "BM06CH.xlsx";
+
+                    break;
+
+                case 37:
+                    SQLBIEUMAU = "ST_BieuMau07CH";
+                    TEMPLATE = "BM07CH.xlsx";
+
+                    break;
+
+                case 38:
+                    SQLBIEUMAU = "ST_BieuMau08CH";
+                    TEMPLATE = "BM08CH.xlsx";
+                    break;
+
+                case 39:
+                    SQLBIEUMAU = "ST_BieuMau09CH";
+                    TEMPLATE = "BM09CH.xlsx";
+
+                    break;
+
+                case 40:
+                    SQLBIEUMAU = "ST_BieuMau10CH";
+                    TEMPLATE = "BM10CH.xlsx";
+
+                    break;
+
+                case 41:
+                    SQLBIEUMAU = "ST_BieuMau11CH";
+                    TEMPLATE = "BM11CH.xlsx";
+
+                    break;
+
+                case 42:
+                    SQLBIEUMAU = "ST_BieuMau12CH";
+                    TEMPLATE = "BM12CH.xlsx";
+
+                    break;
+
+                case 43:
+                    SQLBIEUMAU = "ST_BieuMau13CH";
+                    TEMPLATE = "BM13CH.xlsx";
+
+                    break;
+
+            }
+            DataTable dt = DBOracleHelper.ExecuteProcedure(SQLBIEUMAU, parameters);
+            List<BM01CT> data = new List<BM01CT>();
+            data = DataHelper.ConvertDataTable<BM01CT>(dt);
+            string timestamp = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture).ToUpper().Replace(':', '_').Replace('.', '_').Replace(' ', '_').Trim();
+            var path = new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BIEUMAUEXCEL", TEMPLATE));
+            // var stream = ExportToExcelHelper.UpdateDataIntoExcelTemplate<BM01CT>(data, path);
+
+            Stream stream = new MemoryStream();
+            if (path.Exists)
+            {
+                using (ExcelPackage p = new ExcelPackage(path))
+                {
+                    var excelApp = new Microsoft.Office.Interop.Excel.Application();
+                    var workbook = excelApp.Workbooks.Add();
+
+                    // single worksheet
+                    //Excel._Worksheet wsEstimate = excelApp.ActiveSheet;
+                    ExcelWorksheet wsEstimate = p.Workbook.Worksheets[0];
+                    var DanhMucHuyen = dbEF.DM_KVHC.Where(n => n.ID_CAP_KVHC == 1 && n.MA_KVHC_CHA==MAHUYEN).OrderBy(n => n.MA_KVHC).ToList();
+                    var DanhMucKCN = dbEF.DM_LOAIKHUCHUCNANG.OrderBy(n => n.ID).ToList();
+
+                    if (ID == 31||ID==36|| ID == 39||ID==37 || ID == 38)
+                    {
+                        int ColHeader = 5;
+
+                        foreach (var item in DanhMucHuyen)
+                        {
+                            wsEstimate.Cells[4, ColHeader].Value = item.TEN_KVHC;
+
+                            if (data.Where(n => n.MAHUYEN == item.MA_KVHC).FirstOrDefault() != null)
+                            {
+                                wsEstimate.Cells[6, ColHeader].LoadFromCollection(data.Where(n => n.MAHUYEN == item.MA_KVHC).Select(n => n.DIENTICH));
+                            }
+
+                            ColHeader++;
+
+                        }
+                    }
+                    if (ID == 32)
+                    {
+                        wsEstimate.Cells[7, 4].LoadFromCollection(data.Select(n => n.DIENTICH));
+
+                    }
+                   
+
+                    if (ID == 15)
+                    {
+                        int ColHeader = 4;
+
+                        foreach (var item in DanhMucHuyen)
+                        {
+                            wsEstimate.Cells[4, ColHeader].Value = item.TEN_KVHC;
+
+                            if (data.Where(n => n.MAHUYEN == item.MA_KVHC).FirstOrDefault() != null)
+                            {
+                                wsEstimate.Cells[6, ColHeader].LoadFromCollection(data.Where(n => n.MAHUYEN == item.MA_KVHC).Select(n => n.DIENTICH));
+                            }
+
+                            ColHeader++;
+
+                        }
+                    }
+
+                    if (ID == 17)
+                    {
+                        int ColHeader = 5;
+
+                        foreach (var item in DanhMucHuyen)
+                        {
+                            wsEstimate.Cells[4, ColHeader].Value = item.TEN_KVHC;
+
+                            if (data.Where(n => n.MAHUYEN == item.MA_KVHC).FirstOrDefault() != null)
+                            {
+                                wsEstimate.Cells[6, ColHeader].LoadFromCollection(data.Where(n => n.MAHUYEN == item.MA_KVHC).Select(n => n.DIENTICH));
+                            }
+
+                            ColHeader++;
+
+                        }
+                    }
+
+                    if (ID == 41)
+                    {
+                        int ColHeader = 4;
+
+                        foreach (var item in DanhMucKCN)
+                        {
+                            // wsEstimate.Cells[4, ColHeader].Value = item.TEN_KVHC;
+
+                            if (data.Where(n => n.MAHUYEN == item.KYHIEU).FirstOrDefault() != null)
+                            {
+                                wsEstimate.Cells[6, ColHeader].LoadFromCollection(data.Where(n => n.MAHUYEN == item.KYHIEU).Select(n => n.DIENTICH));
+                            }
+
+                            ColHeader = ColHeader + 2;
+
+                        }
+                    }
+
+                    p.SaveAs(stream);
+                    stream.Position = 0;
+                }
+            }
+
+
+            // processing the stream.
+
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new StreamContent(stream);
+            response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+            response.Content.Headers.ContentDisposition.FileName = PageDB.data.Where(n => n.TYPE == ID).FirstOrDefault().TableSDE + ".xlsx";
             response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 
             return response;

@@ -453,6 +453,7 @@
     <Content Include="Views\TienIch\ImportData.cshtml" />
     <Content Include="Views\Shared\Header.cshtml" />
     <Content Include="Views\TienIch\XuatBieuMau.cshtml" />
+    <Content Include="Views\TienIch\XuatBieuMauCapHuyen.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

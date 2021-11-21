@@ -141,6 +141,7 @@ namespace KHQH.API
             return Request.CreateResponse(DataSourceLoader.Load(data, loadOptions));
         }
 
+        [HttpGet]
         public HttpResponseMessage KhuChucNangMDSD(DataSourceLoadOptions loadOptions)
         {
             //List<DM_CHUYENMUCDICH> data = db.EGetAll<DM_CHUYENMUCDICH>().Where(n => n.ENABLED == true).ToList();

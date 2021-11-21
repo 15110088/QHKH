@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace QHKH.Models.DB
+namespace KHQH.Models.DB
 {
     public class KHUCHUCNANG_MDSD_DAPPER
     {
@@ -16,8 +16,6 @@ namespace QHKH.Models.DB
 
         [Required]
         public int? ID_KHUCN { get; set; }
-
-  
 
         [Dapper.Contrib.Extensions.Key]
         public int? ID { get; set; }

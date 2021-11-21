@@ -8,7 +8,7 @@ namespace QHKH.Models.Excel
     public class BM01CT
     {
         public string KIHIEU { get; set; }
-        public int STT { get; set; }
+        public Int64 STT { get; set; }
         public string MAHUYEN { get; set; }
         public decimal DIENTICH { get; set; }
 

@@ -117,7 +117,7 @@ namespace KHQH.Models.JSONDATA
 
             new PageData
             {
-                TITLE="KHUC CHỨC NĂNG MỤC ĐÍCH SỬ DỤNG",
+                TITLE="KHU CHỨC NĂNG MỤC ĐÍCH SỬ DỤNG",
                 URLGET="",
                 URLPOST="",
                 URLPUT="",

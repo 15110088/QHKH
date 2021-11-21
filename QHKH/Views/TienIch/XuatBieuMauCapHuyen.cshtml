@@ -57,6 +57,7 @@
     .badger-inverse:after {
         background: #222
     }
+
     .borderN {
         margin: 15px 0;
         padding: 0px 0px 5px;
@@ -71,11 +72,14 @@
 <br />
 
 
-<p class="SRheader">XUẤT BIỂU MẪU CẤP TỈNH</p>
+<p class="SRheader">XUẤT BIỂU MẪU CẤP HUYỆN</p>
 @using (Html.DevExtreme().ValidationGroup("ValidateText"))
 {
-<label style="text-align:left" class="SRBody">Chọn kỳ kế hoạch quy hoạch</label>
-@(Html.DevExtreme().SelectBoxFor(n => n.HienTrang.ID_KYQH)
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm">
+            <label style="text-align:left" class="SRBody">Chọn kỳ kế hoạch quy hoạch</label>
+            @(Html.DevExtreme().SelectBoxFor(n => n.HienTrang.ID_KYQH)
                     .DataSource(d => d.WebApi()
                                 .RouteName("GetDanhMuc")
                                 .LoadAction("KYQH")
@@ -85,30 +89,46 @@
                                 .SearchEnabled(true).Placeholder("")
                                 .AcceptCustomValue(true)
                                 .ID("IDKYQH")
-)
+            )
+        </div>
+
+        <div class="col-sm">
+            <label style="text-align:left" class="SRBody">TP/Huyện</label>
+            @(Html.DevExtreme().SelectBoxFor(n => n.HienTrang.MAHUYEN)
+                                .DataSource(Model.LstHuyen.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
+                                .SearchEnabled(true).Placeholder("Huyện")
+                                .AcceptCustomValue(true).IsValid(true)
+                                .ValueExpr("MA_KVHC")
+                                .DisplayExpr("TEN_KVHC").ID("IDHUYEN")
+            )
+        </div>
+        <div class="col-sm"></div>
+
+    </div>
+    
 }
-@for (int i = 1; i < Model.LstPage.Where(n => n.TYPE < 31 && n.TYPE > 10).Count(); i=i+2)
+@for (int i = 1; i < Model.LstPage.Count(); i = i + 2)
 {
     <div class="row">
         <div class="col-sm">
             <div class="borderN">
-                <div class="badger-left badger-success" data-badger="@Model.LstPage.Where(n => n.TYPE == i + 10).FirstOrDefault().TableSDE">
+                <div class="badger-left badger-success" data-badger="@Model.LstPage.Where(n => n.TYPE == i+30).FirstOrDefault().TableSDE">
                     <br />
-                    <label class="SRbody" style="margin:10px">@Model.LstPage.Where(n => n.TYPE == i+10).FirstOrDefault().TITLE</label>
+                    <label class="SRbody" style="margin:10px">@Model.LstPage.Where(n => n.TYPE == i+30).FirstOrDefault().TITLE</label>
                 </div>
 
             </div>
-            <a style="position:absolute;right:30px;top:20px" onclick="Xuat(@Model.LstPage.Where(n => n.TYPE == i+10).FirstOrDefault().TYPE)"><i class="bi bi-file-earmark-arrow-down-fill" style="width:50px"></i></a>
+            <a style="position:absolute;right:30px;top:20px" onclick="Xuat(@Model.LstPage.Where(n => n.TYPE == i+30).FirstOrDefault().TYPE)"><i class="bi bi-file-earmark-arrow-down-fill" style="width:50px"></i></a>
 
         </div>
         <div class="col-sm">
             <div class="borderN">
-                <div class="badger-left badger-success" data-badger="@Model.LstPage.Where(n => n.TYPE == i + 10+1).FirstOrDefault().TableSDE">
+                <div class="badger-left badger-success" data-badger="@Model.LstPage.Where(n => n.TYPE == i+31).FirstOrDefault().TableSDE">
                     <br />
-                    <label class="SRbody" style="margin:10px">@Model.LstPage.Where(n => n.TYPE == i + 10+1).FirstOrDefault().TITLE</label>
+                    <label class="SRbody" style="margin:10px">@Model.LstPage.Where(n => n.TYPE == i + 31).FirstOrDefault().TITLE</label>
                 </div>
             </div>
-            <a style="position:absolute;right:30px;top:20px" onclick="Xuat(@Model.LstPage.Where(n => n.TYPE == i+10+1).FirstOrDefault().TYPE)"><i class="bi bi-file-earmark-arrow-down-fill" style="width:50px"></i></a>
+            <a style="position:absolute;right:30px;top:20px" onclick="Xuat(@Model.LstPage.Where(n => n.TYPE == i+31).FirstOrDefault().TYPE)"><i class="bi bi-file-earmark-arrow-down-fill" style="width:50px"></i></a>
 
         </div>
 
@@ -118,14 +138,14 @@
 <div class="row">
     <div class="col-sm">
         <div class="borderN">
-            <div class="badger-left badger-success" data-badger="@Model.LstPage.Where(n => n.TYPE == 21).FirstOrDefault().TableSDE">
+            <div class="badger-left badger-success" data-badger="@Model.LstPage.Where(n => n.TYPE == 43).FirstOrDefault().TableSDE">
                 <br />
-                <label class="SRbody" style="margin:10px">@Model.LstPage.Where(n => n.TYPE == 21).FirstOrDefault().TITLE</label>
+                <label class="SRbody" style="margin:10px">@Model.LstPage.Where(n => n.TYPE == 43).FirstOrDefault().TITLE</label>
             </div>
         </div>
     </div>
     <div class="col-sm">
-       
+
     </div>
 
 </div>
@@ -146,25 +166,12 @@
         console.log('123')
         console.log(TYPE)
         if (!validateText()) {
-            alert('Vui lòng chọn thông tin kỳ kế hoạch quy hoạch')
-
+            alert('Vui lòng chọn thông tin kỳ kế hoạch quy hoạch và huyện')
             return;
         }
-        window.location.href = API_HOST + '/api/TienIchAPI/XuatBieuMau?ID=' + TYPE + '&IDKYQH=' +$('#IDKYQH').dxSelectBox("instance").option().value;
+        window.location.href = API_HOST + '/api/TienIchAPI/XuatBieuMauCapHUYEN?ID=' + TYPE + '&IDKYQH=' + $('#IDKYQH').dxSelectBox("instance").option().value + '&MAHUYEN=' + $('#IDHUYEN').dxSelectBox("instance").option().value;
 
-        //$.ajax({
-        //    url: host + '/api/TienIchAPI/XuatBieuMau?ID=' + TYPE + '&IDKYQH=' +$('#IDKYQH').dxSelectBox("instance").option().value,
-        //    type: 'GET',
-        //    success: function (data) {
-
-        //        console.log(data)
-
-        //    },
-        //    error: function (err) {
-        //        console.log(err)
-        //    }
-
-        //});
+        
 
 
     }

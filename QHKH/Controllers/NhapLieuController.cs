@@ -70,7 +70,7 @@ namespace KHQH.Controllers
             var dataMDSD = dbEF.DM_MUCDICHSUDUNG.Where(n => n.ENABLED == true).ToList();
             var dataKVHC = dbEF.DM_KVHC.Where(n => (n.DELETED == null || n.DELETED == false)).ToList();
 
-
+            
             cb.LstMDSD = dataMDSD;
             cb.LstHuyen = dataKVHC.Where(n => n.ID_CAP_KVHC == 2).ToList();
             cb.LstXa = dataKVHC.Where(n => n.ID_CAP_KVHC == 1).ToList();
