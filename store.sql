@@ -32,6 +32,104 @@ When No_Data_Found Then
      Dbms_Output.Put_Line('No data with emp_id= ');
 END;
 
+create or replace PROCEDURE ST_BieuMau03CT(IDKYQH in number,preloop out SYS_REFCURSOR)
+AS BEGIN
+open preloop for 
+select KIHIEU,STT,' ' as MAHUYEN,case when sum(PHANBO_XACDINH.DT_PHANBO) is null then 0 else ROUND(sum(PHANBO_XACDINH.DT_PHANBO)/10000,2) end as DT_PHANBO ,case when sum(PHANBO_XACDINH.DT_XACDINH) is null then 0 else ROUND(sum(PHANBO_XACDINH.DT_XACDINH)/10000,2) end as DT_XACDINH  
+from DM_MUCDICHSUDUNG  
+left join PHANBO_XACDINH on DM_MUCDICHSUDUNG.ID=PHANBO_XACDINH.ID_MDSD and PHANBO_XACDINH.captinh=1
+where dm_mucdichsudung.tt01=1 and dm_mucdichsudung.captinh=1
+and (PHANBO_XACDINH.ID_KYQH =3 or PHANBO_XACDINH.id_kyqh is null)
+group by KIHIEU,STT
+order by dm_mucdichsudung.STT;
+Exception
+When No_Data_Found Then
+     -- Tr??ng h?p câu SELECT không tr? v? b?n ghi nào
+     Dbms_Output.Put_Line('No data with emp_id= ');
+END;
+
+create or replace PROCEDURE ST_BieuMau03CT_KEHOACH(IDKYQH in number,preloop out SYS_REFCURSOR)
+AS BEGIN
+open preloop for 
+select KIHIEU,STT,DM_KVHC.MA_KVHC as MAHUYEN,case when sum(kehoach.DIENTICH) is null then 0 else ROUND(sum(kehoach.DIENTICH)/10000,2) end as DIENTICH  
+from DM_KVHC 
+ join DM_MUCDICHSUDUNG on  DM_MUCDICHSUDUNG.ID!=MA_KVHC
+ left join kehoach on DM_MUCDICHSUDUNG.ID=kehoach.ID_MDSD and kehoach.mahuyen=DM_KVHC.MA_KVHC and kehoach.captinh=1 
+ where  ID_CAP_KVHC=2  and dm_mucdichsudung.captinh=1  
+ and (ID_KYQH=IDKYQH or ID_KYQH is null)
+group by KIHIEU,DM_KVHC.MA_KVHC,STT
+order by  dm_mucdichsudung.STT;
+Exception
+When No_Data_Found Then
+     -- Tr??ng h?p câu SELECT không tr? v? b?n ghi nào
+     Dbms_Output.Put_Line('No data with emp_id= ');
+END;
+
+
+
+create or replace PROCEDURE ST_BieuMau04CT(IDKYQH in number,preloop out SYS_REFCURSOR)
+AS BEGIN
+open preloop for 
+
+select KIHIEU,STT,CAST(GETNAM.NAM AS NVARCHAR2(4))   as MAHUYEN,case when sum(kehoach.DIENTICH) is null then 0 else ROUND(sum(kehoach.DIENTICH)/10000,2) end as DIENTICH  
+ from 
+
+ (
+        DM_MUCDICHSUDUNG
+        right join (select kehoach.NAM from   kehoach 
+        join kyquyhoachkehoach on kehoach.id_kyqh=kyquyhoachkehoach.ID
+        where kehoach.NAM >= (select TUNAM from  kyquyhoachkehoach
+        where ID=IDKYQH) and 
+        kehoach.NAM <= (select TOINAM from  kyquyhoachkehoach
+        where ID=IDKYQH ))  GETNAM  on   DM_MUCDICHSUDUNG.ID!=-4
+        left join kehoach on DM_MUCDICHSUDUNG.ID=kehoach.ID_MDSD  and kehoach.captinh=1  and kehoach.nam=GETNAM.NAM
+ )
+ where  dm_mucdichsudung.captinh=1  
+ and
+ (kehoach.NAM >= (select TUNAM from  kyquyhoachkehoach
+where ID=IDKYQH) and 
+kehoach.NAM <= (select TOINAM from  kyquyhoachkehoach
+where ID=IDKYQH
+
+) or kehoach.id_kyqh is null)
+
+group by KIHIEU,STT,GETNAM.NAM
+order by  dm_mucdichsudung.STT;
+
+
+Exception
+When No_Data_Found Then
+     -- Tr??ng h?p câu SELECT không tr? v? b?n ghi nào
+     Dbms_Output.Put_Line('No data with emp_id= ');
+END;
+
+create or replace PROCEDURE ST_BieuMau04CT_HIENTRANG(IDKYQH in number,preloop out SYS_REFCURSOR)
+AS BEGIN
+open preloop for 
+select KIHIEU,STT,CAST(EXTRACT(YEAR FROM sysdate) AS NVARCHAR2(4))  as MAHUYEN,case when sum(hientrang.DIENTICH) is null then 0 else ROUND(sum(hientrang.DIENTICH)/10000,2) end as DIENTICH  
+ from 
+
+
+        DM_MUCDICHSUDUNG
+
+        left join hientrang on DM_MUCDICHSUDUNG.ID=hientrang.ID_MDSD  and hientrang.captinh=1  and hientrang.nam=EXTRACT(YEAR FROM sysdate) 
+
+ where  dm_mucdichsudung.captinh=1  
+ and
+ (hientrang.NAM >= (select TUNAM from  kyquyhoachkehoach
+where ID=IDKYQH) and 
+hientrang.NAM <= (select TOINAM from  kyquyhoachkehoach
+where ID=IDKYQH
+
+) or hientrang.id_kyqh is null)
+
+group by KIHIEU,STT,''
+order by  dm_mucdichsudung.STT;
+Exception
+When No_Data_Found Then
+     -- Tr??ng h?p câu SELECT không tr? v? b?n ghi nào
+     Dbms_Output.Put_Line('No data with emp_id= ');
+END;
 
 
 create or replace PROCEDURE ST_BieuMau07CT(IDKYQH in number,preloop out SYS_REFCURSOR)

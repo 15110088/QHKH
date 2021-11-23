@@ -23,18 +23,50 @@
 <div id="viewDiv"></div>
 
 <script>
-    require(["esri/config", "esri/Map", "esri/views/MapView"], function (esriConfig, Map, MapView) {
-        esriConfig.apiKey = "AAPKcf5d235ac0524b2dacf60020ea3968615zgFIieNncDmP-DJ7dACIO-l7xoTVvfFQHaxpBCuttdFeX8f44xCep0YwIpgqljZ";
+    var view, map, trailheadsLayer;
 
+    require(["esri/config", "esri/Map", "esri/views/MapView",
+        "esri/layers/FeatureLayer", "esri/layers/TileLayer",
+        "dojo/_base/connect", "esri/tasks/QueryTask",
+        "esri/tasks/support/Query", "esri/geometry/geometryEngine",
+        "esri/geometry/SpatialReference",
+        "esri/Graphic", "esri/layers/GraphicsLayer"],
+        function (esriConfig, Map, MapView, FeatureLayer, TileLayer,
+            connect, QueryTask, Query, geometryEngine, SpatialReference,
+            Graphic, GraphicsLayer) {
+        esriConfig.apiKey = "AAPKcf5d235ac0524b2dacf60020ea3968615zgFIieNncDmP-DJ7dACIO-l7xoTVvfFQHaxpBCuttdFeX8f44xCep0YwIpgqljZ";
+        const vtlLayer = new TileLayer({
+            url: "https://server.arcgisonline.com/arcgis/rest/services/Reference/World_Transportation/MapServer"
+            // url: "http://datdai.stnmt.dongnai.gov.vn:8080/arcgisdatdaissl1/rest/services/75731/26068/MapServer"
+        });
         const map = new Map({
-            basemap: "arcgis-topographic" // Basemap layer service
+            basemap: "arcgis-topographic", // Basemap layer service
+           // layers: [vtlLayer]
+
         });
 
+
+
+
+        const template = {
+            // NAME and COUNTY are fields in the service containing the Census Tract (NAME) and county of the feature
+            title: "{MAVUNG} in {LOAIDAT}",
+        };
+      
         const view = new MapView({
             map: map,
-            center: [-118.805, 34.027], // Longitude, latitude
+            center: [107.2672217, 10.4944512], // Longitude, latitude
             zoom: 13, // Zoom level
             container: "viewDiv" // Div element
         });
+
+        trailheadsLayer = new FeatureLayer({
+            url: "http://stnmt.dongnai.gov.vn:8080/atlasadaptor/rest/services/GD/Ky1Tong26680V4/MapServer/16",
+            outFields: ["MAVUNG ", "LOAIDAT "],
+           // popupTemplate: template
+
+        });
+        map.add(trailheadsLayer);
+        //view.map = map
     });
 </script>

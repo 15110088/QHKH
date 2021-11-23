@@ -409,7 +409,7 @@ namespace KHQH.API
                     TEMPLATE = "BM02CT.xlsx";
                     break;
                 case 13:
-                    SQLBIEUMAU = "ST_BieuMau03CT";
+                    SQLBIEUMAU = "ST_BieuMau03CT_KEHOACH";
                     TEMPLATE = "BM03CT.xlsx";
                     break;
                 case 14:
@@ -435,10 +435,13 @@ namespace KHQH.API
 
                 case 18:
                     SQLBIEUMAU = "ST_BieuMau08CT";
+                    TEMPLATE = "BM08CT.xlsx";
                     break;
 
                 case 19:
                     SQLBIEUMAU = "ST_BieuMau09CT";
+                    TEMPLATE = "BM09CT.xlsx";
+
                     break;
 
                 case 20:
@@ -490,10 +493,73 @@ namespace KHQH.API
 
                         }
                     }
+
+                    if (ID == 13)
+                    {
+                        DataTable dt2 = DBOracleHelper.ExecuteProcedure("ST_BieuMau03CT", parameters);
+
+                        List<BM03CT> data2 = new List<BM03CT>();
+                        data2 = DataHelper.ConvertDataTable<BM03CT>(dt2);
+                        int ColHeader = 7;
+
+                        foreach (var item in DanhMucHuyen)
+                        {
+                            wsEstimate.Cells[4, ColHeader].Value = item.TEN_KVHC;
+
+                            if (data.Where(n => n.MAHUYEN == item.MA_KVHC).FirstOrDefault() != null)
+                            {
+                                wsEstimate.Cells[6, ColHeader].LoadFromCollection(data.Where(n => n.MAHUYEN == item.MA_KVHC).Select(n => n.DIENTICH));
+                            }
+
+                            ColHeader++;
+
+                        }
+                        wsEstimate.Cells[6, 4].LoadFromCollection(data2.Select(n => n.DT_PHANBO));
+                        wsEstimate.Cells[6, 5].LoadFromCollection(data2.Select(n => n.DT_XACDINH));
+
+
+                    }
+                   
+
+
+
                     if (ID == 12)
                     {
                          wsEstimate.Cells[7, 4].LoadFromCollection(data.Select(n => n.DIENTICH));
                                
+                    }
+
+                    if (ID == 14)
+                    {
+                        DataTable dt2 = DBOracleHelper.ExecuteProcedure("ST_BieuMau04CT_HIENTRANG", parameters);
+
+                        List<BM01CT> data2 = new List<BM01CT>();
+                        data2 = DataHelper.ConvertDataTable<BM01CT>(dt2);
+                        int ColHeader = 5;
+
+                        // tìm danh mục theo năm kế hoạch
+                        var datanam = from n in dbEF.KEHOACHes
+                                      join m in dbEF.KYQUYHOACHKEHOACHes
+                                      on n.ID_KYQH equals m.ID
+                                      where n.NAM >= m.TUNAM && n.NAM <= m.TOINAM
+                                      select new { n.NAM }
+                                      ;
+
+                        foreach (var item in datanam)
+                        {
+                            wsEstimate.Cells[4, ColHeader].Value = item.NAM;
+                            //string nametemp = Convert.ToString(item.NAM);
+                            if (data.Where(n => n.MAHUYEN == item.NAM.ToString()).FirstOrDefault() != null)
+                            {
+                                wsEstimate.Cells[6, ColHeader].LoadFromCollection(data.Where(n => n.MAHUYEN == item.NAM.ToString()).Select(n => n.DIENTICH));
+                            }
+
+                            ColHeader++;
+
+                        }
+                        wsEstimate.Cells[6, 4].LoadFromCollection(data2.Select(n => n.DIENTICH));
+
+
                     }
 
                     if (ID == 15)
@@ -531,6 +597,81 @@ namespace KHQH.API
 
                         }
                     }
+
+                    if (ID == 18)
+                    {
+                        
+                        int ColHeader = 5;
+
+                        // tìm danh mục theo năm kế hoạch
+                        var datanam = from n in dbEF.KEHOACH_CSD
+                                      join m in dbEF.KYQUYHOACHKEHOACHes
+                                      on n.ID_KYQH equals m.ID
+                                      where n.NAM >= m.TUNAM && n.NAM <= m.TOINAM
+                                      select new { n.NAM }
+                                      ;
+
+                        foreach (var item in datanam)
+                        {
+                            wsEstimate.Cells[4, ColHeader].Value = item.NAM;
+                            //string nametemp = Convert.ToString(item.NAM);
+                            if (data.Where(n => n.MAHUYEN == item.NAM.ToString()).FirstOrDefault() != null)
+                            {
+                                wsEstimate.Cells[6, ColHeader].LoadFromCollection(data.Where(n => n.MAHUYEN == item.NAM.ToString()).Select(n => n.DIENTICH));
+                            }
+
+                            ColHeader++;
+
+                        }
+
+
+                    }
+
+                    if (ID == 19)
+                    {
+
+                        DataTable dt2 = DBOracleHelper.ExecuteProcedure("ST_BieuMau09CT", parameters);
+
+                        List<BM09CT> data2 = new List<BM09CT>();
+                        data2 = DataHelper.ConvertDataTable<BM09CT>(dt2);
+                        int ColHeader = 2;
+                        int RowHeader = 6;
+                        int ColChild = 3;
+
+                        var DanhMucCongTrinh = dbEF.DM_LOAICONGTRINH.Where(n => n.CAPTINH ==true).ToList();
+
+                        foreach (var item in DanhMucCongTrinh)
+                        {
+                            if (item.ID == 1)
+                            {
+                                wsEstimate.Cells[RowHeader, ColHeader - 1].Value = "I";
+
+                            }
+                            else if (item.ID == 2)
+                            {
+                                wsEstimate.Cells[RowHeader, ColHeader - 1].Value = "II";
+
+                            }
+                            else
+                            {
+                                wsEstimate.Cells[RowHeader, ColHeader - 1].Value = item.CHIMUC;
+
+                            }
+                            wsEstimate.Cells[RowHeader, ColHeader].Value = item.LOAIHANGMUC;
+                            wsEstimate.Cells[RowHeader, ColHeader].Style.Font.Bold = true;
+
+                            wsEstimate.Cells[++RowHeader, ColHeader].LoadFromCollection(data2.Where(n=>n.ID==item.ID).Select(n=>n.TENCONGTRINH));
+                            wsEstimate.Cells[RowHeader, ColChild].LoadFromCollection(data2.Where(n => n.ID == item.ID).Select(n => new {n.DIENTICH_KH,n.DIENTICH_HT,n.DIENTICH_TT,n.TENDIADIEM,n.NAMTH}));
+
+                            RowHeader += data2.Where(n => n.ID == item.ID).Count();
+                            if(item.ID==2)
+                            {
+                               
+                            }
+
+                        }
+                    }
+
 
                     if (ID == 20)
                     {
@@ -688,7 +829,7 @@ namespace KHQH.API
                     var DanhMucHuyen = dbEF.DM_KVHC.Where(n => n.ID_CAP_KVHC == 1 && n.MA_KVHC_CHA==MAHUYEN).OrderBy(n => n.MA_KVHC).ToList();
                     var DanhMucKCN = dbEF.DM_LOAIKHUCHUCNANG.OrderBy(n => n.ID).ToList();
 
-                    if (ID == 31||ID==36|| ID == 39||ID==37 || ID == 38)
+                    if (ID == 31 || ID == 34 || ID == 35 || ID==36 || ID == 37 || ID == 38 || ID == 39)
                     {
                         int ColHeader = 5;
 
@@ -710,7 +851,26 @@ namespace KHQH.API
                         wsEstimate.Cells[7, 4].LoadFromCollection(data.Select(n => n.DIENTICH));
 
                     }
-                   
+
+                    if (ID == 33)
+                    {
+                        int ColHeader = 7;
+
+                        foreach (var item in DanhMucHuyen)
+                        {
+                            wsEstimate.Cells[4, ColHeader].Value = item.TEN_KVHC;
+
+                            if (data.Where(n => n.MAHUYEN == item.MA_KVHC).FirstOrDefault() != null)
+                            {
+                                wsEstimate.Cells[6, ColHeader].LoadFromCollection(data.Where(n => n.MAHUYEN == item.MA_KVHC).Select(n => n.DIENTICH));
+                            }
+
+                            ColHeader++;
+
+                        }
+                    }
+
+                  
 
                     if (ID == 15)
                     {
@@ -744,6 +904,40 @@ namespace KHQH.API
                             }
 
                             ColHeader++;
+
+                        }
+                    }
+
+                    if (ID == 40)
+                    {
+
+                        DataTable dt2 = DBOracleHelper.ExecuteProcedure("ST_BieuMau10CH", parameters);
+
+                        List<BM10CH> data2 = new List<BM10CH>();
+                        data2 = DataHelper.ConvertDataTable<BM10CH>(dt2);
+                        int ColHeader = 2;
+                        int RowHeader = 6;
+                        int ColChild = 3;
+
+                        var DanhMucCongTrinh = dbEF.DM_LOAICONGTRINH.Where(n => n.CAPTINH == false).ToList();
+
+                        foreach (var item in DanhMucCongTrinh)
+                        {
+                            
+                            wsEstimate.Cells[RowHeader, ColHeader - 1].Value = item.CHIMUC;
+
+                            
+                            wsEstimate.Cells[RowHeader, ColHeader].Value = item.LOAIHANGMUC;
+                            wsEstimate.Cells[RowHeader, ColHeader].Style.Font.Bold = true;
+
+                            wsEstimate.Cells[++RowHeader, ColHeader].LoadFromCollection(data2.Where(n => n.ID == item.ID).Select(n => n.TENCONGTRINH));
+                            wsEstimate.Cells[RowHeader, ColChild].LoadFromCollection(data2.Where(n => n.ID == item.ID).Select(n => new { n.DIENTICH_KH, n.DIENTICH_HT, n.DIENTICH_TT,n.LOAIDAT, n.TENDIADIEM, n.VITRITRENBD }));
+
+                            RowHeader += data2.Where(n => n.ID == item.ID).Count();
+                            if (item.ID == 2)
+                            {
+
+                            }
 
                         }
                     }

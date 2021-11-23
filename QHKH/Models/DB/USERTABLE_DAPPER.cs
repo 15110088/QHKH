@@ -20,5 +20,8 @@ namespace KHQH.Models.DB
         public int ENABLE { get; set; }
         public string GHICHU { get; set; }
 
+        public string MAHUYEN { get; set; }
+        public string MAXA { get; set; }
+
     }
 }

@@ -182,7 +182,7 @@
 
     return;
     }
-                window.location.href = host + "/Home/Map"
+                window.location.href = host + "/Home/Map?&Huyen="+$('#IDHUYEN').dxSelectBox("instance").option().value+"&XA="+$('#IDXA').dxSelectBox("instance").option().value
     })
 
         $('#btnLogin').click(function ()
@@ -206,7 +206,9 @@
 
                 var data = {
                 TENDANGNHAP: $('#txtUser').val(),
-                MATKHAU: $('#txtPassword').val()
+                MATKHAU: $('#txtPassword').val(),
+   
+
 
             }
             console.log(data)
@@ -217,7 +219,7 @@
                 success: function (result) {
                     console.log(result)
                     if (result.KetQua) {
-                       // window.location.href = host + "/Home/Map"
+                       // window.location.href = host + "/Home/Map?&Huyen="+$('#IDHUYEN').dxSelectBox("instance").option().value+"&XA="+$('#IDXA').dxSelectBox("instance").option().value
     $("#ImgLoading").removeClass("ActiveLoading");
     $("#ImgLoading").addClass("unActiveLoading");
                         $('#modalKVHC').modal('show');

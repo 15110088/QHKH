@@ -2,6 +2,7 @@
 using KHQH.Common;
 
 using KHQH.Models.DB;
+using QHKH.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,7 +13,8 @@ using System.Web.Mvc;
 using System.Web.Security;
 
 namespace KHQH.Controllers {
-    public class HomeController : Controller {
+    public class HomeController : BaseController
+    {
         private KHQHEntities dbEF = new KHQHEntities();
 
         public ActionResult Index()
@@ -25,10 +27,12 @@ namespace KHQH.Controllers {
             return View(cb);
         }
 
-        public ActionResult Map()
+        public ActionResult Map(string Huyen,string Xa)
         {
 
-           
+            string a = Huyen;
+            string b = Xa;
+
             return View();
         }
         [HttpPost]
@@ -50,6 +54,9 @@ namespace KHQH.Controllers {
                     //  HttpContext.Current.Session["LogOut"] = "Đăng Xuất";
                     Session.Clear();
                     Session["UserName"] = CheckUser.HOTEN;
+                    Session["MaHuyen"] = uSERTABLE.MAHUYEN;
+                    Session["MaXa"] = uSERTABLE.MAXA;
+
                     Session["LogOut"] = "ĐĂNG XUẤT";
                     return Json(ResultAPI<USERTABLE_DAPPER>.DATA(null, null, true, "Đăng nhập thành công", 200, ""));
                 }

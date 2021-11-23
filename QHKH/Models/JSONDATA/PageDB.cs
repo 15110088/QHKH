@@ -239,7 +239,7 @@ namespace KHQH.Models.JSONDATA
             },
                              new PageData
             {
-                TITLE="Biểu 01/CH Hiện trạng sử dụng đất",
+                TITLE="Hiện trạng sử dụng đất năm 20... huyện (quận, thị xã, thành phố thuộc tỉnh, thành phố thuộc thành phố trực thuộc Trung ương) …                                ",
                 URLGET="",
                 URLPOST="",
                 URLPUT="",
@@ -249,7 +249,7 @@ namespace KHQH.Models.JSONDATA
             },
              new PageData
             {
-                TITLE="Biểu 02/CH Kết quả thực hiện kế hoạch sử dụng đất kỳ trước",
+                TITLE="Kết quả thực hiện quy hoạch sử dụng đất kỳ trước/kế hoạch sử dụng đất năm trước huyện (quận, thị xã...) …",
                 URLGET="",
                 URLPOST="",
                 URLPUT="",
@@ -259,7 +259,7 @@ namespace KHQH.Models.JSONDATA
             },
              new PageData
             {
-                TITLE="Biểu 03/CH Quy hoạch (điều chỉnh) sử dụng đất",
+                TITLE="Quy hoạch (điều chỉnh) sử dụng đất đến năm 20... huyện (quận, thị xã, thành phố thuộc tỉnh, thành phố thuộc thành phố trực thuộc Trung ương) …                                                      ",
                 URLGET="",
                 URLPOST="",
                 URLPUT="",
@@ -269,7 +269,7 @@ namespace KHQH.Models.JSONDATA
             },
               new PageData
             {
-                TITLE="Biểu 04/CH Diện tích chuyển mục đích sử dụng đất trong kỳ quy hoạch",
+                TITLE="Diện tích chuyển mục đích sử dụng đất trong kỳ quy hoạch phân bổ đến từng đơn vị hành chính cấp xã của huyện",
                 URLGET="",
                 URLPOST="",
                 URLPUT="",
@@ -279,7 +279,7 @@ namespace KHQH.Models.JSONDATA
             },
                new PageData
             {
-                TITLE="Biểu 05/CH Diện tích đất chưa sử dụng đưa vào sử dụng trong kỳ quy hoạch",
+                TITLE="Diện tích đất chưa sử dụng đưa vào sử dụng trong kỳ quy hoạch phân bổ đến từng đơn vị hành chính cấp xã của huyện…",
                 URLGET="",
                 URLPOST="",
                 URLPUT="",
@@ -289,7 +289,7 @@ namespace KHQH.Models.JSONDATA
             },
                 new PageData
             {
-                TITLE="Biểu 06/CH Kế hoạch sử dụng đất",
+                TITLE="Kế hoạch sử dụng đất năm 20… huyện (quận, thị xã, thành phố thuộc tỉnh, thành phố thuộc thành phố trực thuộc Trung ương) …                                                                               ",
                 URLGET="",
                 URLPOST="",
                 URLPUT="",
@@ -300,7 +300,7 @@ namespace KHQH.Models.JSONDATA
 
             new PageData
             {
-                TITLE="Biểu 07/CH Kế hoạch chuyển mục đích sử dụng đất",
+                TITLE="Kế hoạch chuyển mục đích sử dụng đất năm 20... huyện (quận, thị xã, thành phố thuộc tỉnh, thành phố thuộc thành phố trực thuộc Trung ương) …",
                 URLGET="",
                 URLPOST="",
                 URLPUT="",
@@ -311,7 +311,7 @@ namespace KHQH.Models.JSONDATA
 
             new PageData
             {
-                TITLE="Biểu 08/CH Kế hoạch thu hồi đất",
+                TITLE="Kế hoạch thu hồi đất năm 20…. huyện (quận, thị xã, thành phố thuộc tỉnh, thành phố thuộc thành phố trực thuộc Trung ương) …",
                 URLGET="",
                 URLPOST="",
                 URLPUT="",
@@ -322,7 +322,7 @@ namespace KHQH.Models.JSONDATA
 
             new PageData
             {
-                TITLE="Biểu 09/CH Kế hoạch đưa đất chưa sử dụng vào sử dụng",
+                TITLE="Kế hoạch đưa đất chưa sử dụng vào sử dụng năm 20... huyện (quận, thị xã, thành phố thuộc tỉnh, thành phố thuộc thành phố trực thuộc Trung ương)                                     ",
                 URLGET="",
                 URLPOST="",
                 URLPUT="",
@@ -333,7 +333,7 @@ namespace KHQH.Models.JSONDATA
 
                         new PageData
             {
-                TITLE="Biểu 10/CH Danh mục các công trình, dự án thực hiện trong năm",
+                TITLE="Danh mục các công trình, dự án thực hiện trong năm 20... huyện (quận, thị xã, thành phố) …                                                                         ",
                 URLGET="",
                 URLPOST="",
                 URLPUT="",
@@ -344,7 +344,7 @@ namespace KHQH.Models.JSONDATA
 
                             new PageData
             {
-                TITLE="Biểu 11/CH Diện tích, cơ cấu sử dụng đất các khu chức năng huyện",
+                TITLE="Diện tích, cơ cấu sử dụng đất các khu chức năng huyện (quận, thị xã, thành phố thuộc tỉnh, thành phố thuộc thành phố trực thuộc Trung ương) …                                    ",
                 URLGET="",
                 URLPOST="",
                 URLPUT="",
@@ -355,7 +355,7 @@ namespace KHQH.Models.JSONDATA
 
                                      new PageData
             {
-                TITLE="Biểu 12/CH Chu chuyển đất đai trong kỳ quy hoạch sử dụng đất 10 năm",
+                TITLE="Chu chuyển đất đai trong kỳ quy hoạch sử dụng đất 10 năm (20…-20...) huyện (quận, thị xã, thành phố thuộc tỉnh, thành phố thuộc TP trực thuộc Trung ương)…",
                 URLGET="",
                 URLPOST="",
                 URLPUT="",
@@ -365,7 +365,7 @@ namespace KHQH.Models.JSONDATA
             },
                                               new PageData
             {
-                TITLE="Biểu 13/CH Chu chuyển đất đai trong kế hoạch sử dụng đất theo năm",
+                TITLE="Chu chuyển đất đai trong kế hoạch sử dụng đất năm 20… huyện (quận, thị xã, thành phố thuộc tỉnh, thành phố thuộc thành phố trực thuộc Trung ương) …",
                 URLGET="",
                 URLPOST="",
                 URLPUT="",
