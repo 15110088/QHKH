@@ -17,15 +17,18 @@ namespace KHQH.Models.DB
         [Required]
         public int? ID_KYQH { get; set; }
      
-        [Required]
         public int? ID_MDSD { get; set; }
     
         public decimal? DT_PHANBO { get; set; }
       
         public decimal? DT_XACDINH { get; set; }
 
-        [Required]
         public int? ID_KHUCHUCNANG { get; set; }
         public bool? CAPTINH { get; set; }
+
+        public string MAHUYEN { get; set; }
+
+
+        public string MAXA { get; set; }
     }
 }

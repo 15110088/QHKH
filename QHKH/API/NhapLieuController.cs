@@ -303,7 +303,7 @@ namespace KHQH.API
         public HttpResponseMessage GetDienTichPBXDByID(DataSourceLoadOptions loadOptions, int ID)
         {
             //List<DM_CHUYENMUCDICH> data = db.EGetAll<DM_CHUYENMUCDICH>().Where(n => n.ENABLED == true).ToList();
-            var data = dbEF.PHANBO_XACDINH.Where(n => n.ID_KYQH == ID).Select(n => new { n.ID, n.ID_KYQH, n.ID_MDSD, n.DT_PHANBO, n.DT_XACDINH,  n.CAPTINH, n.ID_KHUCHUCNANG }).ToList();
+            var data = dbEF.PHANBO_XACDINH.Where(n => n.ID_KYQH == ID).Select(n => new { n.ID, n.ID_KYQH, n.ID_MDSD, n.DT_PHANBO, n.DT_XACDINH,  n.CAPTINH, n.ID_KHUCHUCNANG,n.MAHUYEN,n.MAXA }).ToList();
             return Request.CreateResponse(DataSourceLoader.Load(data, loadOptions));
         }
 

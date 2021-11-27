@@ -242,7 +242,8 @@ namespace KHQH.API
             var values = form.Get("values");
 
             DM_LOAICONGTRINH info = dbEF.DM_LOAICONGTRINH.Where(n => n.ID == key).FirstOrDefault();
-           // info.ENABLED = false;
+            // info.ENABLED = false;
+            dbEF.DeleteObject(info);
             dbEF.SaveChanges();
 
             return Request.CreateResponse(HttpStatusCode.Created);
@@ -260,6 +261,32 @@ namespace KHQH.API
         }
 
         [HttpGet]
+        public HttpResponseMessage KYQHByID(DataSourceLoadOptions loadOptions,int ID=0)
+        {
+            var data=dbEF.KYQUYHOACHKEHOACHes.Where(n => n.BIKHOA == false && n.IS_KEHOACH_DIEUCHINH == ID).Select(n => new { n.ID, n.ID_CHA, n.IS_KEHOACH_DIEUCHINH, n.NAM, n.TUNAM, n.TOINAM, n.TEN }).ToList(); ;
+            if (ID==4)
+            {
+                 data = dbEF.KYQUYHOACHKEHOACHes.Where(n => n.BIKHOA == false && n.IS_KEHOACH_DIEUCHINH == 3 || n.IS_KEHOACH_DIEUCHINH == 1).Select(n => new { n.ID, n.ID_CHA, n.IS_KEHOACH_DIEUCHINH, n.NAM, n.TUNAM, n.TOINAM, n.TEN }).ToList();
+
+            }
+
+            if (ID == 1)
+            {
+                data = dbEF.KYQUYHOACHKEHOACHes.Where(n => n.BIKHOA == false && n.IS_KEHOACH_DIEUCHINH == 4).Select(n => new { n.ID, n.ID_CHA, n.IS_KEHOACH_DIEUCHINH, n.NAM, n.TUNAM, n.TOINAM, n.TEN }).ToList();
+
+            }
+
+            if (ID == 2)
+            {
+                data = dbEF.KYQUYHOACHKEHOACHes.Where(n => n.BIKHOA == false && n.IS_KEHOACH_DIEUCHINH == 2).Select(n => new { n.ID, n.ID_CHA, n.IS_KEHOACH_DIEUCHINH, n.NAM, n.TUNAM, n.TOINAM, n.TEN }).ToList();
+
+            }
+
+            //List<DM_CHUYENMUCDICH> data = db.EGetAll<DM_CHUYENMUCDICH>().Where(n => n.ENABLED == true).ToList();
+            return Request.CreateResponse(DataSourceLoader.Load(data, loadOptions));
+        }
+
+        [HttpGet]
         public HttpResponseMessage KeHoachDieuChinh(DataSourceLoadOptions loadOptions)
         {
 
@@ -268,6 +295,7 @@ namespace KHQH.API
             data.Add(new DM_KeHoachDieuChinh(1, "Quy Hoạch"));
             data.Add(new DM_KeHoachDieuChinh(2, "Kế Hoạch"));
             data.Add(new DM_KeHoachDieuChinh(3, "QH Điều Chỉnh"));
+            data.Add(new DM_KeHoachDieuChinh(4, "Hiện trạng"));
 
             return Request.CreateResponse(DataSourceLoader.Load(data, loadOptions));
         }

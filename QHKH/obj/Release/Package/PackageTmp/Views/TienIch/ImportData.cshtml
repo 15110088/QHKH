@@ -1,0 +1,294 @@
+﻿
+@{
+    ViewBag.Title = "ImportData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Template/css/theme.css" rel="stylesheet">
+
+@model KHQH.Models.DB.CombineHienTrang
+<br />
+<br />
+<br />
+
+<style>
+</style>
+
+@using (Html.DevExtreme().ValidationGroup("ValidateText"))
+{
+    <br />
+<div class="row">
+    <div class="col-sm">
+        <input id="IDLOAI" value=0 class="input-text js-input" type="hidden">
+
+
+
+        <label style="text-align:left" class="SRBody">Loại danh mục</label>
+        @(Html.DevExtreme().SelectBoxFor(n => n.HienTrang.ID_LOAICT)
+                .DataSource(Model.LstPage)
+                            .ValueExpr("TYPE")
+                            .DisplayExpr("TITLE")
+                            .SearchEnabled(true).Placeholder("")
+                            .AcceptCustomValue(true)
+                            .ID("ID_LOAI")
+        )
+    </div>
+    <div class="col-sm">
+        <input id="CheckFile" value=0 class="input-text js-input" type="hidden">
+       
+    
+
+        <label style="text-align:left" class="SRBody">Kỳ kế hoạch quy hoạch</label>
+        @(Html.DevExtreme().SelectBoxFor(n=>n.HienTrang.ID_KYQH)
+                .DataSource(d => d.WebApi()
+                            .RouteName("GetDanhMuc")
+                            .LoadAction("KYQH")
+                            .Key("ID"))
+                            .ValueExpr("ID")
+                            .DisplayExpr("TEN")
+                            .SearchEnabled(true).Placeholder("")
+                            .AcceptCustomValue(true)
+                            .ID("IDKYQH")
+        )
+    </div>
+
+    <div class="col-sm">
+        <label style="text-align:left" class="SRBody">TP/Huyện</label>
+        @(Html.DevExtreme().SelectBoxFor(n => n.HienTrang.MAHUYEN)
+            .DataSource(Model.LstHuyen.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
+            .SearchEnabled(true).Placeholder("Huyện")
+            .AcceptCustomValue(true).IsValid(true)
+            .ValueExpr("MA_KVHC").OnValueChanged("GetIDHUYEN")
+            .DisplayExpr("TEN_KVHC").ID("IDHUYEN")
+        )
+    </div>
+    <div class="col-sm">
+        <label style="text-align:left" class="SRBody">Phường/Xã</label>
+
+        @(Html.DevExtreme().SelectBoxFor(n => n.HienTrang.MAXA)
+                            .DataSource(Model.LstXa.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
+                            .SearchEnabled(true).Placeholder("Xã")
+                            .AcceptCustomValue(true)
+                            .ValueExpr("MA_KVHC").IsValid(true)
+                            .DisplayExpr("TEN_KVHC").ID("IDXA")
+        )
+    </div>
+
+   
+   
+    <div class="col-sm">
+        <label style="text-align:left" class="SRBody">Cấp tỉnh</label>
+        <br />
+        @(Html.DevExtreme().CheckBoxFor(n => n.HienTrang.CAPTINH).OnValueChanged("CapTinhCheck"))
+    </div>
+   
+
+</div>
+
+}
+
+
+<br />
+
+
+<div class="row RowMagin">
+    <div class="col-sm">
+        <div id="fileuploader-container">
+            <input type="file" id="customFile" value="Choose file"  />
+        </div>
+    </div>
+    <div class="col-sm">
+        <a href="#" id="btnKiemTra" class="button4" style="background-color:#ff0000">Kiểm tra</a>
+
+    </div>
+    <div class="col-sm">
+        <a href="#" id="btnSave" class="button4" style="background-color:#4ef18f">Đỗ dữ liệu</a>
+
+    </div>
+    <div class="col-sm">
+
+    </div>
+</div>
+<table class="table" id="datable_1">
+    <thead>
+        <tr>
+            <th scope="col">Dòng</th>
+            <th scope="col">Lỗi</th>
+ 
+        </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+</table>
+<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    <img id="ImgLoading" class="unActiveLoading" src="~/Content/img/Spinner-1s-200px.gif" alt="">
+</div>
+<script>
+    window.onload = function () {
+        $('#btnSave').hide()
+
+    }
+    function validateText() {
+        return DevExpress.validationEngine.validateGroup("ValidateText").isValid;
+    }
+    function CapTinhCheck(e) {
+        $('#ISCAPTINH').val(e.value)
+
+    }
+     function GetIDHUYEN(e) {
+                $.ajax({
+                url: '/api/GetDanhMuc/KVHCByIDHUYEN?ID=' + e.value,
+                type: 'get',
+                success: function (data) {
+                console.log(data)
+                var newStore = new DevExpress.data.ArrayStore({
+                data: data.data,
+                key: 'MA_KVHC',
+
+                })
+                $("#IDXA").dxSelectBox({
+                dataSource: newStore
+                })
+                },
+                error: function () {
+
+                }
+                })
+    }
+
+     $(document).ready(function () {
+         $('#customFile').change(function () {
+             console.log('chamge')
+             $('#btnSave').hide()
+             $('#CheckFile').val(0)
+
+         })
+
+         $('#btnKiemTra').click(function () {
+
+            if (!validateText()) {
+
+                return;
+            }
+            var table = $('#datable_1 tbody')
+
+            var files = $("#customFile").get(0).files;
+
+            if (files.length < 1) {
+                alert("Vui lòng chọn file cần đỗ dữ liệu")
+               
+                return;
+            }
+            else {
+               
+            }
+            var formatfile = false
+            for (var index = 0; index < files.length; index++) {
+                var ext = $("#customFile").val().split('.').pop();
+                console.log(ext)
+                if (ext == "xls" || ext == "xlsx") {
+                    formatfile = true
+                }
+            }
+            if (!formatfile)
+            {
+                alert("Chọn file định dạng excel")
+
+                return;
+            }
+
+
+            var data = new FormData();
+
+            data.append("IDKYQH", $('#IDKYQH').dxSelectBox("instance").option().value);
+            data.append("MAXA", $('#IDXA').dxSelectBox("instance").option().value);
+            data.append("MAHUYEN", $('#IDHUYEN').dxSelectBox("instance").option().value);
+            data.append("CAPTINH", $('#ISCAPTINH').val() == 0 ? false : $('#ISCAPTINH').val());
+
+
+            for (var index = 0; index < files.length; index++) {
+                data.append("shapeUpload", files[index]);
+            }
+            $("#ImgLoading").removeClass("unActiveLoading");
+            $("#ImgLoading").addClass("ActiveLoading");
+                  $.ajax({
+                      url: host + '/api/TienIchAPI/CheckImportExcel?ID='+$('#ID_LOAI').dxSelectBox("instance").option().value ,
+                        type: 'post',
+                        contentType: false,
+                        processData: false,
+                        data: data,
+                        success: function (data) {
+                    console.log(data)
+                    if (data.isValid)
+                    {
+                        $('#btnSave').show()
+                        $('#CheckFile').val(1)
+                        table.empty();
+                        alert("Kiểm tra thành công")
+                        $("#ImgLoading").removeClass("ActiveLoading");
+                        $("#ImgLoading").addClass("unActiveLoading");
+                    }
+                    else {
+                        $("#ImgLoading").removeClass("ActiveLoading");
+                        $("#ImgLoading").addClass("unActiveLoading");
+                        table.empty();
+
+                        $.each(data.data, function (a, b) {
+
+
+                            table.append("<tr><td>" + b.Row + "</td>" +
+                                "<td>" + b.Error + "</td></tr>");
+                            //   $("#datable_1").DataTable().ajax.reload();
+                            //   table.append("<tr><td>Donna Snider</td><td>Customer Support</td><td>New York</td><td>27</td><td>2011/01/25</td><td>$112,000</td></tr>");
+                            //
+                        })
+                    }
+
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+
+            });
+
+      
+        })
+         $('#btnSave').click(function () {
+             $("#ImgLoading").removeClass("unActiveLoading");
+             $("#ImgLoading").addClass("ActiveLoading");
+            if (!validateText()) {
+
+                return;
+            }
+            var table = $('#datable_1 tbody')
+
+            var files = $("#customFile").get(0).files;
+            var data = new FormData();
+
+            data.append("IDKYQH", $('#IDKYQH').dxSelectBox("instance").option().value);
+            data.append("MAXA", $('#IDXA').dxSelectBox("instance").option().value);
+            data.append("MAHUYEN", $('#IDHUYEN').dxSelectBox("instance").option().value);
+            for (var index = 0; index < files.length; index++) {
+                data.append("shapeUpload", files[index]);
+            }
+
+            $.ajax({
+                url: host + '/api/TienIchAPI/ImportExcel?ID=' + $('#ID_LOAI').dxSelectBox("instance").option().value,
+                type: 'post',
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function (data) {
+                    console.log(data)
+                   
+                    $("#ImgLoading").removeClass("ActiveLoading");
+                    $("#ImgLoading").addClass("unActiveLoading");
+                },
+               
+
+            });
+
+
+        })
+    })
+</script>

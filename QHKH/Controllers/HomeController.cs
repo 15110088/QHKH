@@ -32,8 +32,22 @@ namespace KHQH.Controllers {
 
             string a = Huyen;
             string b = Xa;
+            CombineHienTrang cb = new CombineHienTrang();
+            var dataKVHC = dbEF.DM_KVHC.Where(n => (n.DELETED == null || n.DELETED == false)).ToList();
+            cb.LstHuyen = dataKVHC.Where(n => n.ID_CAP_KVHC == 2).ToList();
+            cb.LstXa = dataKVHC.Where(n => n.ID_CAP_KVHC == 1).ToList();
+            //if(dbEF.MAP_CONFIG.Where(n => n.MAKVHC == Xa).FirstOrDefault()!=null)
+            //{
+            //    ViewData["URL"] = dbEF.MAP_CONFIG.Where(n => n.MAKVHC == Xa).FirstOrDefault().MAP_SERVICES;
 
-            return View();
+            //}
+            //else
+            //{
+            //    ViewData["URL"] = dbEF.MAP_CONFIG.Where(n => n.DEFAULT_VIEW==true).FirstOrDefault().MAP_SERVICES;
+
+            //}
+            ViewData["URL"] = "http://192.169.3.157:6080/arcgis/rest/services/GD/Ky1Tong26680V4/MapServer/16";
+            return View(cb);
         }
         [HttpPost]
         public JsonResult SignIn(USERTABLE_DAPPER uSERTABLE)

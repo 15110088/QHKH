@@ -204,6 +204,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BIEUMAUEXCEL\BM01CH.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM01CT.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM02CH.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM02CT.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM03CH.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM03CT.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM04CH.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM04CT.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM05CH.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM05CT.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM06CH.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM07CH.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM07CT.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM08CH.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM08CT.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM09CH.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM09CT.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM10CH.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM10CT.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM11CH.xlsx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dx.carmine.compact.css" />
@@ -244,6 +264,7 @@
     <Content Include="Content\dx.material.teal.light.css" />
     <Content Include="Content\dx.softblue.compact.css" />
     <Content Include="Content\dx.softblue.css" />
+    <Content Include="Content\img\Spinner-1s-200px.gif" />
     <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -279,6 +300,7 @@
     <Content Include="Scripts\globalize\message.min.js" />
     <Content Include="Scripts\globalize\number.js" />
     <Content Include="Scripts\globalize\number.min.js" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />
@@ -314,6 +336,7 @@
     <Content Include="Scripts\jquery-3.1.0.min.map" />
     <None Include="Scripts\_references.js" />
     <Content Include="Template\css\login.css" />
+    <Content Include="Template\css\map.css" />
     <Content Include="Template\css\SoraFont.css" />
     <Content Include="Template\css\style.css" />
     <Content Include="Template\css\theme.css" />
@@ -569,11 +592,30 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dapper\" />
+    <Folder Include="Uploads\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

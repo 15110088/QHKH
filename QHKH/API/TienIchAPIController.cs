@@ -856,6 +856,16 @@ namespace KHQH.API
                     {
                         int ColHeader = 7;
 
+                        
+                          DataTable dt2 = DBOracleHelper.ExecuteProcedure("ST_BieuMau03CH_PHANBO", parameters);
+
+                        List<BM03CT> data2 = new List<BM03CT>();
+                        data2 = DataHelper.ConvertDataTable<BM03CT>(dt2);
+
+                        wsEstimate.Cells[6, 5].LoadFromCollection(data2.Select(n => n.DT_PHANBO));
+                        wsEstimate.Cells[6, 4].LoadFromCollection(data2.Select(n => n.DT_XACDINH));
+
+
                         foreach (var item in DanhMucHuyen)
                         {
                             wsEstimate.Cells[4, ColHeader].Value = item.TEN_KVHC;

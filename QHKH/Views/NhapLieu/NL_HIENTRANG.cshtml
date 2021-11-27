@@ -29,8 +29,8 @@
         @(Html.DevExtreme().SelectBox()
                 .DataSource(d => d.WebApi()
                             .RouteName("GetDanhMuc")
-                            .LoadAction("KYQH")
-                            .Key("ID"))
+                            .LoadAction("KYQHByID")
+                            .Key("ID").LoadParams( new { @ID=Model.SetupPage.TYPE}))
                              .DisplayExpr("TEN").Width(300)
                              .SearchEnabled(true).Placeholder("Chọn kỳ kế hoạch quy hoạch ")
                             .AcceptCustomValue(true).OnValueChanged("CapNhatGrid").ID("NameKYQH")
@@ -69,7 +69,7 @@
                        {
                            columns.AddFor(m => m.ID).Caption("STT").AllowEditing(true);
                            columns.AddFor(m => m.TENVUNG).Caption("Tên vùng").AllowEditing(true);
-                           columns.AddFor(m => m.MAHT).Caption("MAHT").AllowEditing(true);
+                           columns.AddFor(m => m.MAHT).Caption("Mã vùng").AllowEditing(true);
                            columns.AddFor(m => m.DIENTICH).Caption("Diện tích").AllowEditing(true);
                            columns.AddFor(m => m.ID_MDSD).Caption("Mục đích sử dụng")
                                       .Lookup(lookup => lookup
@@ -154,7 +154,7 @@
                        {
                            columns.AddFor(m => m.ID).Caption("STT").AllowEditing(true);
                            columns.AddFor(m => m.TENVUNG).Caption("Tên vùng").AllowEditing(true);
-                           columns.AddFor(m => m.MAKHUCN).Caption("MAHT").AllowEditing(true);
+                           columns.AddFor(m => m.MAKHUCN).Caption("Mã vùng").AllowEditing(true);
                            columns.AddFor(m => m.MALOAIKHUCN).Caption("Loại chức năng")
                                       .Lookup(lookup => lookup
                                       .DataSource(Model.LstLoaiKCN.Select(n => new { n.ID, n.TEN }))
@@ -239,7 +239,7 @@
                        {
                            columns.AddFor(m => m.ID).Caption("STT").AllowEditing(true);
                            columns.AddFor(m => m.TENVUNG).Caption("Tên vùng").AllowEditing(true);
-                           columns.AddFor(m => m.MAQH).Caption("MAQH").AllowEditing(true);
+                           columns.AddFor(m => m.MAQH).Caption("Mã vùng").AllowEditing(true);
                            columns.AddFor(m => m.DIENTICH).Caption("Diện tích").AllowEditing(true);
                            columns.AddFor(m => m.ID_MDSD).Caption("Mục đích sử dụng")
                                       .Lookup(lookup => lookup
@@ -337,7 +337,7 @@
                        {
                            columns.AddFor(m => m.ID).Caption("STT").AllowEditing(true);
                            columns.AddFor(m => m.TENVUNG).Caption("Tên vùng").AllowEditing(true);
-                           columns.AddFor(m => m.MAKH).Caption("MAQH").AllowEditing(true);
+                           columns.AddFor(m => m.MAKH).Caption("Mã vùng").AllowEditing(true);
                            columns.AddFor(m => m.DIENTICH).Caption("Diện tích").AllowEditing(true);
                            columns.AddFor(m => m.ID_MDSD).Caption("Mục đích sử dụng")
                                       .Lookup(lookup => lookup
@@ -442,7 +442,7 @@
                     <div class="row RowMagin">
 
                         <div class="col-sm">
-                            <label style="text-align:left" class="SRBody">Mã HT</label>
+                            <label style="text-align:left" class="SRBody">Mã Vùng</label>
                             @(Html.DevExtreme().TextBoxFor(n => n.HienTrang.MAHT).IsValid(true))
                         </div>
                     </div>
@@ -503,6 +503,7 @@
                                 .AcceptCustomValue(true).IsValid(true)
                                 .ValueExpr("MA_KVHC")
                                 .DisplayExpr("TEN_KVHC").ID("IDHUYEN")
+                                .OnValueChanged("GetIDHUYEN")
                               )
                         </div>
                         <div class="col-sm">
@@ -522,7 +523,7 @@
 
 
 
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             @if (Model.SetupPage.TYPE == 1|| Model.SetupPage.TYPE == 4 || Model.SetupPage.TYPE == 2)
                             {
                                 <label style="text-align:left" class="SRBody">Năm</label>
@@ -530,7 +531,7 @@
                             }
                         </div>
 
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             @if (Model.SetupPage.TYPE == 1|| Model.SetupPage.TYPE == 4 || Model.SetupPage.TYPE == 2)
                             {
                                 <label style="text-align:left" class="SRBody">Cấp tỉnh</label>
@@ -541,7 +542,7 @@
 
                         </div>
 
-                        <div class="col-sm">
+                        <div class="col-sm-5">
                             @if (Model.SetupPage.TYPE == 4||Model.SetupPage.TYPE == 2)
                             {
                                 <label style="text-align:left" class="SRBody">Khu chức năng</label>
@@ -555,7 +556,7 @@
                                 )
                             }
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-1">
 
                         </div>
                     </div>
@@ -675,6 +676,28 @@
     function CapTinhCheck(e) {
         $('#ISCAPTINH').val(e.value)
 
+    }
+
+    function GetIDHUYEN(e) {
+        console.log(e)
+        $.ajax({
+            url: '/api/GetDanhMuc/KVHCByIDHUYEN?ID=' + e.value,
+            type: 'get',
+            success: function (data) {
+                console.log(data)
+                var newStore = new DevExpress.data.ArrayStore({
+                    data: data.data,
+                    key: 'MA_KVHC',
+
+                })
+                $("#IDXA").dxSelectBox({
+                    dataSource: newStore
+                })
+            },
+            error: function () {
+
+            }
+        })
     }
     $(document).ready(function () {
 

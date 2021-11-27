@@ -12,6 +12,9 @@ namespace KHQH.Controllers
     public class NhapLieuController : Controller
     {
         KHQHEntities dbEF = new KHQHEntities();
+
+
+        int a = 0;
         // GET: NhapLieu
         public ActionResult NL_HIENTRANG(int ID=1)
         {

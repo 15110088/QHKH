@@ -33,7 +33,7 @@
 
     </div>
     <form action="" class="log-in" autocomplete="off">
-        <span class="SRtitle3" style="font-weight: bold;">QUẢN LÝ   <p class="SRtitle3" style="font-weight: bold; color: #36C970">QUY HOẠCH KẾ HOẠCH SỬ DỤNG ĐẤT</p></span>
+        <span class="SRtitle3" style="font-weight: bold;">PHẦN MỀM QUẢN LÝ<p class="SRtitle3" style="font-weight: bold; color: #36C970">QUY HOẠCH KẾ HOẠCH SỬ DỤNG ĐẤT</p></span>
 
         <div class="floating-label">
             <input placeholder="Tài khoản" class="SRbody" type="text" name="email" id="txtUser" autocomplete="off">
@@ -148,7 +148,7 @@
     function GetIDHUYEN(e) {
     console.log(e)
     $.ajax({
-    url: '/api/GetDanhMuc/KVHCByIDHUYEN?ID=' + e.value,
+    url: host+'/api/GetDanhMuc/KVHCByIDHUYEN?ID=' + e.value,
     type: 'get',
     success: function (data) {
     console.log(data)

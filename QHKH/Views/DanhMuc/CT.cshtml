@@ -41,35 +41,61 @@
                               .ValueExpr("ID"));
 
 
+               }
+               ).Editing(e=>e.Mode(GridEditMode.Popup)
+               .AllowUpdating(true)
+               .AllowAdding(true)
+               .AllowDeleting(true)
+               .UseIcons(true)
+               .Popup(p=>p.Title("Thông tin danh mục công trình").ShowTitle(true)
+                   .Width(700)
+                   .Height(525)).Form(f => f.Items(items =>
+                   {
+                       items.AddGroup()
+                           .ColCount(2)
+                           .ColSpan(2)
+                           .Items(groupItems =>
+                           {
+                               groupItems.AddSimpleFor(m => m.LOAIHANGMUC);
+                               groupItems.AddSimpleFor(m => m.ID_CAPTREN).IsRequired(false).ColSpan(2);
 
-                   //    }).Editing(e => e.Mode(GridEditMode.Popup)
-                   //.AllowUpdating(true)
-                   //.AllowAdding(true)
-                   //.AllowDeleting(true)
-                   //.UseIcons(true)
-                   //.Popup(p => p
-                   //    .Title("Thông tin mục đích sử dụng")
-                   //    .ShowTitle(true)
-                   //    .Width(700)
-                   //    .Height(525)
-                   //)
-                   //.Form(f => f.Items(items =>
-                   //{
-                   //    items.AddGroup()
-                   //        .ColCount(2)
-                   //        .ColSpan(2)
-                   //        .Items(groupItems =>
-                   //        {
-                   //            groupItems.AddSimpleFor(m => m.KYHIEU);
-                   //            groupItems.AddSimpleFor(m => m.TEN);
-                   //            groupItems.AddSimpleFor(m => m.CHIMUC);
-                   //            groupItems.AddSimpleFor(m => m.CHIMUCTINH);
-                   //            groupItems.AddSimpleFor(m => m.ID_CAPTREN).IsRequired(false).ColSpan(2);
+                               groupItems.AddSimpleFor(m => m.CAPTINH).IsRequired(false);
 
-                   //            groupItems.AddSimpleFor(m => m.CAPTINH).IsRequired(false);
+                           });
+                   })
 
-                   //        });
+                   )
+
+               )
+
+               //    }).Editing(e => e.Mode(GridEditMode.Popup)
+               //.AllowUpdating(true)
+               //.AllowAdding(true)
+               //.AllowDeleting(true)
+               //.UseIcons(true)
+               //.Popup(p => p
+               //    .Title("Thông tin mục đích sử dụng")
+
+               //)
+               //.Form(f => f.Items(items =>
+               //{
+               //    items.AddGroup()
+               //        .ColCount(2)
+               //        .ColSpan(2)
+               //        .Items(groupItems =>
+               //        {
+               //            groupItems.AddSimpleFor(m => m.KYHIEU);
+               //            groupItems.AddSimpleFor(m => m.TEN);
+               //            groupItems.AddSimpleFor(m => m.CHIMUC);
+               //            groupItems.AddSimpleFor(m => m.CHIMUCTINH);
+               //            groupItems.AddSimpleFor(m => m.ID_CAPTREN).IsRequired(false).ColSpan(2);
+
+               //            groupItems.AddSimpleFor(m => m.CAPTINH).IsRequired(false);
+
+               //        });
 
 
-               }))
+
+
+               )
         
