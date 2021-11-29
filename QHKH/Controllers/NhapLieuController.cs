@@ -1,6 +1,7 @@
 ﻿using KEHOACHQH.DAL;
 using KHQH.Models.DB;
 using KHQH.Models.JSONDATA;
+using QHKH.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Web.Mvc;
 
 namespace KHQH.Controllers
 {
-    public class NhapLieuController : Controller
+    public class NhapLieuController : BaseController
     {
         KHQHEntities dbEF = new KHQHEntities();
 
@@ -18,6 +19,10 @@ namespace KHQH.Controllers
         // GET: NhapLieu
         public ActionResult NL_HIENTRANG(int ID=1)
         {
+            if (LoginInfo == null)
+            {
+                return Redirect("/");
+            }
             CombineHienTrang cb = new CombineHienTrang();
             HIENTRANG_DAPPER ht = new HIENTRANG_DAPPER();
 
@@ -45,6 +50,10 @@ namespace KHQH.Controllers
 
         public ActionResult NL_CONGTRINH(int ID=5)
         {
+            if (LoginInfo == null)
+            {
+                return Redirect("/");
+            }
             CombineHienTrang cb = new CombineHienTrang();
             HIENTRANG_DAPPER ht = new HIENTRANG_DAPPER();
 
@@ -67,6 +76,10 @@ namespace KHQH.Controllers
 
         public ActionResult NL_KEHOACH(int ID=7)
         {
+            if (LoginInfo == null)
+            {
+                return Redirect("/");
+            }
             CombineHienTrang cb = new CombineHienTrang();
             HIENTRANG_DAPPER ht = new HIENTRANG_DAPPER();
 
@@ -89,6 +102,10 @@ namespace KHQH.Controllers
 
         public ActionResult NL_DIENTICHPHANBOXACDINH()
         {
+            if (LoginInfo == null)
+            {
+                return Redirect("/");
+            }
             CombineHienTrang cb = new CombineHienTrang();
             HIENTRANG_DAPPER ht = new HIENTRANG_DAPPER();
 

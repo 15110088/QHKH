@@ -72,6 +72,10 @@
     <Reference Include="EPPlus, Version=5.8.3.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.5.8.3\lib\net45\EPPlus.dll</HintPath>
     </Reference>
+    <Reference Include="Esri.ArcGISRuntime, Version=10.2.7.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\Esri.ArcGISRuntime.dll</HintPath>
+    </Reference>
     <Reference Include="ExcelDataReader, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelDataReader.3.6.0\lib\net45\ExcelDataReader.dll</HintPath>
     </Reference>
@@ -269,6 +273,8 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Interface\IBase.cs" />
+    <Compile Include="Models\DB\MAPCONFIG_DAPPER.cs" />
     <Compile Include="Models\Excel\BM03CT.cs" />
     <Content Include="Scripts\aspnet\dx.aspnet.data.js" />
     <Content Include="Scripts\aspnet\dx.aspnet.mvc.js" />
@@ -418,7 +424,6 @@
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Template\CertificationsExportTemplate.xlsx" />
     <Content Include="Template\font\Montserrat-Black.ttf" />
     <Content Include="Template\font\Montserrat-BlackItalic.ttf" />
@@ -479,6 +484,9 @@
     <Content Include="Views\Shared\Header.cshtml" />
     <Content Include="Views\TienIch\XuatBieuMau.cshtml" />
     <Content Include="Views\TienIch\XuatBieuMauCapHuyen.cshtml" />
+    <Content Include="Views\TienIch\KhoaKYQH.cshtml" />
+    <Content Include="Views\TienIch\MapConfig.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -584,6 +592,7 @@
     <Compile Include="Models\Excel\BM04CT.cs" />
     <Compile Include="Models\Excel\BM09CT.cs" />
     <Compile Include="Models\Excel\BM10CH.cs" />
+    <Compile Include="Models\Excel\BM11CT.cs" />
     <Compile Include="Models\Helpper\DataAPI.cs" />
     <Compile Include="Models\JSONDATA\PageDB.cs" />
     <Compile Include="Models\Order.cs" />

@@ -78,6 +78,7 @@
                        .ColumnHidingEnabled(true)
                        .Paging(p => p.PageSize(20))
                        .SearchPanel(searchPanel => searchPanel.Visible(true))
+                       .AllowColumnResizing(true)
                        .Columns(columns =>
                        {
                            columns.AddFor(m => m.ID).Caption("STT").AllowEditing(false);
@@ -87,7 +88,7 @@
                                       .Lookup(lookup => lookup
                                       .DataSource(Model.LstCMD.Select(n => new { n.ID, n.TEN }))
                                       .DisplayExpr("TEN")
-                                      .ValueExpr("ID"));
+                                      .ValueExpr("ID")).MinWidth(350);
                            columns.AddFor(m => m.MAHUYEN).Caption("Huyện")
                                  .SetCellValue("setStateValue")
                                  .Lookup(lookup => lookup
@@ -115,6 +116,44 @@
                 ))
     <br />
 }
+@using (Html.DevExtreme().NamedTemplate("DropDownBoxTemplate"))
+{
+    @(Html.DevExtreme().DropDownBox()
+        .DataSource(Model.LstCMD.Select(n => new { n.ID, n.TEN }))
+                                      .DisplayExpr("TEN")
+                                      .ValueExpr("ID")
+        .Value(new JS("value"))
+        .DropDownOptions(options => options.Width(500))
+        .Option("setValue", new JS("setValue"))
+        .ContentTemplate(new TemplateName("ContentTemplate"))
+    )
+}
+
+@using (Html.DevExtreme().NamedTemplate("ContentTemplate"))
+{
+    @(Html.DevExtreme().DataGrid()
+        .DataSource(Model.LstCMD.Select(n => new { n.ID, n.TEN })).KeyExpr("ID")
+        .RemoteOperations(true)
+        .Height(250)
+        .Columns(c =>
+        {
+            c.Add().DataField("TEN");
+        })
+        .Scrolling(s => s.Mode(GridScrollingMode.Virtual))
+        .HoverStateEnabled(true)
+        .RemoteOperations(true)
+        .Selection(s => s.Mode(SelectionMode.Single))
+        .SelectedRowKeys(new JS("[component.option('value')]"))
+        .FocusedRowEnabled(true)
+        .FocusedRowKey(new JS("component.option('value')"))
+        .OnSelectionChanged("function(selectionChangedArgs) { onSelectionChanged(selectionChangedArgs, component) }")
+    )
+}
+
+
+
+
+
 
 @if (Model.SetupPage.TYPE == 8)
 {
@@ -389,6 +428,18 @@
     function setStateValue(rowData, value) {
         rowData.MAHUYEN = value;
         rowData.MAXA = null;
+     }
+
+
+    function onSelectionChanged(selectionChangedArgs, component) {
+        var setValue = component.option('setValue');
+        var selectedRowKey = selectionChangedArgs.selectedRowKeys[0];
+
+        component.option('value', selectedRowKey);
+        setValue(selectedRowKey);
+        if (selectionChangedArgs.selectedRowKeys.length > 0) {
+            component.close();
+        }
     }
     $(document).ready(function () {
 

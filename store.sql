@@ -131,6 +131,58 @@ When No_Data_Found Then
      Dbms_Output.Put_Line('No data with emp_id= ');
 END;
 
+create or replace PROCEDURE ST_BieuMau05CT(IDKYQH in number,preloop out SYS_REFCURSOR)
+AS BEGIN
+open preloop for 
+select case when KYHIEU is null then ' ' else KYHIEU end as KIHIEU    ,DM_CHUYENMUCDICH.ID as STT,DM_KVHC.MA_KVHC as MAHUYEN
+,case when sum(KEHOACH_CMD.DIENTICH) is null then 0 else ROUND(sum(KEHOACH_CMD.DIENTICH)/10000,2) end as DIENTICH  
+from DM_KVHC 
+ join DM_CHUYENMUCDICH on  DM_CHUYENMUCDICH.ID!=MA_KVHC
+ left join KEHOACH_CMD on DM_CHUYENMUCDICH.ID=KEHOACH_CMD.ID_CMD and KEHOACH_CMD.mahuyen=DM_KVHC.MA_KVHC and KEHOACH_CMD.captinh=1 
+ where  ID_CAP_KVHC=2  and DM_CHUYENMUCDICH.captinh=1  
+ and (ID_KYQH=IDKYQH or ID_KYQH is null)
+group by KYHIEU,DM_KVHC.MA_KVHC,DM_CHUYENMUCDICH.ID
+order by  DM_CHUYENMUCDICH.ID;
+Exception
+When No_Data_Found Then
+     -- Tr??ng h?p câu SELECT không tr? v? b?n ghi nào
+     Dbms_Output.Put_Line('No data with emp_id= ');
+END;
+
+create or replace PROCEDURE ST_BieuMau06CT(IDKYQH in number,preloop out SYS_REFCURSOR)
+AS BEGIN
+open preloop for 
+
+select KYHIEU,CAST(GETNAM.NAM AS NVARCHAR2(4))   as MAHUYEN,DM_CHUYENMUCDICH.ID as STT,case when sum(KEHOACH_CMD.DIENTICH) is null then 0 else ROUND(sum(KEHOACH_CMD.DIENTICH)/10000,2) end as DIENTICH  
+ from 
+
+ (
+        DM_CHUYENMUCDICH
+        right join (select KEHOACH_CMD.NAM from   KEHOACH_CMD 
+        join kyquyhoachkehoach on KEHOACH_CMD.ID_KYQH=kyquyhoachkehoach.ID
+        where KEHOACH_CMD.NAM >= (select TUNAM from  kyquyhoachkehoach
+        where ID=IDKYQH) and 
+        KEHOACH_CMD.NAM <= (select TOINAM from  kyquyhoachkehoach
+        where ID=IDKYQH ))  GETNAM  on   DM_CHUYENMUCDICH.ID!=-4
+        left join KEHOACH_CMD on DM_CHUYENMUCDICH.ID=KEHOACH_CMD.ID_CMD  and KEHOACH_CMD.captinh=1  and KEHOACH_CMD.nam=GETNAM.NAM
+ )
+ where  DM_CHUYENMUCDICH.captinh=1  
+ and
+ (KEHOACH_CMD.NAM >= (select TUNAM from  kyquyhoachkehoach
+where ID=IDKYQH) and 
+KEHOACH_CMD.NAM <= (select TOINAM from  kyquyhoachkehoach
+where ID=IDKYQH
+
+) or KEHOACH_CMD.id_kyqh is null)
+
+group by KYHIEU,DM_CHUYENMUCDICH.ID,GETNAM.NAM
+order by  DM_CHUYENMUCDICH.ID;
+
+Exception
+When No_Data_Found Then
+     -- Tr??ng h?p câu SELECT không tr? v? b?n ghi nào
+     Dbms_Output.Put_Line('No data with emp_id= ');
+END;
 
 create or replace PROCEDURE ST_BieuMau07CT(IDKYQH in number,preloop out SYS_REFCURSOR)
 AS BEGIN
@@ -188,7 +240,23 @@ When No_Data_Found Then
      Dbms_Output.Put_Line('No data with emp_id= ');
 END;
 
+create or replace PROCEDURE ST_BieuMau11CT_LOAIDAT(IDKYQH in number,preloop out SYS_REFCURSOR)
+AS BEGIN
+open preloop for 
+select a.KIHIEU as HIENTRANG,b.STT,b.KIHIEU as CONGTRINH ,
+case when sum(th_chuchuyendatdai.DIENTICH) is null then 0 else ROUND(sum(th_chuchuyendatdai.DIENTICH)) end as DIENTICH  
+from dm_mucdichsudung a
+left join dm_mucdichsudung b on a.ID!=-4
+left join th_chuchuyendatdai on a.ID=th_chuchuyendatdai.ID_MDSD  and b.ID= th_chuchuyendatdai.id_mdsd_chuyen
+where a.captinh=1  and b.captinh=1 
+group by a.KIHIEU,b.KIHIEU,b.STT
+order by b.STT;
 
+Exception
+When No_Data_Found Then
+     -- Tr??ng h?p câu SELECT không tr? v? b?n ghi nào
+     Dbms_Output.Put_Line('No data with emp_id= ');
+END;
 
 
 --Bieu mau cap tinh lam bi sai khong co lay duoc ky truoc
@@ -366,6 +434,21 @@ When No_Data_Found Then
      Dbms_Output.Put_Line('No data with emp_id= ');
 END;
 
+
+
+select a.KIHIEU as HIENTRANG,b.STT,b.KIHIEU as CONGTRINH ,
+case when sum(th_chuchuyendatdai.DIENTICH) is null then 0 else ROUND(sum(th_chuchuyendatdai.DIENTICH)) end as DIENTICH  
+from 
+
+ DM_KVHC join 
+dm_mucdichsudung a on a.ID!=-4
+left join dm_mucdichsudung b on a.ID!=-4
+left join th_chuchuyendatdai on a.ID=th_chuchuyendatdai.ID_MDSD  and b.ID= th_chuchuyendatdai.id_mdsd_chuyen
+ where  ID_CAP_KVHC=1  and a.STT is not null and b.STT is not null and DM_KVHC.MA_KVHC_CHA=747
+ and (  th_chuchuyendatdai.id_kyqh=1 or  th_chuchuyendatdai.id_kyqh is null)
+ 
+group by a.KIHIEU,b.KIHIEU,b.STT
+order by b.STT;
 
 
 

@@ -23,7 +23,7 @@ namespace KHQH.Models.DB
         [Required]
         public string MAHUYEN { get; set; }
 
-        [Required]
+     
         public string MAXA { get; set; }
 
         [Required]

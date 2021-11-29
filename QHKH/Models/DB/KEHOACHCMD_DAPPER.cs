@@ -18,7 +18,6 @@ namespace KHQH.Models.DB
 
         public bool? CAPTINH { get; set; }
 
-        [Required]
         public string MAXA { get; set; }
 
         public decimal? DIENTICH { get; set; }

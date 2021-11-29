@@ -3,6 +3,8 @@ using DevExtreme.AspNet.Mvc;
 using KEHOACHQH.DAL;
 using KHQH.Models.DB;
 using Newtonsoft.Json;
+using QHKH.Controllers;
+using QHKH.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +21,25 @@ namespace KHQH.API
     {
 
         private KHQH.DBFactory.DBInteractive db = new KHQH.DBFactory.DBInteractive();
+        IBase Log = new BaseController();
 
         private KHQHEntities dbEF = new KHQHEntities();
 
+        [HttpGet]
+        public HttpResponseMessage LoaiBanDo(DataSourceLoadOptions loadOptions)
+        {
 
+
+            List<DM_KeHoachDieuChinh> data = new List<DM_KeHoachDieuChinh>();
+            data.Add(new DM_KeHoachDieuChinh(1, "Hiện Trạng"));
+            data.Add(new DM_KeHoachDieuChinh(2, "Kế Hoạch"));
+            data.Add(new DM_KeHoachDieuChinh(3, "Khu Chức Năng"));
+            data.Add(new DM_KeHoachDieuChinh(4, "Quy Hoạch"));
+            data.Add(new DM_KeHoachDieuChinh(5, "Công Trình"));
+            data.Add(new DM_KeHoachDieuChinh(6, "Chuyên Đề"));
+
+            return Request.CreateResponse(DataSourceLoader.Load(data, loadOptions));
+        }
 
         #region Mục Đích Sử dụng Thêm/Xóa/Sửa
         [HttpGet]
@@ -46,6 +63,9 @@ namespace KHQH.API
 
             dbEF.DM_MUCDICHSUDUNG.AddObject(info);
             dbEF.SaveChanges();
+            Log.GhiLogAPI("Thêm mục đích sử dụng " + info.TEN + " Table = DM_MUCDICHSUDUNG", "DANHMUC");
+
+
 
             return Request.CreateResponse(HttpStatusCode.Created);
         }
@@ -59,6 +79,7 @@ namespace KHQH.API
             DM_MUCDICHSUDUNG info = dbEF.DM_MUCDICHSUDUNG.Where(n => n.ID == key).FirstOrDefault();
             JsonConvert.PopulateObject(values, info);
             dbEF.SaveChanges();
+            Log.GhiLogAPI("Cập nhật mục đích sử dụng " + info.TEN + " Table = DM_MUCDICHSUDUNG", "DANHMUC");
 
             return Request.CreateResponse(HttpStatusCode.Created);
         }
@@ -73,6 +94,7 @@ namespace KHQH.API
             info.ENABLED = false;
 
             dbEF.SaveChanges();
+            Log.GhiLogAPI("Xóa mục đích sử dụng " + info.TEN + " Table = DM_MUCDICHSUDUNG", "DANHMUC");
 
             return Request.CreateResponse(HttpStatusCode.Created);
         }
@@ -99,6 +121,7 @@ namespace KHQH.API
 
             dbEF.DM_CHUYENMUCDICH.AddObject(info);
             dbEF.SaveChanges();
+            Log.GhiLogAPI("Thêm danh mục chuyển mục đích " + info.TEN + " Table = DM_CHUYENMUCDICH", "DANHMUC");
 
             return Request.CreateResponse(HttpStatusCode.Created);
         }
@@ -112,6 +135,7 @@ namespace KHQH.API
             DM_CHUYENMUCDICH info = dbEF.DM_CHUYENMUCDICH.Where(n => n.ID == key).FirstOrDefault();
             JsonConvert.PopulateObject(values, info);
             dbEF.SaveChanges();
+            Log.GhiLogAPI("Cập nhật danh mục chuyển mục đích " + info.TEN + " Table = DM_CHUYENMUCDICH", "DANHMUC");
 
             return Request.CreateResponse(HttpStatusCode.Created);
         }
@@ -125,6 +149,7 @@ namespace KHQH.API
             DM_CHUYENMUCDICH info = dbEF.DM_CHUYENMUCDICH.Where(n => n.ID == key).FirstOrDefault();
             info.ENABLED = false;
             dbEF.SaveChanges();
+            Log.GhiLogAPI("Xóa danh mục chuyển mục đích " + info.TEN + " Table = DM_CHUYENMUCDICH", "DANHMUC");
 
             return Request.CreateResponse(HttpStatusCode.Created);
         }
@@ -145,14 +170,14 @@ namespace KHQH.API
         public HttpResponseMessage KhuChucNangMDSD(DataSourceLoadOptions loadOptions)
         {
             //List<DM_CHUYENMUCDICH> data = db.EGetAll<DM_CHUYENMUCDICH>().Where(n => n.ENABLED == true).ToList();
-            var data = dbEF.KHUCHUCNANGs.Select(n => new { n.CAPTINH, n.ID, n.MAHUYEN, n.MAXA,n.MAKHUCN,n.MALOAIKHUCN,n.ID_KYQH,n.TENVUNG }).ToList();
+            var data = dbEF.KHUCHUCNANG.Select(n => new { n.CAPTINH, n.ID, n.MAHUYEN, n.MAXA,n.MAKHUCN,n.MALOAIKHUCN,n.ID_KYQH,n.TENVUNG }).ToList();
             return Request.CreateResponse(DataSourceLoader.Load(data, loadOptions));
         }
 
         public HttpResponseMessage KhuChucNangCH(DataSourceLoadOptions loadOptions)
         {
             //List<DM_CHUYENMUCDICH> data = db.EGetAll<DM_CHUYENMUCDICH>().Where(n => n.ENABLED == true).ToList();
-            var data = dbEF.KHUCHUCNANGs.Where(n => n.CAPTINH == false ).Select(n => new { n.CAPTINH, n.ID, n.MAHUYEN, n.MAXA, n.MAKHUCN, n.MALOAIKHUCN, n.ID_KYQH, n.TENVUNG }).ToList();
+            var data = dbEF.KHUCHUCNANG.Where(n => n.CAPTINH == false ).Select(n => new { n.CAPTINH, n.ID, n.MAHUYEN, n.MAXA, n.MAKHUCN, n.MALOAIKHUCN, n.ID_KYQH, n.TENVUNG }).ToList();
             return Request.CreateResponse(DataSourceLoader.Load(data, loadOptions));
         }
 
@@ -166,8 +191,9 @@ namespace KHQH.API
             info.ENABLED = true;
 
             dbEF.DM_LOAIKHUCHUCNANG.AddObject(info);
-            dbEF.SaveChanges();
 
+            dbEF.SaveChanges();
+            Log.GhiLogAPI("Thêm danh mục khu chức năng " + info.TEN + " Table = DM_LOAIKHUCHUCNANG", "DANHMUC");
             return Request.CreateResponse(HttpStatusCode.Created);
         }
 
@@ -180,7 +206,7 @@ namespace KHQH.API
             DM_LOAIKHUCHUCNANG info = dbEF.DM_LOAIKHUCHUCNANG.Where(n => n.ID == key).FirstOrDefault();
             JsonConvert.PopulateObject(values, info);
             dbEF.SaveChanges();
-
+            Log.GhiLogAPI("Cập nhật danh mục khu chức năng " + info.TEN + " Table =DM_LOAIKHUCHUCNANG" , "DANHMUC");
             return Request.CreateResponse(HttpStatusCode.Created);
         }
 
@@ -193,6 +219,7 @@ namespace KHQH.API
             DM_LOAIKHUCHUCNANG info = dbEF.DM_LOAIKHUCHUCNANG.Where(n => n.ID == key).FirstOrDefault();
             info.ENABLED = false;
             dbEF.SaveChanges();
+            Log.GhiLogAPI("Xóa danh mục khu chức năng " + info.TEN + " Table =DM_LOAIKHUCHUCNANG", "DANHMUC");
 
             return Request.CreateResponse(HttpStatusCode.Created);
         }
@@ -218,6 +245,7 @@ namespace KHQH.API
 
             dbEF.DM_LOAICONGTRINH.AddObject(info);
             dbEF.SaveChanges();
+            Log.GhiLogAPI("Thêm danh mục công trình " + info.LOAIHANGMUC + " Table = DM_LOAICONGTRINH", "DANHMUC");
 
             return Request.CreateResponse(HttpStatusCode.Created);
         }
@@ -231,6 +259,7 @@ namespace KHQH.API
             DM_LOAICONGTRINH info = dbEF.DM_LOAICONGTRINH.Where(n => n.ID == key).FirstOrDefault();
             JsonConvert.PopulateObject(values, info);
             dbEF.SaveChanges();
+            Log.GhiLogAPI("Cập nhật danh mục công trình " + info.LOAIHANGMUC + " Table = DM_LOAICONGTRINH", "DANHMUC");
 
             return Request.CreateResponse(HttpStatusCode.Created);
         }
@@ -245,6 +274,7 @@ namespace KHQH.API
             // info.ENABLED = false;
             dbEF.DeleteObject(info);
             dbEF.SaveChanges();
+            Log.GhiLogAPI("Xóa danh mục công trình " + info.LOAIHANGMUC + " Table = DM_LOAICONGTRINH", "DANHMUC");
 
             return Request.CreateResponse(HttpStatusCode.Created);
         }
@@ -256,29 +286,37 @@ namespace KHQH.API
         public HttpResponseMessage KYQH(DataSourceLoadOptions loadOptions)
         {
             //List<DM_CHUYENMUCDICH> data = db.EGetAll<DM_CHUYENMUCDICH>().Where(n => n.ENABLED == true).ToList();
-            var data = dbEF.KYQUYHOACHKEHOACHes.Where(n => n.BIKHOA == false).Select(n=>new { n.ID,n.ID_CHA,n.IS_KEHOACH_DIEUCHINH,n.NAM,n.TUNAM,n.TOINAM,n.TEN}).ToList();
+            var data = dbEF.KYQUYHOACHKEHOACH.Where(n => n.BIKHOA == false).Select(n=>new { n.ID,n.ID_CHA,n.IS_KEHOACH_DIEUCHINH,n.NAM,n.TUNAM,n.TOINAM,n.TEN}).ToList();
+            return Request.CreateResponse(DataSourceLoader.Load(data, loadOptions));
+        }
+
+        [HttpGet]
+        public HttpResponseMessage KYQHALL(DataSourceLoadOptions loadOptions)
+        {
+            //List<DM_CHUYENMUCDICH> data = db.EGetAll<DM_CHUYENMUCDICH>().Where(n => n.ENABLED == true).ToList();
+            var data = dbEF.KYQUYHOACHKEHOACH.Select(n => new { n.ID, n.ID_CHA, n.IS_KEHOACH_DIEUCHINH, n.NAM, n.TUNAM, n.TOINAM, n.TEN,n.BIKHOA }).ToList();
             return Request.CreateResponse(DataSourceLoader.Load(data, loadOptions));
         }
 
         [HttpGet]
         public HttpResponseMessage KYQHByID(DataSourceLoadOptions loadOptions,int ID=0)
         {
-            var data=dbEF.KYQUYHOACHKEHOACHes.Where(n => n.BIKHOA == false && n.IS_KEHOACH_DIEUCHINH == ID).Select(n => new { n.ID, n.ID_CHA, n.IS_KEHOACH_DIEUCHINH, n.NAM, n.TUNAM, n.TOINAM, n.TEN }).ToList(); ;
+            var data=dbEF.KYQUYHOACHKEHOACH.Where(n => n.BIKHOA == false && n.IS_KEHOACH_DIEUCHINH == ID).Select(n => new { n.ID, n.ID_CHA, n.IS_KEHOACH_DIEUCHINH, n.NAM, n.TUNAM, n.TOINAM, n.TEN }).ToList(); ;
             if (ID==4)
             {
-                 data = dbEF.KYQUYHOACHKEHOACHes.Where(n => n.BIKHOA == false && n.IS_KEHOACH_DIEUCHINH == 3 || n.IS_KEHOACH_DIEUCHINH == 1).Select(n => new { n.ID, n.ID_CHA, n.IS_KEHOACH_DIEUCHINH, n.NAM, n.TUNAM, n.TOINAM, n.TEN }).ToList();
+                 data = dbEF.KYQUYHOACHKEHOACH.Where(n => n.BIKHOA == false && n.IS_KEHOACH_DIEUCHINH == 3 || n.IS_KEHOACH_DIEUCHINH == 1).Select(n => new { n.ID, n.ID_CHA, n.IS_KEHOACH_DIEUCHINH, n.NAM, n.TUNAM, n.TOINAM, n.TEN }).ToList();
 
             }
 
             if (ID == 1)
             {
-                data = dbEF.KYQUYHOACHKEHOACHes.Where(n => n.BIKHOA == false && n.IS_KEHOACH_DIEUCHINH == 4).Select(n => new { n.ID, n.ID_CHA, n.IS_KEHOACH_DIEUCHINH, n.NAM, n.TUNAM, n.TOINAM, n.TEN }).ToList();
+                data = dbEF.KYQUYHOACHKEHOACH.Where(n => n.BIKHOA == false && n.IS_KEHOACH_DIEUCHINH == 4).Select(n => new { n.ID, n.ID_CHA, n.IS_KEHOACH_DIEUCHINH, n.NAM, n.TUNAM, n.TOINAM, n.TEN }).ToList();
 
             }
 
             if (ID == 2)
             {
-                data = dbEF.KYQUYHOACHKEHOACHes.Where(n => n.BIKHOA == false && n.IS_KEHOACH_DIEUCHINH == 2).Select(n => new { n.ID, n.ID_CHA, n.IS_KEHOACH_DIEUCHINH, n.NAM, n.TUNAM, n.TOINAM, n.TEN }).ToList();
+                data = dbEF.KYQUYHOACHKEHOACH.Where(n => n.BIKHOA == false && n.IS_KEHOACH_DIEUCHINH == 2).Select(n => new { n.ID, n.ID_CHA, n.IS_KEHOACH_DIEUCHINH, n.NAM, n.TUNAM, n.TOINAM, n.TEN }).ToList();
 
             }
 
@@ -311,7 +349,7 @@ namespace KHQH.API
 
             if(info.IS_KEHOACH_DIEUCHINH!=null)
             {
-                var checkNam = dbEF.KYQUYHOACHKEHOACHes.Where(n => n.TUNAM == info.TUNAM && n.TOINAM == info.TOINAM && n.IS_KEHOACH_DIEUCHINH==info.IS_KEHOACH_DIEUCHINH).Count();
+                var checkNam = dbEF.KYQUYHOACHKEHOACH.Where(n => n.TUNAM == info.TUNAM && n.TOINAM == info.TOINAM && n.IS_KEHOACH_DIEUCHINH==info.IS_KEHOACH_DIEUCHINH).Count();
                 if(checkNam>0)
                 {
                     return Request.CreateResponse(HttpStatusCode.NotFound, "Kỳ quy hoạch đã tồn tại");
@@ -319,8 +357,10 @@ namespace KHQH.API
                 }
 
             }
-            dbEF.KYQUYHOACHKEHOACHes.AddObject(info);
+            dbEF.KYQUYHOACHKEHOACH.AddObject(info);
             dbEF.SaveChanges();
+            Log.GhiLogAPI("Thêm kỳ kế hoạch quy hoạch " + info.TEN + " Table = KYQUYHOACHKEHOACH", "DANHMUC");
+
             return Request.CreateResponse(HttpStatusCode.Created);
         }
 
@@ -330,11 +370,20 @@ namespace KHQH.API
             var key = Convert.ToInt32(form.Get("key"));
             var values = form.Get("values");
 
-            KYQUYHOACHKEHOACH info = dbEF.KYQUYHOACHKEHOACHes.Where(n => n.ID == key).FirstOrDefault();
+            KYQUYHOACHKEHOACH info = dbEF.KYQUYHOACHKEHOACH.Where(n => n.ID == key).FirstOrDefault();
             JsonConvert.PopulateObject(values, info);
-            info.BIKHOA = false;
 
             dbEF.SaveChanges();
+            if(info.BIKHOA??false)
+            {
+                Log.GhiLogAPI("Khóa kỳ kế hoạch quy hoạch " + info.TEN + " Table = KYQUYHOACHKEHOACH", "DANHMUC");
+
+            }
+            else
+            {
+                Log.GhiLogAPI("Cập nhật kỳ kế hoạch quy hoạch " + info.TEN + " Table = KYQUYHOACHKEHOACH", "DANHMUC");
+
+            }
 
             return Request.CreateResponse(HttpStatusCode.Created);
         }
@@ -345,9 +394,10 @@ namespace KHQH.API
             var key = Convert.ToInt32(form.Get("key"));
             var values = form.Get("values");
 
-            KYQUYHOACHKEHOACH info = dbEF.KYQUYHOACHKEHOACHes.Where(n => n.ID == key).FirstOrDefault();
+            KYQUYHOACHKEHOACH info = dbEF.KYQUYHOACHKEHOACH.Where(n => n.ID == key).FirstOrDefault();
            info.BIKHOA = true;
             dbEF.SaveChanges();
+            Log.GhiLogAPI("Xóa kỳ kế hoạch quy hoạch " + info.TEN + " Table = KYQUYHOACHKEHOACH", "DANHMUC");
 
             return Request.CreateResponse(HttpStatusCode.Created);
         }
@@ -381,6 +431,7 @@ namespace KHQH.API
             info.DELETED = false;
             dbEF.DM_KVHC.AddObject(info);
             dbEF.SaveChanges();
+            Log.GhiLogAPI("Thêm khu vực hành chính " + info.TEN_KVHC + " Table = DM_KVHC", "DANHMUC");
 
             return Request.CreateResponse(HttpStatusCode.Created);
         }
@@ -394,6 +445,7 @@ namespace KHQH.API
             DM_KVHC info = dbEF.DM_KVHC.Where(n => n.ID == key).FirstOrDefault();
             JsonConvert.PopulateObject(values, info);
             dbEF.SaveChanges();
+            Log.GhiLogAPI("Cập nhật khu vực hành chính " + info.TEN_KVHC + " Table = DM_KVHC", "DANHMUC");
 
             return Request.CreateResponse(HttpStatusCode.Created);
         }
@@ -408,6 +460,62 @@ namespace KHQH.API
             info.DELETED = true;
 
             dbEF.SaveChanges();
+            Log.GhiLogAPI("Xóa khu vực hành chính " + info.TEN_KVHC + " Table = DM_KVHC", "DANHMUC");
+
+            return Request.CreateResponse(HttpStatusCode.Created);
+        }
+
+        #endregion
+
+
+
+        #region Cấu hình bản đò Thêm/Xóa/Sửa
+        [HttpGet]
+        public HttpResponseMessage GETMAPCONFIG(DataSourceLoadOptions loadOptions)
+        {
+            //List<DM_CHUYENMUCDICH> data = db.EGetAll<DM_CHUYENMUCDICH>().Where(n => n.ENABLED == true).ToList();
+            var data = dbEF.MAP_CONFIG.Where(n=>n.DELETED==false).Select(n => new { n.ID, n.DEFAULT_VIEW, MAKVHC=n.DM_KVHC.MA_KVHC, n.MAP_SERVICES, n.ID_KYQH}).ToList();
+            return Request.CreateResponse(DataSourceLoader.Load(data, loadOptions));
+        }
+
+        [HttpPost]
+        public HttpResponseMessage PostMapConfig(FormDataCollection form)
+        {
+            var values = form.Get("values");
+            MAP_CONFIG info = new MAP_CONFIG();
+            JsonConvert.PopulateObject(values, info);
+            info.DELETED = false;
+            dbEF.MAP_CONFIG.AddObject(info);
+            dbEF.SaveChanges();
+            Log.GhiLogAPI("Thêm danh mục mapconfig " + info.ID + " Table = MAP_CONFIG", "DANHMUC");
+
+            return Request.CreateResponse(HttpStatusCode.Created);
+        }
+
+        [HttpPut]
+        public HttpResponseMessage PutMapConfig(FormDataCollection form)
+        {
+            var key = Convert.ToInt32(form.Get("key"));
+            var values = form.Get("values");
+
+            MAP_CONFIG info = dbEF.MAP_CONFIG.Where(n => n.ID == key).FirstOrDefault();
+            JsonConvert.PopulateObject(values, info);
+            dbEF.SaveChanges();
+            Log.GhiLogAPI("Cập nhật danh mục mapconfig " + info.ID + " Table = MAP_CONFIG", "DANHMUC");
+
+            return Request.CreateResponse(HttpStatusCode.Created);
+        }
+
+        [HttpDelete]
+        public HttpResponseMessage DeleteMapConfig(FormDataCollection form)
+        {
+            var key = Convert.ToInt32(form.Get("key"));
+            var values = form.Get("values");
+
+            MAP_CONFIG info = dbEF.MAP_CONFIG.Where(n => n.ID == key).FirstOrDefault();
+            info.DELETED = true;
+            dbEF.SaveChanges();
+            Log.GhiLogAPI("Xóa danh mục mapconfig " + info.ID + " Table = MAP_CONFIG", "DANHMUC");
 
             return Request.CreateResponse(HttpStatusCode.Created);
         }

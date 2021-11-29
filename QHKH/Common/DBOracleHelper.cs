@@ -62,12 +62,12 @@ namespace KHQH.Common
         {
             try
             {
-                if (parameters.Length % 2 != 0)
-                    throw new ArgumentException("Wrong number of parameters sent to procedure. Expected an even number.");
-                List<SqlParameter> filters = new List<SqlParameter>();
-
-                for (int i = 0; i < parameters.Length; i += 2)
-                    filters.Add(new SqlParameter(parameters[i] as string, parameters[i + 1]));
+                //if (parameters.Length % 2 != 0)
+                //    throw new ArgumentException("Wrong number of parameters sent to procedure. Expected an even number.");
+               List<OracleParameter> filters = new List<OracleParameter>();
+                 
+                //for (int i = 0; i < parameters.Length; i += 2)
+                //    filters.Add(new OracleParameter(parameters[i] as string, parameters[i + 1]));
                 return NonQuery(query, filters);
             }
             catch (Exception ex)
@@ -140,7 +140,7 @@ namespace KHQH.Common
 
         }
 
-        private static int NonQuery(string query, IList<SqlParameter> parametros)
+        private static int NonQuery(string query, IList<OracleParameter> parametros)
         {
             try
             {
@@ -153,7 +153,9 @@ namespace KHQH.Common
                     connection.Open();
                     command.Connection = connection;
                     command.CommandText = query;
-                    command.Parameters.AddRange(parametros.ToArray());
+                    command.CommandType = CommandType.Text;
+
+                    //command.Parameters.AddRange(parametros.ToArray());
                     return command.ExecuteNonQuery();
 
                 }

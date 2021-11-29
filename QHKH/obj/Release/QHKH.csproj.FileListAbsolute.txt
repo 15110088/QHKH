@@ -85,6 +85,5 @@ H:\QHKH\QHKH\bin\System.Web.Razor.xml
 H:\QHKH\QHKH\bin\System.Web.WebPages.xml
 H:\QHKH\QHKH\bin\System.Web.WebPages.Deployment.xml
 H:\QHKH\QHKH\bin\System.Web.WebPages.Razor.xml
-H:\QHKH\QHKH\obj\Release\QHKH.csprojResolveAssemblyReference.cache
 H:\QHKH\QHKH\obj\Release\QHKH.dll
 H:\QHKH\QHKH\obj\Release\QHKH.pdb

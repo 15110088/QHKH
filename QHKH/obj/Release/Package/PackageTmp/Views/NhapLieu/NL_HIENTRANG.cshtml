@@ -29,8 +29,8 @@
         @(Html.DevExtreme().SelectBox()
                 .DataSource(d => d.WebApi()
                             .RouteName("GetDanhMuc")
-                            .LoadAction("KYQH")
-                            .Key("ID"))
+                            .LoadAction("KYQHByID")
+                            .Key("ID").LoadParams( new { @ID=Model.SetupPage.TYPE}))
                              .DisplayExpr("TEN").Width(300)
                              .SearchEnabled(true).Placeholder("Chọn kỳ kế hoạch quy hoạch ")
                             .AcceptCustomValue(true).OnValueChanged("CapNhatGrid").ID("NameKYQH")
@@ -50,13 +50,7 @@
 @(Html.DevExtreme().DataGrid<KEHOACHQH.DAL.HIENTRANG>()
                            .ID("grv")
                            .Selection(s => s.Mode(SelectionMode.Single))
-                       //.DataSource(d => d.WebApi()
-                       //               .RouteName("NhapLieu").LoadAction("GetHienTrangByID").Key("ID").LoadParams(new { @ID=1})
-                       //           //.InsertAction("PostKYQH")
-                       //           //.UpdateAction("PutKYQH")
-                       //           //.DeleteAction("DeleteKYQH")
-                       //           )
-
+                
                        .ShowBorders(true)
                        .ColumnAutoWidth(true)
                        .FilterRow(f => f.Visible(true))
@@ -64,12 +58,13 @@
                        .ShowRowLines(true)
                        .ColumnHidingEnabled(true)
                        .Paging(p => p.PageSize(20))
+                        .OnRowRemoving("onRowRemoving")
                        .SearchPanel(searchPanel => searchPanel.Visible(true))
                        .Columns(columns =>
                        {
                            columns.AddFor(m => m.ID).Caption("STT").AllowEditing(true);
                            columns.AddFor(m => m.TENVUNG).Caption("Tên vùng").AllowEditing(true);
-                           columns.AddFor(m => m.MAHT).Caption("MAHT").AllowEditing(true);
+                           columns.AddFor(m => m.MAHT).Caption("Mã vùng").AllowEditing(true);
                            columns.AddFor(m => m.DIENTICH).Caption("Diện tích").AllowEditing(true);
                            columns.AddFor(m => m.ID_MDSD).Caption("Mục đích sử dụng")
                                       .Lookup(lookup => lookup
@@ -149,12 +144,13 @@
                        .ShowRowLines(true)
                        .ColumnHidingEnabled(true)
                        .Paging(p => p.PageSize(20))
+                        .OnRowRemoving("onRowRemoving")
                        .SearchPanel(searchPanel => searchPanel.Visible(true))
                        .Columns(columns =>
                        {
                            columns.AddFor(m => m.ID).Caption("STT").AllowEditing(true);
                            columns.AddFor(m => m.TENVUNG).Caption("Tên vùng").AllowEditing(true);
-                           columns.AddFor(m => m.MAKHUCN).Caption("MAHT").AllowEditing(true);
+                           columns.AddFor(m => m.MAKHUCN).Caption("Mã vùng").AllowEditing(true);
                            columns.AddFor(m => m.MALOAIKHUCN).Caption("Loại chức năng")
                                       .Lookup(lookup => lookup
                                       .DataSource(Model.LstLoaiKCN.Select(n => new { n.ID, n.TEN }))
@@ -234,12 +230,13 @@
                        .ShowRowLines(true)
                        .ColumnHidingEnabled(true)
                        .Paging(p => p.PageSize(20))
+                        .OnRowRemoving("onRowRemoving")
                        .SearchPanel(searchPanel => searchPanel.Visible(true))
                        .Columns(columns =>
                        {
                            columns.AddFor(m => m.ID).Caption("STT").AllowEditing(true);
                            columns.AddFor(m => m.TENVUNG).Caption("Tên vùng").AllowEditing(true);
-                           columns.AddFor(m => m.MAQH).Caption("MAQH").AllowEditing(true);
+                           columns.AddFor(m => m.MAQH).Caption("Mã vùng").AllowEditing(true);
                            columns.AddFor(m => m.DIENTICH).Caption("Diện tích").AllowEditing(true);
                            columns.AddFor(m => m.ID_MDSD).Caption("Mục đích sử dụng")
                                       .Lookup(lookup => lookup
@@ -333,11 +330,12 @@
                        .ColumnHidingEnabled(true)
                        .Paging(p => p.PageSize(20))
                        .SearchPanel(searchPanel => searchPanel.Visible(true))
+                       .OnRowRemoving("onRowRemoving")
                        .Columns(columns =>
                        {
                            columns.AddFor(m => m.ID).Caption("STT").AllowEditing(true);
                            columns.AddFor(m => m.TENVUNG).Caption("Tên vùng").AllowEditing(true);
-                           columns.AddFor(m => m.MAKH).Caption("MAQH").AllowEditing(true);
+                           columns.AddFor(m => m.MAKH).Caption("Mã vùng").AllowEditing(true);
                            columns.AddFor(m => m.DIENTICH).Caption("Diện tích").AllowEditing(true);
                            columns.AddFor(m => m.ID_MDSD).Caption("Mục đích sử dụng")
                                       .Lookup(lookup => lookup
@@ -442,7 +440,7 @@
                     <div class="row RowMagin">
 
                         <div class="col-sm">
-                            <label style="text-align:left" class="SRBody">Mã HT</label>
+                            <label style="text-align:left" class="SRBody">Mã Vùng</label>
                             @(Html.DevExtreme().TextBoxFor(n => n.HienTrang.MAHT).IsValid(true))
                         </div>
                     </div>
@@ -482,17 +480,14 @@
                             {
                                 <label style="text-align:left" class="SRBody">Diện tích</label>
                                         @(Html.DevExtreme().TextBoxFor(n => n.HienTrang.DIENTICH).IsValid(true))
-
-
                             }
 
                             @if (Model.SetupPage.TYPE == 3)
                             {
                                 <label style="text-align:left" class="SRBody">Cấp tỉnh</label>
                                             <br />
-                                            @(Html.DevExtreme().CheckBoxFor(n => n.HienTrang.CAPTINH).OnValueChanged("CapTinhCheck"))
+                                @(Html.DevExtreme().CheckBoxFor(n => n.HienTrang.CAPTINH).OnValueChanged("CapTinhCheck"))
                             }
-
                         </div>
 
                         <div class="col-sm">
@@ -523,7 +518,7 @@
 
 
 
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             @if (Model.SetupPage.TYPE == 1|| Model.SetupPage.TYPE == 4 || Model.SetupPage.TYPE == 2)
                             {
                                 <label style="text-align:left" class="SRBody">Năm</label>
@@ -531,7 +526,7 @@
                             }
                         </div>
 
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             @if (Model.SetupPage.TYPE == 1|| Model.SetupPage.TYPE == 4 || Model.SetupPage.TYPE == 2)
                             {
                                 <label style="text-align:left" class="SRBody">Cấp tỉnh</label>
@@ -542,7 +537,7 @@
 
                         </div>
 
-                        <div class="col-sm">
+                        <div class="col-sm-5">
                             @if (Model.SetupPage.TYPE == 4||Model.SetupPage.TYPE == 2)
                             {
                                 <label style="text-align:left" class="SRBody">Khu chức năng</label>
@@ -556,7 +551,7 @@
                                 )
                             }
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-1">
 
                         </div>
                     </div>
@@ -598,7 +593,7 @@
     // var apiRootUrl = "http://localhost:63563/"
     var host = '//' + window.location.host
 
-  
+
 
     var DataGirdCRUDModel = (function () {
         function DataGirdCRUDModel(key, actionLoad, actionInsert, actionUpdate, actionDelete) {
@@ -699,6 +694,69 @@
             }
         })
     }
+
+    function onRowRemoving(e) {
+        var MA=""
+        if (@Model.SetupPage.TYPE==1)
+        {
+            MA = e.data.MAHT
+        }
+        else if (@Model.SetupPage.TYPE==2)
+        {
+            MA = e.data.MAKH
+        }
+
+         else if (@Model.SetupPage.TYPE==3)
+        {
+            MA = e.data.MAKHUCN
+        }
+
+         else if (@Model.SetupPage.TYPE==4)
+        {
+            MA = e.data.MAQH
+        }
+
+         else if (@Model.SetupPage.TYPE==5)
+        {
+            MA = e.data.MACT
+        }
+
+        var def = $.Deferred();
+        e.cancel = def.promise();
+        console.log(MA)
+          $.ajax({
+              url: host + '/api/NhapLieu/CheckShape?TYPE=' +@Model.SetupPage.TYPE+"&MA=" + MA,
+                type: 'get',
+                success: function (data) {
+                    console.log(data)
+                    if (data)
+                    {
+                        console.log(e)
+                        var result = DevExpress.ui.dialog.confirm("Có Liên kết bản đồ?", "Thông báo");
+                        result.done(function (dialogResult) {
+                            def.resolve(!dialogResult);
+                        });
+
+                    }
+                    else {
+                        //console.log(e)
+                        //var result = DevExpress.ui.dialog.confirm("Có Liên kết bản đồ?", "Thông báo2");
+                        //result.done(function (dialogResult) {
+                        //});
+                        def.resolve(false);
+
+                    }
+
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+
+            });
+
+
+    }
+
     $(document).ready(function () {
 
 
@@ -722,12 +780,21 @@
             $('#TenKy').text("" + $('#NameKYQH').dxSelectBox("instance").option().displayValue)
         })
 
+        function ClearNhapLieu()
+        {
+            $('#HienTrang_NAM').val('')
+            $('#HienTrang_DIENTICH').val('')
+            $('#HienTrang_TENVUNG').val('')
+            $('#HienTrang_MAHT').val('')
+            //$('#IDHUYEN').dxSelectBox("instance").option("value",null)
+            //$('#IDXA').dxSelectBox("instance").option("value", null)
+        }
+
         $('#btnSave').click(function () {
             if (!validateText()) {
 
                 return;
             }
-
 
             $("#ImgLoading").removeClass("unActiveLoading");
             $("#ImgLoading").addClass("ActiveLoading");
@@ -736,7 +803,7 @@
             console.log($("#customFile"))
             console.log(files)
              var CountExtenFile= 0;
-            if (files.length < 3) {
+             if (files.length > 1 && files.length < 3) {
                 alert("Vui lòng chọn shape file gồm 3 file sha,shx,dbf")
                 $("#ImgLoading").removeClass("ActiveLoading");
                 $("#ImgLoading").addClass("unActiveLoading");
@@ -752,13 +819,16 @@
                     }
                 }
              }
-            if (CountExtenFile != 3)
-            {
-                alert("Vui lòng chọn shape file gồm 3 file sha,shx,dbf")
-                $("#ImgLoading").removeClass("ActiveLoading");
-                $("#ImgLoading").addClass("unActiveLoading");
-                return;
-            }
+             if (CountExtenFile != 0)
+             {
+                 if (CountExtenFile != 3) {
+                     alert("Vui lòng chọn shape file gồm 3 file sha,shx,dbf")
+                     $("#ImgLoading").removeClass("ActiveLoading");
+                     $("#ImgLoading").addClass("unActiveLoading");
+                     return;
+                 }
+             }
+
 
 
             var data = new FormData();
@@ -803,7 +873,12 @@
                     console.log(data)
                     if (data)
                     {
-                        window.location.href = host + '/NhapLieu/NL_HIENTRANG?ID='+@Model.SetupPage.TYPE
+                      //  window.location.href = host + '/NhapLieu/NL_HIENTRANG?ID='+@Model.SetupPage.TYPE
+                        $("#grv").dxDataGrid("getDataSource").reload();
+                        $('#modalHienTrang').modal('hide');
+                        $("#ImgLoading").removeClass("ActiveLoading");
+                        $("#ImgLoading").addClass("unActiveLoading");
+                        ClearNhapLieu()
 
                     }
                     else {

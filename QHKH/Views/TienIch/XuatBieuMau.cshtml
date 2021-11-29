@@ -13,7 +13,7 @@
             content: attr(data-badger);
             position: absolute;
             top: 0;
-            padding: 3px 7px;
+            padding: 6px 7px;
             font-size: 12px;
             font-weight: bold;
             background: #999;
@@ -78,7 +78,7 @@
 @(Html.DevExtreme().SelectBoxFor(n => n.HienTrang.ID_KYQH)
                     .DataSource(d => d.WebApi()
                                 .RouteName("GetDanhMuc")
-                                .LoadAction("KYQH")
+                                .LoadAction("KYQHALL")
                                 .Key("ID"))
                                 .ValueExpr("ID")
                                 .DisplayExpr("TEN")
@@ -98,7 +98,8 @@
                 </div>
 
             </div>
-            <a style="position:absolute;right:30px;top:20px" onclick="Xuat(@Model.LstPage.Where(n => n.TYPE == i+10).FirstOrDefault().TYPE)"><i class="bi bi-file-earmark-arrow-down-fill" style="width:50px"></i></a>
+
+            <a style="position:absolute;right:30px;top:20px; color:#198754" class="SRtitle1" onclick="Xuat(@Model.LstPage.Where(n => n.TYPE == i+10).FirstOrDefault().TYPE)"><i class="bi bi-file-earmark-arrow-down-fill" style="width:50px"></i></a>
 
         </div>
         <div class="col-sm">
@@ -108,20 +109,30 @@
                     <label class="SRbody" style="margin:10px">@Model.LstPage.Where(n => n.TYPE == i + 10+1).FirstOrDefault().TITLE</label>
                 </div>
             </div>
-            <a style="position:absolute;right:30px;top:20px" onclick="Xuat(@Model.LstPage.Where(n => n.TYPE == i+10+1).FirstOrDefault().TYPE)"><i class="bi bi-file-earmark-arrow-down-fill" style="width:50px"></i></a>
-
+            <a style="position:absolute;right:30px;top:20px; color:#198754"  class="SRtitle1" onclick="Xuat(@Model.LstPage.Where(n => n.TYPE == i+10+1).FirstOrDefault().TYPE)"><i class="bi bi-file-earmark-arrow-down-fill" style="width:15px"></i></a>
+                
         </div>
 
     </div>
 }
 
 <div class="row">
+
+
     <div class="col-sm">
         <div class="borderN">
+
             <div class="badger-left badger-success" data-badger="@Model.LstPage.Where(n => n.TYPE == 21).FirstOrDefault().TableSDE">
                 <br />
                 <label class="SRbody" style="margin:10px">@Model.LstPage.Where(n => n.TYPE == 21).FirstOrDefault().TITLE</label>
             </div>
+            <a style="position:absolute;right:30px;top:20px; color:#198754" class="SRtitle1" onclick="Xuat(21)"><i class="bi bi-file-earmark-arrow-down-fill" style="width:15px"></i></a>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-success me-md-2" onclick="TongHopBanDo()">Xuất mới</button>
+
+            </div>
+            
+ 
         </div>
     </div>
     <div class="col-sm">
@@ -131,7 +142,9 @@
 </div>
 
 
-
+<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    <img id="ImgLoading" class="unActiveLoading" src="~/Content/img/Spinner-1s-200px.gif" alt="">
+</div>
 
 
 
@@ -167,6 +180,43 @@
         //});
 
 
+    }
+    function TongHopBanDo() {
+        if (!validateText()) {
+            alert('Vui lòng chọn thông tin kỳ kế hoạch quy hoạch')
+
+            return;
+        }
+        $("#ImgLoading").removeClass("unActiveLoading");
+
+        $("#ImgLoading").addClass("ActiveLoading");
+
+             $.ajax({
+            url: host + '/api/TienIchAPI/TongHopChuChuyen',
+            type: 'GET',
+            success: function (data) {
+                if (data)
+                {
+                    $("#ImgLoading").removeClass("ActiveLoading");
+                    $("#ImgLoading").addClass("unActiveLoading");
+                    Xuat(21)
+                }
+                else {
+                    $("#ImgLoading").removeClass("ActiveLoading");
+                    $("#ImgLoading").addClass("unActiveLoading");
+                    alert('Lỗi tổng hợp chu chuyển')
+                }
+
+            },
+            error: function (err) {
+                console.log(err)
+                $("#ImgLoading").removeClass("ActiveLoading");
+                $("#ImgLoading").addClass("unActiveLoading");
+                alert('Lỗi tổng hợp chu chuyển')
+
+            }
+
+        });
     }
     $(document).on('click', '.panel-heading span.clickable', function (e) {
         var $this = $(this);

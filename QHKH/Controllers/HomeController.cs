@@ -3,6 +3,7 @@ using KHQH.Common;
 
 using KHQH.Models.DB;
 using QHKH.Controllers;
+using QHKH.Interface;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -27,26 +28,34 @@ namespace KHQH.Controllers {
             return View(cb);
         }
 
-        public ActionResult Map(string Huyen,string Xa)
+        public ActionResult Map(string Huyen,string Xa,bool IsCapTinh)
         {
+            if(LoginInfo==null)
+            {
+                return Redirect("/");
+            }
+            Session["MaHuyen"] = Huyen;
+            Session["MaXa"] = Xa;
+            Session["TenHuyen"] = dbEF.DM_KVHC.FirstOrDefault(n=>n.MA_KVHC==Huyen).TEN_KVHC;
+            Session["TenXa"] = dbEF.DM_KVHC.FirstOrDefault(n => n.MA_KVHC == Xa).TEN_KVHC; ;
+            Session["ISCAPTINH"] = IsCapTinh;
 
-            string a = Huyen;
-            string b = Xa;
+            GhiLog("Đăng nhập HUYEN="+Huyen+" Xa="+Xa, "LOGIN");
             CombineHienTrang cb = new CombineHienTrang();
             var dataKVHC = dbEF.DM_KVHC.Where(n => (n.DELETED == null || n.DELETED == false)).ToList();
             cb.LstHuyen = dataKVHC.Where(n => n.ID_CAP_KVHC == 2).ToList();
             cb.LstXa = dataKVHC.Where(n => n.ID_CAP_KVHC == 1).ToList();
-            //if(dbEF.MAP_CONFIG.Where(n => n.MAKVHC == Xa).FirstOrDefault()!=null)
-            //{
-            //    ViewData["URL"] = dbEF.MAP_CONFIG.Where(n => n.MAKVHC == Xa).FirstOrDefault().MAP_SERVICES;
+            if (dbEF.MAP_CONFIG.Where(n => n.MAKVHC == Xa).FirstOrDefault() != null)
+            {
+                ViewData["URL"] = dbEF.MAP_CONFIG.Where(n => n.MAKVHC == Xa).FirstOrDefault().MAP_SERVICES;
 
-            //}
-            //else
-            //{
-            //    ViewData["URL"] = dbEF.MAP_CONFIG.Where(n => n.DEFAULT_VIEW==true).FirstOrDefault().MAP_SERVICES;
+            }
+            else
+            {
+                ViewData["URL"] = dbEF.MAP_CONFIG.Where(n => n.DEFAULT_VIEW == true).FirstOrDefault().MAP_SERVICES;
 
-            //}
-            ViewData["URL"] = "http://192.169.3.157:6080/arcgis/rest/services/GD/Ky1Tong26680V4/MapServer/16";
+            }
+            //ViewData["URL"] = "http://192.169.3.157:6080/arcgis/rest/services/GD/Ky1Tong26680V6/MapServer";
             return View(cb);
         }
         [HttpPost]
@@ -61,15 +70,14 @@ namespace KHQH.Controllers {
                 }
                 string strPass = FormsAuthentication.HashPasswordForStoringInConfigFile(uSERTABLE.MATKHAU, "MD5");
                 //  var CheckUser = db.EGetAll<USERTABLE_DAPPER>().FirstOrDefault(n => n.TENDANGNHAP.ToLower() == uSERTABLE.TENDANGNHAP.ToLower() && n.MATKHAU.ToLower() == strPass.ToLower());
-                var CheckUser = dbEF.USERTABLEs.FirstOrDefault(n => n.TENDANGNHAP.ToLower() == uSERTABLE.TENDANGNHAP.ToLower() && n.MATKHAU.ToLower() == strPass.ToLower());
+                var CheckUser = dbEF.USERTABLE.FirstOrDefault(n => n.TENDANGNHAP.ToLower() == uSERTABLE.TENDANGNHAP.ToLower() && n.MATKHAU.ToLower() == strPass.ToLower());
 
                 if (CheckUser != null)
                 {
                     //  HttpContext.Current.Session["LogOut"] = "Đăng Xuất";
                     Session.Clear();
-                    Session["UserName"] = CheckUser.HOTEN;
-                    Session["MaHuyen"] = uSERTABLE.MAHUYEN;
-                    Session["MaXa"] = uSERTABLE.MAXA;
+                    Session["UserName"] = CheckUser.TENDANGNHAP;
+              
 
                     Session["LogOut"] = "ĐĂNG XUẤT";
                     return Json(ResultAPI<USERTABLE_DAPPER>.DATA(null, null, true, "Đăng nhập thành công", 200, ""));

@@ -6,7 +6,7 @@
             <span></span>
             <span></span>
         </button>
-        <a class="navbar-brand text-brand" href="index.html">KH<span class="color-b">QH</span></a>
+        <a class="navbar-brand text-brand" href="/Home/Map">QH<span class="color-b">KH</span></a>
 
         <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
             <ul class="navbar-nav">
@@ -16,7 +16,7 @@
 
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link active" href="index.html">Trang chủ</a>
+                        <a class="nav-link active" href="/Home/Map">Trang chủ</a>
                     </li>
 
 
@@ -35,22 +35,22 @@
                         </div>
                     </li>
 
-
+                      
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Nhập liệu</a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item " href="/NhapLieu/NL_HIENTRANG?ID=1">Nhập số liệu hiện trạng SDĐ </a>
-                            <a class="dropdown-item " href="/NhapLieu/NL_HIENTRANG?ID=4">Nhập số liệu khu chức năng </a>
-                            <a class="dropdown-item " href="/NhapLieu/NL_HIENTRANG?ID=3">Nhập số liệu QHKH SDĐ </a>
+                            <a class="dropdown-item " href="/NhapLieu/NL_HIENTRANG?ID=3">Nhập số liệu khu chức năng </a>
+                            <a class="dropdown-item " href="/NhapLieu/NL_HIENTRANG?ID=4">Nhập số liệu quy hoạch SDĐ </a>
                             <a class="dropdown-item " href="/NhapLieu/NL_HIENTRANG?ID=2">Nhập số liệu kế hoạch </a>
                             <a class="dropdown-item " href="/NhapLieu/NL_CONGTRINH?ID=5">Nhập số liệu công trình</a>
 
                             <a class="dropdown-item " href="/NhapLieu/NL_DIENTICHPHANBOXACDINH">Nhập diện tích phân bổ - xác định</a>
-                            <a class="dropdown-item " href="/NhapLieu/NL_KEHOACH?ID=7">Nhập số liệu chuyển mục đích </a>
-                            <a class="dropdown-item " href="/NhapLieu/NL_KEHOACH?ID=8">Nhập số liệu CSD</a>
+                            <a class="dropdown-item " href="/NhapLieu/NL_KEHOACH?ID=7">Nhập số liệu kế hoạch chuyển mục đích </a>
+                            <a class="dropdown-item " href="/NhapLieu/NL_KEHOACH?ID=8">Nhập số liệu kế hoạch chưa sử dụng</a>
                             <a class="dropdown-item " href="/NhapLieu/NL_KEHOACH?ID=9">Nhập số liệu thu hồi</a>
-                            <a class="dropdown-item " href="/NhapLieu/NL_KEHOACH?ID=10">Nhập số khu chức năng mục đính sử dụng</a>
+                            <a class="dropdown-item " href="/NhapLieu/NL_KEHOACH?ID=10">Nhập số liệu KCN-MĐSD</a>
 
                         </div>
                     </li>
@@ -105,6 +105,8 @@
                         <div class="dropdown-menu">
                             <a class="dropdown-item " href="property-single.html">Cảnh báo vượt hạn mức CMĐ</a>
                             <a class="dropdown-item " href="/TienIch/ImportData">Đổ dữ liệu từ file excel</a>
+                            <a class="dropdown-item " href="/TienIch/KhoaKYQH">Khóa kỳ quy hoạch</a>
+                            <a class="dropdown-item " href="/TienIch/MapConfig">Cầu hình bản đồ</a>
 
                         </div>
                     </li>
@@ -231,4 +233,14 @@
 
 
     </div>
+  
+
 </nav><!-- End Header/Navbar -->
+@if (Session["UserName"] != null)
+{
+<div class="card" style="position:absolute;margin:50px">
+    <p class="SRbutton" style="margin:5px"><i style="margin-left:5px" class="bi bi-person-circle"></i> @Session["UserName"]</p>
+    <p class="SRcaption" style="margin:5px;text-transform: uppercase;">@Session["TenHuyen"]</p>
+    <p class="SRcaption" style="margin:5px;text-transform: uppercase;">@Session["TenXa"]</p>
+</div>
+}

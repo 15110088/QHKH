@@ -52,7 +52,7 @@
                .Title("Thông tin mục đích sử dụng")
                .ShowTitle(true)
                .Width(700)
-               .Height(525)
+               .Height(325)
            )
            .Form(f => f.Items(items =>
            {
@@ -63,23 +63,24 @@
                    {
                        groupItems.AddSimpleFor(m => m.KIHIEU);
                        groupItems.AddSimpleFor(m => m.TEN);
-                       groupItems.AddSimpleFor(m => m.CHIMUC);
+                       //groupItems.AddSimpleFor(m => m.CHIMUC);
+                       groupItems.AddSimpleFor(m => m.ID_CAPTREN).IsRequired(false);
                        groupItems.AddSimpleFor(m => m.CAPTINH).IsRequired(false);
-                       groupItems.AddSimpleFor(m => m.ID_CAPTREN).IsRequired(false).ColSpan(2);
+
 
                    });
 
-               items.AddGroup()
-                   .Caption("Loại thông tư")
-                   .ColCount(4)
-                   .ColSpan(2)
-                   .Items(groupItems =>
-                   {
-                       groupItems.AddSimpleFor(m => m.TT01).IsRequired(false);
-                       groupItems.AddSimpleFor(m => m.TT23).IsRequired(false);
-                       groupItems.AddSimpleFor(m => m.TT24).IsRequired(false);
-                       groupItems.AddSimpleFor(m => m.TT25).IsRequired(false);
-                   });
+               //items.AddGroup()
+               //    .Caption("Loại thông tư")
+               //    .ColCount(4)
+               //    .ColSpan(2)
+               //    .Items(groupItems =>
+               //    {
+               //        groupItems.AddSimpleFor(m => m.TT01).IsRequired(false);
+               //        groupItems.AddSimpleFor(m => m.TT23).IsRequired(false);
+               //        groupItems.AddSimpleFor(m => m.TT24).IsRequired(false);
+               //        groupItems.AddSimpleFor(m => m.TT25).IsRequired(false);
+               //    });
            }))
         ))
         

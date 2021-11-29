@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "KhoaKYQH";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<br />
+<br />
+<br />
+<p class="SRheader">KHÓA KỲ QUY HOẠCH</p>
+@(Html.DevExtreme().DataGrid<KHQH.Models.DB.KYQUYHOACHKEHOACH_DAPPER>()
+                   .ID("grvCMD")
+                   .Selection(s => s.Mode(SelectionMode.Single))
+     .DataSource(d => d.WebApi()
+                    .RouteName("GetDanhMuc").LoadAction("KYQHALL").Key("ID")
+                    .InsertAction("PostKYQH")
+                    .UpdateAction("PutKYQH")
+                    .DeleteAction("DeleteKYQH")
+                ).ShowBorders(true)
+               .ColumnAutoWidth(true)
+                .FilterRow(f => f.Visible(true))
+    .HeaderFilter(f => f.Visible(true))
+               .ShowRowLines(true)
+               .Paging(p => p.PageSize(20))
+                 .SearchPanel(searchPanel => searchPanel.Visible(true))
+               .Columns(columns =>
+               {
+                   columns.AddFor(m => m.ID).Caption("STT").AllowEditing(false);
+                   columns.AddFor(m => m.TEN).Caption("Tên Kỳ Quy Hoạch").AllowEditing(true);
+                   columns.AddFor(m => m.NAM).Caption("Năm").AllowEditing(true);
+                   columns.AddFor(m => m.TUNAM).Caption("Từ Năm").AllowEditing(true);
+                   columns.AddFor(m => m.TOINAM).Caption("Đến Năm").AllowEditing(true);
+
+                   columns.AddFor(m => m.IS_KEHOACH_DIEUCHINH).Caption("Phân loại")
+                              .Lookup(lookup => lookup
+                              .DataSource(d => d.WebApi().RouteName("GetDanhMuc")
+                              .LoadAction("KeHoachDieuChinh").Key("ID"))
+                              .DisplayExpr("Ten")
+                              .ValueExpr("ID"));
+                   columns.AddFor(m => m.BIKHOA).Caption("Bị khóa").AllowEditing(true);
+                   columns.AddFor(m => m.ID_CHA).Caption("Kỳ trước")
+                             .Lookup(lookup => lookup
+                             .DataSource(d => d.WebApi().RouteName("GetDanhMuc")
+                             .LoadAction("KYQH").Key("ID"))
+                             .DisplayExpr("TEN")
+                             .ValueExpr("ID"));
+
+
+
+               }).Editing(e => e.Mode(GridEditMode.Popup)
+           .AllowUpdating(true)
+           .AllowAdding(true)
+           .AllowDeleting(true)
+           .UseIcons(true)
+           .Popup(p => p
+               .Title("Thông tin quy hoạch kế hoạch")
+               .ShowTitle(true)
+               .Width(700)
+               .Height(525)
+           )
+           .Form(f => f.Items(items =>
+           {
+               items.AddGroup()
+                   .ColCount(1)
+                   .ColSpan(2)
+                   .Items(groupItems =>
+                   {
+                       groupItems.AddSimpleFor(m => m.TEN);
+                       groupItems.AddSimpleFor(m => m.ID_CHA);
+
+
+
+
+                   });
+               items.AddGroup()
+              .ColCount(2)
+              .ColSpan(2)
+              .Items(groupItems =>
+              {
+                  groupItems.AddSimpleFor(m => m.NAM);
+                  groupItems.AddSimpleFor(m => m.TUNAM);
+                  groupItems.AddSimpleFor(m => m.TOINAM);
+                  groupItems.AddSimpleFor(m => m.IS_KEHOACH_DIEUCHINH);
+
+                  groupItems.AddSimpleFor(m => m.BIKHOA);
+
+
+              });
+
+
+
+
+           }))
+        ))
+
+
+
+

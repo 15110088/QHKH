@@ -65,6 +65,7 @@
                        .ColumnHidingEnabled(true)
                        .Paging(p => p.PageSize(20))
                        .SearchPanel(searchPanel => searchPanel.Visible(true))
+                       .OnInitNewRow("CheckKYQH")
                        .Columns(columns =>
                        {
                            columns.AddFor(m => m.ID).Caption("STT").AllowEditing(false);
@@ -154,14 +155,25 @@
         return gridSource;
     };
     window.onload = function () {
+        console.log('OnLoad')
         var grid = $("#grv").dxDataGrid("instance");
-        var objAction = new DataGirdCRUDModel("ID", "api/NhapLieu/GetDienTichPBXDByID?ID=" + e.value.ID, "/api/NhapLieu/PostDienTichPBXD?IDKYQH=" + e.value.ID, "/api/NhapLieu/PutDienTichPBXD", "/api/NhapLieu/DeleteDienTichPBXD");
+        var objAction = new DataGirdCRUDModel("ID", "api/NhapLieu/GetDienTichPBXDByID?ID=" + 0, "/api/NhapLieu/PostDienTichPBXD?IDKYQH=" + 0, "/api/NhapLieu/PutDienTichPBXD", "/api/NhapLieu/DeleteDienTichPBXD");
         grid.option("dataSource", InitDataSource(objAction));
     }
 
     function onRowClick(e) {
-        console.log(e)
         $('#IDROW').val(e.key)
+
+    }
+    function CheckKYQH(e)
+    {
+        console.log()
+        if ($('#NameKYQH').dxSelectBox("instance").option().value == null)
+        {
+            alert("Vui lòng chọn kỳ quy hoạch")
+            window.setTimeout(function () { e.component.cancelEditData(); }, 0)  
+
+        }
 
     }
 
@@ -202,123 +214,9 @@
     $(document).ready(function () {
 
 
-        //function validateText() {
-        //    console.log(DevExpress.validationEngine)
-        //    return DevExpress.validationEngine.validateGroup("ValidateText).isValid;
-        //}
+      
 
-        $('#btnAdd').click(function () {
-            console.log('bind du liẹu')
-            console.log($('#NameKYQH').dxSelectBox("instance").option().displayValue)
-            if ($('#NameKYQH').dxSelectBox("instance").option().displayValue!=null)
-            {
-                $('#modalHienTrang').modal('show');
-
-            }
-            else {
-                alert("Vui lòng chọn kỳ quy hoạch")
-            }
-
-            $('#TenKy').text("" + $('#NameKYQH').dxSelectBox("instance").option().displayValue)
-        })
-
-        $('#btnSave').click(function () {
-            if (!validateText()) {
-
-                return;
-            }
-
-
-            $("#ImgLoading").removeClass("unActiveLoading");
-            $("#ImgLoading").addClass("ActiveLoading");
-
-            var files = $("#customFile").get(0).files;
-            console.log($("#customFile"))
-            console.log(files)
-             var CountExtenFile= 0;
-            if (files.length < 3) {
-                alert("Vui lòng chọn shape file gồm 3 file sha,shx,dbf")
-                $("#ImgLoading").removeClass("ActiveLoading");
-                $("#ImgLoading").addClass("unActiveLoading");
-                return;
-            }
-            else {
-                for (var index = 0; index < files.length; index++) {
-                    var ext = $("#customFile").val().split('.').pop();
-                    if (ext == "shp" || ext == "dbf" || ext == "shx")
-                    {
-                        CountExtenFile++;
-
-                    }
-                }
-             }
-            if (CountExtenFile != 3)
-            {
-                alert("Vui lòng chọn shape file gồm 3 file sha,shx,dbf")
-                $("#ImgLoading").removeClass("ActiveLoading");
-                $("#ImgLoading").addClass("unActiveLoading");
-                return;
-            }
-
-
-            var data = new FormData();
-            data.append("IDKYQH", $('#IDKYQH').val());
-
-            if (@Model.SetupPage.TYPE==1||@Model.SetupPage.TYPE==4||@Model.SetupPage.TYPE==2)
-            {
-                data.append("ID_MDSD", $('#IDMDSD').dxSelectBox("instance").option().value);
-                data.append("NAM", $('#HienTrang_NAM').val());
-                data.append("DIENTICH", $('#HienTrang_DIENTICH').val());
-            }
-
-            if (@Model.SetupPage.TYPE==3||@Model.SetupPage.TYPE==4||@Model.SetupPage.TYPE==2)
-            {
-                data.append("IDLoaiKCN", $('#IDLoaiKCN').dxSelectBox("instance").option().value);
-
-            }
-
-
-            data.append("MAXA", $('#IDXA').dxSelectBox("instance").option().value);
-            data.append("MAHUYEN", $('#IDHUYEN').dxSelectBox("instance").option().value);
-            data.append("CAPTINH", $('#ISCAPTINH').val() == 0 ? false : $('#ISCAPTINH').val());
-            data.append("TENVUNG", $('#HienTrang_TENVUNG').val());
-            data.append("MAHT", $('#HienTrang_MAHT').val());
-
-
-            for (var index = 0; index < files.length; index++) {
-                    data.append("shapeUpload", files[index]);
-            }
-
-
-           // console.log($('#IDMDSD').dxSelectBox("instance").option().value)
-           // console.log($('#HienTrang_DIENTICH').val())
-
-            $.ajax({
-                url: host + '/api/NhapLieu/Upload?TYPE='+@Model.SetupPage.TYPE,
-                type: 'post',
-                contentType: false,
-                processData: false,
-                data: data,
-                success: function (data) {
-                    console.log(data)
-                    if (data)
-                    {
-                        window.location.href = host + '/NhapLieu/NL_HIENTRANG?ID='+@Model.SetupPage.TYPE
-
-                    }
-                    else {
-                        $("#ImgLoading").removeClass("ActiveLoading");
-                        $("#ImgLoading").addClass("unActiveLoading");
-                    }
-
-                },
-                error: function (err) {
-                    console.log(err)
-                }
-
-            });
-
-        })
+      
 
 
 

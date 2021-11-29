@@ -8,8 +8,8 @@
 <style>
     #viewDiv {
         width: 100%;
-        height: 100vh;
-        margin-top: 30px; /*position: fixed;
+        height: 70vh;
+        margin-top: 10px; /*position: fixed;
         margin-top:200px;
         width: 100%;
         height: 100%;
@@ -31,6 +31,34 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+<br /><br />
+    <div class="input-group mb-3">
+        <div class="col-sm"></div>
+        <div class="col-sm">
+            @(Html.DevExtreme().TextBox().Name("IDSearch").Placeholder("Nhập mã vùng"))
+
+
+        </div>
+        <div class="col-sm">
+            @(Html.DevExtreme().SelectBox()
+                                .DataSource(d => d.WebApi().RouteName("GetDanhMuc")
+                              .LoadAction("LoaiBanDo").Key("ID"))
+                              .DisplayExpr("Ten")
+                              .ValueExpr("ID")
+                                .SearchEnabled(true).Placeholder("Loại Bản đồ")
+                                .AcceptCustomValue(true).IsValid(true).ID("IDLOAI")
+            )
+
+        </div>
+        
+        <div class="col-sm">
+            <button type="button" class="btn btn-success" id="btnSearch">Tìm kiếm</button>
+        </div>
+
+    </div>
+
+
+
 
 <div id="viewDiv">
 
@@ -93,16 +121,94 @@
                         
                     </div>
                     <div class="container__inner container__inner_hidden">
-                        
+                        <h2 id="MVKH" class="content__subtitle">Mã vùng:</h2>
+                        <div class="row">
+                            <div class="col-sm ThongSo">
+                                <p class="SRtitle3 TextThongSo">Tên vùng</p>
+                                <p id="TVKH" class="SRtitle2 TextThongSo"></p>
+                            </div>
+
+                            <div class="col-sm ThongSo">
+                                <p class="SRtitle3 TextThongSo">Diện tích</p>
+                                <p id="DTKH" class="SRtitle2 TextThongSo"></p>
+                            </div>
+                            <div class="col-sm ThongSo">
+                                <p class="SRtitle3 TextThongSo">Loại đất</p>
+                                <p id="LDKH" class="SRtitle2 TextThongSo"></p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                   
+                    <div class="container__inner container__inner_hidden">
+                        <h2 id="MVQH" class="content__subtitle">Mã vùng:</h2>
+
+                        <div class="row">
+
+                            <div class="col-sm ThongSo">
+                                <p class="SRtitle3 TextThongSo">Tên vùng</p>
+                                <p id="TVQH" class="SRtitle2 TextThongSo"></p>
+
+
+                            </div>
+
+                            <div class="col-sm ThongSo">
+                                <p class="SRtitle3 TextThongSo">Diện tích</p>
+                                <p id="DTQH" class="SRtitle2 TextThongSo"></p>
+                            </div>
+                            <div class="col-sm ThongSo">
+                                <p class="SRtitle3 TextThongSo">Loại đất</p>
+                                <p id="LDQH" class="SRtitle2 TextThongSo"></p>
+                            </div>
+
+                        </div>
                     </div>
                     <div class="container__inner container__inner_hidden">
-                        
+                        <h2 id="MVKCN" class="content__subtitle">Mã vùng:</h2>
+
+                        <div class="row">
+
+                            <div class="col-sm ThongSo">
+                                <p class="SRtitle3 TextThongSo">Tên vùng</p>
+                                <p id="TVKCN" class="SRtitle2 TextThongSo"></p>
+
+
+                            </div>
+
+                            <div class="col-sm ThongSo">
+                                <p class="SRtitle3 TextThongSo">Diện tích</p>
+                                <p id="DTKCN" class="SRtitle2 TextThongSo"></p>
+                            </div>
+                            <div class="col-sm ThongSo">
+                                <p class="SRtitle3 TextThongSo">Loại đất</p>
+                                <p id="LDKCN" class="SRtitle2 TextThongSo"></p>
+                            </div>
+
+                        </div>
                     </div>
                     <div class="container__inner container__inner_hidden">
-                       
-                    </div>
-                    <div class="container__inner container__inner_hidden">
-                        
+                        <h2 id="MVCT" class="content__subtitle">Mã vùng:</h2>
+
+                        <div class="row">
+
+                            <div class="col-sm ThongSo">
+                                <p class="SRtitle3 TextThongSo">Tên vùng</p>
+                                <p id="TVCT" class="SRtitle2 TextThongSo"></p>
+
+
+                            </div>
+
+                            <div class="col-sm ThongSo">
+                                <p class="SRtitle3 TextThongSo">Diện tích</p>
+                                <p id="DTCT" class="SRtitle2 TextThongSo"></p>
+                            </div>
+                            <div class="col-sm ThongSo">
+                                <p class="SRtitle3 TextThongSo">Loại đất</p>
+                                <p id="LDCT" class="SRtitle2 TextThongSo"></p>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -116,13 +222,7 @@
 
 </div>
 
-<div class="search-wrapper">
-    <div class="input-holder">
-        <input type="text" id="IDSearch" class="search-input" placeholder="Nhập mã hiện trạng" />
-        <button class="search-icon" id="btnSearch" onclick="searchToggle(this, event);"><span></span></button>
-    </div>
-    <span class="close" onclick="searchToggle(this, event);"></span>
-</div>
+
 
 <div class="modal fade" id="modalKVHC" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -151,23 +251,22 @@
                                     <div class="col-md-6">
                                         <label style="text-align:left" class="SRBody">TP/Huyện</label>
                                         @(Html.DevExtreme().SelectBoxFor(n => n.HienTrang.MAHUYEN)
-            .DataSource(Model.LstHuyen.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
-            .SearchEnabled(true).Placeholder("Huyện")
-            .AcceptCustomValue(true).IsValid(true)
-            .ValueExpr("MA_KVHC").OnValueChanged("GetIDHUYEN")
-            .DisplayExpr("TEN_KVHC").ID("IDHUYEN")
-                                        )
+                                            .DataSource(Model.LstHuyen.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
+                                            .SearchEnabled(true).Placeholder("Huyện")
+                                            .AcceptCustomValue(true).IsValid(true)
+                                            .ValueExpr("MA_KVHC").OnValueChanged("GetIDHUYEN")
+                                            .DisplayExpr("TEN_KVHC").ID("IDHUYEN")
+                                                                        )
                                     </div>
                                     <div class="col-md-6">
                                         <label style="text-align:left" class="SRBody">Phường/Xã</label>
-
                                         @(Html.DevExtreme().SelectBoxFor(n => n.HienTrang.MAXA)
-        .DataSource(Model.LstXa.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
-        .SearchEnabled(true).Placeholder("Xã")
-        .AcceptCustomValue(true)
-        .ValueExpr("MA_KVHC").IsValid(true)
-        .DisplayExpr("TEN_KVHC").ID("IDXA")
-                                        )
+                                        .DataSource(Model.LstXa.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
+                                        .SearchEnabled(true).Placeholder("Xã")
+                                        .AcceptCustomValue(true)
+                                        .ValueExpr("MA_KVHC").IsValid(true)
+                                        .DisplayExpr("TEN_KVHC").ID("IDXA")
+                                                                        )
                                     </div>
                                 </div>
                             }
@@ -215,7 +314,7 @@
             }
         })
     }
-            
+
     function searchToggle(obj, evt) {
         var container = $(obj).closest('.search-wrapper');
         if (!container.hasClass('active')) {
@@ -250,7 +349,10 @@
             tabItem[i].classList.add("container__item_active");
         });
     }
-    var view, map, trailheadsLayer;
+
+
+    //ARCGIS
+    var view, map, mapHIENTRANG, mapCONGTRINH, mapKEHOACH, mapQUYHOACH, mapKHUCHUCNANG,mapCHUYENDE;
 
     require(["esri/config", "esri/Map", "esri/views/MapView",
         "esri/layers/FeatureLayer", "esri/layers/TileLayer",
@@ -261,50 +363,104 @@
         function (esriConfig, Map, MapView, FeatureLayer, TileLayer,
             connect, QueryTask, Query, geometryEngine, SpatialReference,
             Graphic, GraphicsLayer) {
-        esriConfig.apiKey = "AAPKcf5d235ac0524b2dacf60020ea3968615zgFIieNncDmP-DJ7dACIO-l7xoTVvfFQHaxpBCuttdFeX8f44xCep0YwIpgqljZ";
-        const vtlLayer = new TileLayer({
-            url: "https://server.arcgisonline.com/arcgis/rest/services/Reference/World_Transportation/MapServer"
-            // url: "http://datdai.stnmt.dongnai.gov.vn:8080/arcgisdatdaissl1/rest/services/75731/26068/MapServer"
-        });
-        const map = new Map({
-            basemap: "arcgis-topographic", // Basemap layer service
-           // layers: [vtlLayer]
+            esriConfig.apiKey = "AAPKcf5d235ac0524b2dacf60020ea3968615zgFIieNncDmP-DJ7dACIO-l7xoTVvfFQHaxpBCuttdFeX8f44xCep0YwIpgqljZ";
+            const vtlLayer = new TileLayer({
+                url: "https://server.arcgisonline.com/arcgis/rest/services/Reference/World_Transportation/MapServer"
+                // url: "http://datdai.stnmt.dongnai.gov.vn:8080/arcgisdatdaissl1/rest/services/75731/26068/MapServer"
+            });
+            const map = new Map({
+                basemap: "arcgis-topographic", // Basemap layer service
+                // layers: [vtlLayer]
 
-        });
-
-
+            });
 
 
-        const template = {
-            // NAME and COUNTY are fields in the service containing the Census Tract (NAME) and county of the feature
-            title: "{MAVUNG}",
-        };
-      
-        const view = new MapView({
-            map: map,
-            center: [107.2672217, 10.4944512], // Longitude, latitude
-            zoom: 13, // Zoom level
-            container: "viewDiv" // Div element
-        });
 
-        trailheadsLayer = new FeatureLayer({
-            url: "@ViewData["URL"]",
+
+            const template = {
+                // NAME and COUNTY are fields in the service containing the Census Tract (NAME) and county of the feature
+                title: "{MAVUNG}",
+            };
+
+            const view = new MapView({
+                map: map,
+                center: [107.2672217, 10.4944512], // Longitude, latitude
+                zoom: 11, // Zoom level
+                container: "viewDiv" // Div element
+            });
+
+           // view.on("extent-change", showExtent);
+
+
+          
+
+            mapCONGTRINH = new FeatureLayer({
+            url: "@ViewData["URL"]"+"/12",
             outFields: ["*"],
-            popupTemplate: template,
+           // popupTemplate: template,
+            spatialReference: SpatialReference.WGS84
+
+
+            });
+
+             mapQUYHOACH = new FeatureLayer({
+            url: "@ViewData["URL"]"+"/13",
+            outFields: ["*"],
+           // popupTemplate: template,
             spatialReference: SpatialReference.WGS84
 
 
         });
 
-        //trailheadsLayer
+         mapKEHOACH = new FeatureLayer({
+            url: "@ViewData["URL"]"+"/14",
+            outFields: ["*"],
+            //popupTemplate: template,
+            spatialReference: SpatialReference.WGS84
+         });
+         mapKHUCHUCNANG = new FeatureLayer({
+            url: "@ViewData["URL"]"+"/15",
+            outFields: ["*"],
+            //popupTemplate: template,
+            spatialReference: SpatialReference.WGS84
+            });
+
+
+
+         mapCHUYENDE = new FeatureLayer({
+            url: "@ViewData["URL"]"+"/16",
+            outFields: ["*"],
+            //popupTemplate: template,
+            spatialReference: SpatialReference.WGS84
+        });
+
+             mapHIENTRANG = new FeatureLayer({
+                url: "@ViewData["URL"]"+"/17",
+            outFields: ["*"],
+            popupTemplate: template,
+            spatialReference: SpatialReference.WGS84
+
+
+            });
+        //mapHIENTRANG
         //    .when(() => {
-        //        return trailheadsLayer.queryExtent();
+        //        return mapHIENTRANG.queryExtent();
         //    })
         //    .then((response) => {
         //        view.goTo(response.extent);
         //    });
-       
-        map.add(trailheadsLayer);
+             map.add(mapCONGTRINH);
+
+         map.add(mapKEHOACH);
+         map.add(mapKHUCHUCNANG);
+         map.add(mapCHUYENDE);
+         map.add(mapQUYHOACH);
+
+         map.add(mapHIENTRANG);
+
+         //mapHIENTRANG.when(function () {
+         //    view.extent = mapHIENTRANG.fullExtent;
+         //});
         const graphicsLayer = new GraphicsLayer();
         map.add(graphicsLayer);
         view.on("click", function (event) {
@@ -321,43 +477,167 @@
                     };
                     console.log(response)
                     view.goTo(response.results[0].graphic.geometry)
-                   // response.results[0].graphic.symbol = BorderFeature;
-                   // view.graphics.addMany(response.results[0].graphic);
-                    //const simpleMarkerSymbol = {
-                    //    type: "simple-marker",
-                    //    color: [226, 119, 40],  // Orange
-                    //    style: "square",
-                    //    outline: {
-                    //        color: [255, 255, 255], // White
-                    //        width: 1
-                    //    }
-                    //};
-                    //const point = { //Create a point
-                    //    type: "point",
-                    //    longitude: event.mapPoint.longitude,
-                    //    latitude: event.mapPoint.latitude
-                    //};
-                    //const pointGraphic = new Graphic({
-                    //    geometry: point,
-                    //    symbol: BorderFeature
-                    //});
-                    //graphicsLayer.add(pointGraphic)
+
 
 
 
                     $('#MVHT').text('Mã vùng: '+response.results[0].graphic.attributes.MAVUNG)
                     $('#TVHT').text(response.results[0].graphic.attributes.TEN )
                     $('#LDHT').text(response.results[0].graphic.attributes.LOAIDAT)
-                   $('#DTHT').text(geometryEngine.geodesicArea(response.results[0].graphic.geometry, "square-meters").toFixed(1))
-                    console.log(geometryEngine.geodesicArea(response.results[0].graphic.geometry, "square-meters"))
-                    $('#modalHienTrang').modal('show');
+                    $('#DTHT').text(geometryEngine.geodesicArea(response.results[0].graphic.geometry, "square-meters").toFixed(1))
+
+                    //JOIN công trình
+                   var layerUrlCT = "@ViewData["URL"]" + "/12";
+                   var queryTaskCT = new QueryTask({
+                       url: layerUrlCT
+                   });
+
+                   var query = new Query();
+                   query.returnGeometry = true;
+                   query.outFields = ["*"];
+                   query.geometry = response.results[0].graphic.geometry
+                   query.spatialRelationship = "intersects";
+                   queryTaskCT.execute(query).then(function (nghia) {
+                       for (var i = 0; i < nghia.features.length; i++) {
+                           $('#MVCT').text('Mã vùng: ' + nghia.features[i].attributes.MAVUNG)
+                           $('#TVCT').text(nghia.features[i].attributes.TEN)
+                           $('#LDCT').text(nghia.features[i].attributes.LOAIDAT)
+                           $('#DTCT').text(geometryEngine.geodesicArea(nghia.features[i].geometry, "square-meters").toFixed(1))
+
+                       }
+                   });
+
+                      //JOIN Khu chức năng
+                   var layerUrlCN = "@ViewData["URL"]" + "/15";
+                   var queryTaskCN = new QueryTask({
+                       url: layerUrlCN
+                   });
+
+                   var query = new Query();
+                   query.returnGeometry = true;
+                   query.outFields = ["*"];
+                   query.geometry = response.results[0].graphic.geometry
+                   query.spatialRelationship = "intersects";
+                   queryTaskCN.execute(query).then(function (nghia) {
+
+                       console.log(nghia)
+                       for (var i = 0; i < nghia.features.length; i++) {
+
+                           console.log('=====Cắt KHU CHỨC NĂNG===' + i)
+
+                          // const intersecting = geometryEngine.intersect(response.results[0].graphic.geometry, nghia.features[i].geometry);
+                           //console.log(geometryEngine.planarArea(intersecting, "square-meters"))
+
+                           $('#MVKCN').text('Mã vùng: ' + nghia.features[i].attributes.MAVUNG)
+                           $('#TVKCN').text(nghia.features[i].attributes.TEN)
+                           $('#LDKCN').text(nghia.features[i].attributes.LOAIDAT)
+                           $('#DTKCN').text(geometryEngine.geodesicArea(nghia.features[i].geometry, "square-meters").toFixed(1))
+
+                       }
+                   });
+
+
+                       //JOIN kế hoạch
+                   var layerUrlKH = "@ViewData["URL"]" + "/14";
+                   var queryTaskKH = new QueryTask({
+                       url: layerUrlKH
+                   });
+
+                   var query = new Query();
+                   query.returnGeometry = true;
+                   query.outFields = ["*"];
+                   query.geometry = response.results[0].graphic.geometry
+                   query.spatialRelationship = "intersects";
+                   queryTaskKH.execute(query).then(function (nghia) {
+
+                       console.log(nghia)
+                       for (var i = 0; i < nghia.features.length; i++) {
+
+                           console.log('=====Cắt Kế hoạch===' + i)
+
+                          // const intersecting = geometryEngine.intersect(response.results[0].graphic.geometry, nghia.features[i].geometry);
+                           //console.log(geometryEngine.planarArea(intersecting, "square-meters"))
+
+                           $('#MVKH').text('Mã vùng: ' + nghia.features[i].attributes.MAVUNG)
+                           $('#TVKH').text(nghia.features[i].attributes.TEN)
+                           $('#LDKH').text(nghia.features[i].attributes.LOAIDAT)
+                           $('#DTKH').text(geometryEngine.geodesicArea(nghia.features[i].geometry, "square-meters").toFixed(1))
+
+                       }
+                   });
+
+
+                        //JOIN Quy hoạch
+                   var layerUrlQH = "@ViewData["URL"]" + "/13";
+                   var queryTaskQH = new QueryTask({
+                       url: layerUrlQH
+                   });
+
+                   var query = new Query();
+                   query.returnGeometry = true;
+                   query.outFields = ["*"];
+                   query.geometry = response.results[0].graphic.geometry
+                   query.spatialRelationship = "intersects";
+                   queryTaskQH.execute(query).then(function (nghia) {
+                       if (nghia.features.length > 1)
+                       {
+                           $('#MVQH').text('Mã vùng: ' + nghia.features[0].attributes.MAVUNG)
+                           $('#TVQH').text(nghia.features[0].attributes.TEN)
+                           $('#LDQH').text(nghia.features[0].attributes.LOAIDAT)
+                           $('#DTQH').text(geometryEngine.geodesicArea(nghia.features[0].geometry, "square-meters").toFixed(1))
+                       }
+                       console.log(nghia)
+                     
+                   });
+                        //JOIN chuyen de
+                   var layerUrlCD = "@ViewData["URL"]" + "/16";
+                   var queryTaskCD = new QueryTask({
+                       url: layerUrlCD
+                   });
+
+                   var query = new Query();
+                   query.returnGeometry = true;
+                   query.outFields = ["*"];
+                   query.geometry = response.results[0].graphic.geometry
+                   query.spatialRelationship = "intersects";
+                   queryTaskCD.execute(query).then(function (nghia) {
+
+                       console.log(nghia)
+                       for (var i = 0; i < nghia.features.length; i++) {
+
+                           console.log('=====Cắt Kế hoạch===' + i)
+
+
+                       }
+                   });
+
+
+
+
+
+
+                   $('#modalHienTrang').modal('show');
 
                 })
         })
+
+        function showExtent(ext) {
+            var extentString = "";
+            extentString = "XMin: " + ext.xmin +
+                " YMin: " + ext.ymin +
+                " XMax: " + ext.xmax +
+                " YMax: " + ext.ymax;
+            console.log(extentString)
+        }
         $('#btnSearch').click(function () {
             console.log('123')
             console.log($('#IDSearch').val())
-
+            console.log($('#IDLOAI').dxSelectBox("instance").option().value)
+            if ($('#IDLOAI').dxSelectBox("instance").option().value == null)
+            {
+                alert("Vui lòng chọn lớp bản đồ")
+                return;
+            }
             let whereClause = "MAVUNG='"+ $('#IDSearch').val()+"'";
             const parcelQuery = {
                 where: whereClause,  // Set by select element
@@ -366,13 +646,65 @@
                 outFields: ["*"], // Attributes to return
                 returnGeometry: true
             };
-            trailheadsLayer.queryFeatures(parcelQuery)
-                .then((results) => {
-                    console.log(results.features)
-                    displayResults(results);
-                }).catch((error) => {
-                    console.log(error);
-                });
+            if ($('#IDLOAI').dxSelectBox("instance").option().value == 1)
+            {
+                mapHIENTRANG.queryFeatures(parcelQuery)
+                    .then((results) => {
+                        console.log(results.features)
+                        displayResults(results);
+                    }).catch((error) => {
+                        alert("Không tìm thấy dữ liệu")
+
+                        console.log(error);
+                    });
+            }
+            if ($('#IDLOAI').dxSelectBox("instance").option().value == 2) {
+                mapKEHOACH.queryFeatures(parcelQuery)
+                    .then((results) => {
+                        console.log(results.features)
+                        displayResults(results);
+                    }).catch((error) => {
+                        alert("Không tìm thấy dữ liệu")
+
+                        console.log(error);
+                    });
+            }
+
+            if ($('#IDLOAI').dxSelectBox("instance").option().value == 3) {
+                mapKHUCHUCNANG.queryFeatures(parcelQuery)
+                    .then((results) => {
+                        console.log(results.features)
+                        displayResults(results);
+                    }).catch((error) => {
+                        alert("Không tìm thấy dữ liệu")
+
+                        console.log(error);
+                    });
+            }
+
+            if ($('#IDLOAI').dxSelectBox("instance").option().value == 4) {
+                mapQUYHOACH.queryFeatures(parcelQuery)
+                    .then((results) => {
+                        console.log(results.features)
+                        displayResults(results);
+                    }).catch((error) => {
+                        alert("Không tìm thấy dữ liệu")
+
+                        console.log(error);
+                    });
+            }
+
+            if ($('#IDLOAI').dxSelectBox("instance").option().value == 5) {
+                mapCONGTRINH.queryFeatures(parcelQuery)
+                    .then((results) => {
+                        console.log(results.features)
+                        displayResults(results);
+                    }).catch((error) => {
+                        alert("Không tìm thấy dữ liệu")
+                        console.log(error);
+                    });
+            }
+
 
         })
 

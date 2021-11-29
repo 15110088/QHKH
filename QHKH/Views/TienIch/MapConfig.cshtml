@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "MapConfig";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@model KHQH.Models.DB.CombineHienTrang
+
+
+
+<br />
+<br />
+<br />
+<p class="SRheader">CẦU HÌNH BẢN ĐỒ</p>
+@(Html.DevExtreme().DataGrid<KHQH.Models.DB.MAPCONFIG_DAPPER>()
+                           .ID("grvCMD")
+                           .Selection(s => s.Mode(SelectionMode.Single))
+             .DataSource(d => d.WebApi()
+                            .RouteName("GetDanhMuc").LoadAction("GETMAPCONFIG").Key("ID")
+                            .InsertAction("PostMapConfig")
+                            .UpdateAction("PutMapConfig")
+                            .DeleteAction("DeleteMapConfig")
+                        ).ShowBorders(true)
+                       .ColumnAutoWidth(true)
+                        .FilterRow(f => f.Visible(true))
+            .HeaderFilter(f => f.Visible(true))
+                       .ShowRowLines(true)
+                       .Paging(p => p.PageSize(20))
+                         .SearchPanel(searchPanel => searchPanel.Visible(true))
+                       .Columns(columns =>
+                       {
+                           columns.AddFor(m => m.ID).Caption("STT").AllowEditing(false);
+                           columns.AddFor(m => m.ID_KYQH).Caption("Tên Kỳ Quy Hoạch")
+                                    .Lookup(lookup => lookup
+                                    .DataSource(d => d.WebApi().RouteName("GetDanhMuc")
+                                    .LoadAction("KYQHALL").Key("ID"))
+                                    .DisplayExpr("TEN")
+                                    .ValueExpr("ID"));
+                           columns.AddFor(m => m.MAKVHC).Caption("Xã/phường")
+                                      .Lookup(lookup => lookup
+                                      .DataSource(Model.LstXa.Select(n => new { n.MA_KVHC, n.TEN_KVHC }))
+                                      //.DataSource("getKVHC")
+                                        .DisplayExpr("TEN_KVHC")
+                                      .ValueExpr("MA_KVHC"));
+                           columns.AddFor(m => m.MAP_SERVICES).Caption("Đường dẫn bản đồ").AllowEditing(true);
+                         //  columns.AddFor(m => m.DEFAULT_VIEW).DataType(GridColumnDataType.Boolean).Caption("Mặc định").AllowEditing(false);
+
+                       }).Editing(e => e.Mode(GridEditMode.Batch)
+                   .AllowUpdating(true)
+                   .AllowAdding(true)
+                   .AllowDeleting(true)
+                   .UseIcons(true)
+
+
+
+
+
+  
+        ))
+
+
+
+
+
+
+
+

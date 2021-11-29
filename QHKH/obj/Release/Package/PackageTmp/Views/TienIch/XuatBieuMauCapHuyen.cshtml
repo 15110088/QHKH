@@ -82,7 +82,7 @@
             @(Html.DevExtreme().SelectBoxFor(n => n.HienTrang.ID_KYQH)
                     .DataSource(d => d.WebApi()
                                 .RouteName("GetDanhMuc")
-                                .LoadAction("KYQH")
+                                .LoadAction("KYQHALL")
                                 .Key("ID"))
                                 .ValueExpr("ID")
                                 .DisplayExpr("TEN")

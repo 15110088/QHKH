@@ -69,7 +69,7 @@ namespace KHQH.Models.JSONDATA
 
            new PageData
             {
-                TITLE="DIỆN TÍCH PHÂN BỐ XÁC ĐỊNH",
+                TITLE="DIỆN TÍCH PHÂN BỔ XÁC ĐỊNH",
                 URLGET="",
                 URLPOST="",
                 URLPUT="",

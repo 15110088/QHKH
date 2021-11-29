@@ -1,5 +1,4 @@
-﻿@using KHQH.Models
-
+﻿
 @{
     ViewBag.Title = "Index";
 }
@@ -9,13 +8,13 @@
     #viewDiv {
         width: 100%;
         height: 100vh;
-        margin-top: 30px; /*position: fixed;
-        margin-top:200px;
+        margin-top: 30px;
+        margin-top: 200px;
         width: 100%;
         height: 100%;
         left: 0;
         top: 0;
-        background: rgba(51,51,51,0.7);*/
+        background: rgba(51,51,51,0.7);
     }
 </style>
 @{
@@ -26,6 +25,7 @@
 
 
 <link rel="stylesheet" type="text/css" href="~/Template/css/login.css" />
+<input id="ISCAPTINH" value=false class="input-text js-input" type="hidden" />
 
 
 <div class="session">
@@ -118,6 +118,9 @@
                                     </div>
                                 </div>
                             }
+                            <br />
+                            @(Html.DevExtreme().CheckBox().Text("Cấp tỉnh").RtlEnabled(true).OnValueChanged("CapTinhCheck"))
+                            <br />
                             <div class="row rone mx-1 my-3">
 
                                 <button type="submit" id="btnKVHC" style="background:#36C970;border-color:#36C970" class="btn btn-primary SRbutton">Xác nhận</button>
@@ -136,78 +139,88 @@
     </div>
 </div>
 
+@*<script>
+        function CapTinhCheck(e) {
+        $('#ISCAPTINH').val(e.value)
+
+        }
+
+    </script>*@
 <script>
- var host = API_HOST
+    function CapTinhCheck(e) {
+        $('#ISCAPTINH').val(e.value)
+
+    }
+    var host = API_HOST
 
     function validateText() {
-            console.log(DevExpress.validationEngine)
-    return DevExpress.validationEngine.validateGroup("ValidateText").isValid;
-        }
+        console.log(DevExpress.validationEngine)
+        return DevExpress.validationEngine.validateGroup("ValidateText").isValid;
+    }
 
 
     function GetIDHUYEN(e) {
-    console.log(e)
-    $.ajax({
-    url: host+'/api/GetDanhMuc/KVHCByIDHUYEN?ID=' + e.value,
-    type: 'get',
-    success: function (data) {
-    console.log(data)
-    var newStore = new DevExpress.data.ArrayStore({
-    data: data.data,
-    key: 'MA_KVHC',
+        console.log(e)
+        $.ajax({
+            url: host + '/api/GetDanhMuc/KVHCByIDHUYEN?ID=' + e.value,
+            type: 'get',
+            success: function (data) {
+                console.log(data)
+                var newStore = new DevExpress.data.ArrayStore({
+                    data: data.data,
+                    key: 'MA_KVHC',
 
-    })
-    $("#IDXA").dxSelectBox({
-    dataSource: newStore
-    })
-    },
-    error: function () {
+                })
+                $("#IDXA").dxSelectBox({
+                    dataSource: newStore
+                })
+            },
+            error: function () {
 
-    }
-    })
+            }
+        })
     }
 
     $(document).ready(function () {
         $('ul li a').click(function () {
-                console.log("123")
+            console.log("123")
             console.log($(this))
             $('li a').removeClass("active");
             $(this).addClass("active");
-            });
+        });
 
 
-    $('#btnKVHC').click(function (){
+        $('#btnKVHC').click(function () {
 
-    if (!validateText()) {
+            if (!validateText()) {
 
-    return;
-    }
-                window.location.href = host + "/Home/Map?&Huyen="+$('#IDHUYEN').dxSelectBox("instance").option().value+"&XA="+$('#IDXA').dxSelectBox("instance").option().value
-    })
+                return;
+            }
+            window.location.href = host + "/Home/Map?&Huyen=" + $('#IDHUYEN').dxSelectBox("instance").option().value + "&XA=" + $('#IDXA').dxSelectBox("instance").option().value + "&IsCapTinh=" + $('#ISCAPTINH').val();
+        })
 
-        $('#btnLogin').click(function ()
-        {
+        $('#btnLogin').click(function () {
             $("#ImgLoading").removeClass("unActiveLoading");
 
             $("#ImgLoading").addClass("ActiveLoading");
-                var IsLoi = false
-            var MsgError=""
+            var IsLoi = false
+            var MsgError = ""
             if ($('#txtUser').val().length == 0 || $('#txtPassword').val().length == 0) {
-                    IsLoi = true
+                IsLoi = true
                 MsgError = "Tài khoản,Mật khẩu không được để trống";
-                }
+            }
 
 
-                if (IsLoi) {
+            if (IsLoi) {
                 $('#lbError').text(MsgError)
 
                 return;
-                }
+            }
 
-                var data = {
+            var data = {
                 TENDANGNHAP: $('#txtUser').val(),
                 MATKHAU: $('#txtPassword').val(),
-   
+
 
 
             }
@@ -219,9 +232,9 @@
                 success: function (result) {
                     console.log(result)
                     if (result.KetQua) {
-                       // window.location.href = host + "/Home/Map?&Huyen="+$('#IDHUYEN').dxSelectBox("instance").option().value+"&XA="+$('#IDXA').dxSelectBox("instance").option().value
-    $("#ImgLoading").removeClass("ActiveLoading");
-    $("#ImgLoading").addClass("unActiveLoading");
+                        // window.location.href = host + "/Home/Map?&Huyen="+$('#IDHUYEN').dxSelectBox("instance").option().value+"&XA="+$('#IDXA').dxSelectBox("instance").option().value
+                        $("#ImgLoading").removeClass("ActiveLoading");
+                        $("#ImgLoading").addClass("unActiveLoading");
                         $('#modalKVHC').modal('show');
                     }
                     else {
@@ -241,20 +254,21 @@
                 TENDANGNHAP: $('#txtUser').val()
             }
             $.ajax({
-            url: host + "/Home/SignOut",
+                url: host + "/Home/SignOut",
                 type: "post",
                 data: data,
                 success: function (result) {
-                console.log(result)
+                    console.log(result)
                     if (result.KetQua) {
-                    window.location.href = host + ""
+                        window.location.href = host + ""
 
                     }
 
-            }
-        });
+                }
+            });
         })
 
 
     });
+
 </script>

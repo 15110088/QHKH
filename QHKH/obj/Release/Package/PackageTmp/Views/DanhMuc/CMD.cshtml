@@ -47,10 +47,10 @@
            .AllowDeleting(true)
            .UseIcons(true)
            .Popup(p => p
-               .Title("Thông tin mục đích sử dụng")
+               .Title("Thông tin chuyển mục đích")
                .ShowTitle(true)
                .Width(700)
-               .Height(525)
+               .Height(325)
            )
            .Form(f => f.Items(items =>
            {
@@ -61,10 +61,9 @@
                    {
                        groupItems.AddSimpleFor(m => m.KYHIEU);
                        groupItems.AddSimpleFor(m => m.TEN);
-                       groupItems.AddSimpleFor(m => m.CHIMUC);
-                       groupItems.AddSimpleFor(m => m.CHIMUCTINH);
-                       groupItems.AddSimpleFor(m => m.ID_CAPTREN).IsRequired(false).ColSpan(2);
-
+                       //groupItems.AddSimpleFor(m => m.CHIMUC);
+                       //groupItems.AddSimpleFor(m => m.CHIMUCTINH);
+                       groupItems.AddSimpleFor(m => m.ID_CAPTREN).IsRequired(false);
                        groupItems.AddSimpleFor(m => m.CAPTINH).IsRequired(false);
 
                    });
