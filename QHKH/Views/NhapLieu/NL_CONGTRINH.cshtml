@@ -41,7 +41,7 @@
 
 </div>
 
-</br>
+<br/>
 
 @if (Model.SetupPage.TYPE == 5)
 {
@@ -106,36 +106,7 @@
                                .Width(700)
                                .Height(525)
                            )
-                           //.Form(f => f.Items(items =>
-                           //{
-                           //    items.AddGroup()
-                           //        .ColCount(1)
-                           //        .ColSpan(2)
-                           //        .Items(groupItems =>
-                           //        {
-                           //            groupItems.AddSimpleFor(m => m.TENVUNG);
-                           //            groupItems.AddSimpleFor(m => m.MAHT);
-                           //            groupItems.AddSimpleFor(m => m.ID_MDSD);
-
-
-
-
-                           //        });
-                           //    items.AddGroup()
-                           //   .ColCount(2)
-                           //   .ColSpan(2)
-                           //   .Items(groupItems =>
-                           //   {
-
-                           //       groupItems.AddSimpleFor(m => m.MAXA);
-                           //       groupItems.AddSimpleFor(m => m.MAHUYEN);
-                           //       groupItems.AddSimpleFor(m => m.DIENTICH);
-                           //       groupItems.AddSimpleFor(m => m.CAPTINH);
-
-                           //       //groupItems.AddSimpleFor(m => m.TOINAM);
-                           //       //groupItems.AddSimpleFor(m => m.IS_KEHOACH_DIEUCHINH);
-                           //   });
-                           //}))
+                          
                 ))
     <br />
 }
@@ -252,7 +223,7 @@
                                 .SearchEnabled(true).Placeholder("Huyện")
                                 .AcceptCustomValue(true).IsValid(true)
                                 .ValueExpr("MA_KVHC")
-                                .DisplayExpr("TEN_KVHC").ID("IDHUYEN").OnValueChanged("GetIDHUYEN")
+                                .DisplayExpr("TEN_KVHC").ID("IDHUYEN").OnValueChanged("GetIDHUYEN").Value(Convert.ToString(@ViewData["MaHuyen"]))
                             )
                         </div>
 
@@ -264,7 +235,7 @@
                             .SearchEnabled(true).Placeholder("Xã")
                             .AcceptCustomValue(true)
                             .ValueExpr("MA_KVHC").IsValid(true)
-                            .DisplayExpr("TEN_KVHC").ID("IDXA")
+                            .DisplayExpr("TEN_KVHC").ID("IDXA").Value(Convert.ToString(@ViewData["MaXa"]))
                             )
 
 
@@ -275,7 +246,7 @@
                         <div class="col-sm">
                             <label style="text-align:left" class="SRBody">Cấp tỉnh</label>
                             <br />
-                            @(Html.DevExtreme().CheckBoxFor(n => n.HienTrang.CAPTINH).OnValueChanged("CapTinhCheck"))
+                            @(Html.DevExtreme().CheckBoxFor(n => n.HienTrang.CAPTINH).OnValueChanged("CapTinhCheck").Value(Convert.ToBoolean(@ViewData["ISCAPTINH"])))
 
                         </div>
 
@@ -318,7 +289,19 @@
     // var apiRootUrl = "http://localhost:63563/"
     var host = '//' + window.location.host
 
+    function ChonHuyenXa(e) {
+        console.log(e)
+        const v = e.component.option("value");
+        console.log(v)
 
+        if (v === null) {
+            e.component.option("value", 747);
+        }
+        @*e.data.MAHUYEN = '@ViewData["MaHuyen"]';
+        e.data.MAXA = '@ViewData["MAXA"]';
+        e.data.CAPTINH = '@ViewData["ISCAPTINH"]' == 'True' ? true : false;*@
+
+    }
 
     var DataGirdCRUDModel = (function () {
         function DataGirdCRUDModel(key, actionLoad, actionInsert, actionUpdate, actionDelete) {
@@ -349,17 +332,14 @@
         //grid.option("dataSource", InitDataSource(objAction));
     }
     function onRowClick(e) {
-        console.log(e)
         $('#IDROW').val(e.key)
 
     }
 
     function validateText() {
-        console.log(DevExpress.validationEngine)
         return DevExpress.validationEngine.validateGroup("ValidateText").isValid;
         }
     function CapNhatGrid(e) {
-        console.log(e)
         $('#IDKYQH').val(e.value.ID)
 
         if ('@Model.SetupPage.TYPE' == '5')
@@ -369,7 +349,7 @@
             grid.option("dataSource", InitDataSource(objAction));
         }
 
-       
+
 
 
     }
@@ -380,7 +360,6 @@
     }
 
     function GetIDHUYEN(e) {
-        console.log(e)
         $.ajax({
             url: '/api/GetDanhMuc/KVHCByIDHUYEN?ID=' + e.value,
             type: 'get',
@@ -410,6 +389,8 @@
 
         $('#btnAdd').click(function () {
             console.log('bind du liẹu')
+                console.log('@ViewData["MaHuyen"]')
+
             console.log($('#NameKYQH').dxSelectBox("instance").option().displayValue)
             if ($('#NameKYQH').dxSelectBox("instance").option().displayValue!=null)
             {
@@ -465,7 +446,7 @@
             var data = new FormData();
             data.append("IDKYQH", $('#IDKYQH').val());
 
-          
+
                 data.append("NAM", $('#HienTrang_NAM').val());
                 data.append("DIENTICH", $('#HienTrang_DIENTICH').val());
                 data.append("DIENTICH_HT", $('#HienTrang_DIENTICH_HT').val());

@@ -33,8 +33,7 @@ namespace KHQH.Common
             return KetQua;
             }
 
-
-           
-        }
+        
+    }
     
 }

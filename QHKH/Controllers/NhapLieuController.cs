@@ -38,8 +38,10 @@ namespace KHQH.Controllers
                 cb.LstLoaiKCN = dbEF.DM_LOAIKHUCHUCNANG.ToList();
                 cb.SetupPage = PageDB.data.Where(n=>n.TYPE==ID).FirstOrDefault();
 
-            
-               cb.HienTrang = ht;
+            ViewData["MaXa"] = MaXa;
+            ViewData["MaHuyen"] = MaHuyen;
+            ViewData["ISCAPTINH"] = ISCAPTINH;
+            cb.HienTrang = ht;
                return View(cb);
         }
 
@@ -71,6 +73,9 @@ namespace KHQH.Controllers
 
 
             cb.HienTrang = ht;
+            ViewData["MaXa"] = MaXa;
+            ViewData["MaHuyen"] = MaHuyen;
+            ViewData["ISCAPTINH"] = ISCAPTINH;
             return View(cb);
         }
 
@@ -93,7 +98,9 @@ namespace KHQH.Controllers
             cb.LstCMD = dbEF.DM_CHUYENMUCDICH.ToList();
             cb.SetupPage = PageDB.data.Where(n => n.TYPE == ID).FirstOrDefault();
             cb.HienTrang = ht;
-
+            ViewData["MaXa"] = MaXa;
+            ViewData["MaHuyen"] = MaHuyen;
+            ViewData["ISCAPTINH"] = ISCAPTINH;
             return View(cb);
 
         }
@@ -123,6 +130,10 @@ namespace KHQH.Controllers
 
 
             cb.HienTrang = ht;
+            ViewData["MaXa"] = MaXa;
+            ViewData["MaHuyen"] = MaHuyen;
+            ViewData["ISCAPTINH"] = ISCAPTINH;
+
             return View(cb);
         }
     }

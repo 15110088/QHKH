@@ -171,6 +171,11 @@
                 <br />
                 <label class="SRbody" style="margin:10px">@Model.LstPage.Where(n => n.TYPE == 43).FirstOrDefault().TITLE</label>
             </div>
+            <a style="position:absolute;right:30px;top:20px; color:#198754" class="SRtitle1" onclick="Xuat(43)"><i class="bi bi-file-earmark-arrow-down-fill" style="width:15px"></i></a>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-success me-md-2" onclick="TongHopBanDo(43)">Xuất mới</button>
+            </div>
         </div>
     </div>
     

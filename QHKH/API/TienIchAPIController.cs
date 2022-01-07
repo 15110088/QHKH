@@ -795,6 +795,16 @@ namespace KHQH.API
             p2.Value = MAHUYEN;
             p2.OracleDbType = OracleDbType.Varchar2;
             parameters.Add(p2);
+            var KYQH = dbEF.KYQUYHOACHKEHOACH.FirstOrDefault(n => n.ID == IDKYQH);
+
+            if (ID==43|| ID == 36 || ID == 38 || ID == 33)
+            {
+                OracleParameter p3 = new OracleParameter();
+                p3.ParameterName = "IDYEAR";
+                p3.Value = KYQH.NAM;
+                p3.OracleDbType = OracleDbType.Int32;
+                parameters.Add(p3);
+            }
 
             string SQLBIEUMAU = "";
             string TEMPLATE = "";
@@ -890,7 +900,6 @@ namespace KHQH.API
                     ExcelWorksheet wsEstimate = p.Workbook.Worksheets[0];
                     var DanhMucHuyen = dbEF.DM_KVHC.Where(n => n.ID_CAP_KVHC == 1 && n.MA_KVHC_CHA==MAHUYEN).OrderBy(n => n.MA_KVHC).ToList();
                     var DanhMucKCN = dbEF.DM_LOAIKHUCHUCNANG.OrderBy(n => n.ID).ToList();
-                    var KYQH = dbEF.KYQUYHOACHKEHOACH.FirstOrDefault(n => n.ID == IDKYQH);
                     var TENHUYEN = dbEF.DM_KVHC.FirstOrDefault(n => n.MA_KVHC == MAHUYEN).TEN_KVHC.ToUpper();
 
                     if (ID == 31 || ID == 34 || ID == 35 || ID==36 || ID == 37 || ID == 38 || ID == 39)
@@ -898,38 +907,38 @@ namespace KHQH.API
                         int ColHeader = 5;
                         if(ID==31)
                         {
-                            wsEstimate.Cells[1, 1].Value = String.Format("HIỆN TRẠNG SỬ DỤNG ĐẤT NĂM {0} HUYỆN(QUẬN, THỊ XÃ, THÀNH PHỐ THUỘC TỈNH, THÀNH PHỐ THUỘC THÀNH PHỐ TRỰC THUỘC TRUNG ƯƠNG) {1}", KYQH.NAM, TENHUYEN);
+                            wsEstimate.Cells[1, 1].Value = String.Format("HIỆN TRẠNG SỬ DỤNG ĐẤT NĂM {0} {1}", KYQH.NAM, TENHUYEN);
 
                         }
 
                         if (ID == 34)
                         {
-                            wsEstimate.Cells[1, 1].Value = String.Format("DIỆN TÍCH CHUYỂN MỤC ĐÍCH SỬ DỤNG ĐẤT TRONG KỲ QUY HOẠCH PHÂN BỔ ĐẾN TỪNG ĐƠN VỊ HÀNH CHÍNH CẤP XÃ CỦA HUYỆN (QUẬN, THỊ XÃ, THÀNH PHỐ THUỘC TỈNH, THÀNH PHỐ THUỘC THÀNH PHỐ TRỰC THUỘC TRUNG ƯƠNG) {0}", TENHUYEN);
+                            wsEstimate.Cells[1, 1].Value = String.Format("DIỆN TÍCH CHUYỂN MỤC ĐÍCH SỬ DỤNG ĐẤT TRONG KỲ QUY HOẠCH PHÂN BỔ ĐẾN TỪNG ĐƠN VỊ HÀNH CHÍNH CẤP XÃ CỦA {0}", TENHUYEN);
 
                         }
 
                         if (ID == 35)
                         {
-                            wsEstimate.Cells[1, 1].Value = String.Format("DIỆN TÍCH ĐẤT CHƯA SỬ DỤNG ĐƯA VÀO SỬ DỤNG TRONG KỲ QUY HOẠCH PHÂN BỔ ĐẾN TỪNG ĐƠN VỊ HÀNH CHÍNH CẤP XÃ CỦA HUYỆN(QUẬN, THỊ XÃ, THÀNH PHỐ THUỘC TỈNH, THÀNH PHỐ THUỘC THÀNH PHỐ TRỰC THUỘC TRUNG ƯƠNG) {0}", TENHUYEN);
+                            wsEstimate.Cells[1, 1].Value = String.Format("DIỆN TÍCH ĐẤT CHƯA SỬ DỤNG ĐƯA VÀO SỬ DỤNG TRONG KỲ QUY HOẠCH PHÂN BỔ ĐẾN TỪNG ĐƠN VỊ HÀNH CHÍNH CẤP XÃ CỦA {0}", TENHUYEN);
                         }
 
                         if (ID == 36)
                         {
-                            wsEstimate.Cells[1, 1].Value = String.Format("KẾ HOẠCH SỬ DỤNG ĐẤT NĂM {0} HUYỆN(QUẬN, THỊ XÃ, THÀNH PHỐ THUỘC TỈNH, THÀNH PHỐ THUỘC THÀNH PHỐ TRỰC THUỘC TRUNG ƯƠNG) {1}",KYQH.NAM, TENHUYEN);
+                            wsEstimate.Cells[1, 1].Value = String.Format("KẾ HOẠCH SỬ DỤNG ĐẤT NĂM {0} {1}",KYQH.NAM, TENHUYEN);
                         }
 
                         if (ID == 37)
                         {
-                            wsEstimate.Cells[1, 1].Value = String.Format("KẾ HOẠCH CHUYỂN MỤC ĐÍCH SỬ DỤNG ĐẤT NĂM {0} HUYỆN(QUẬN, THỊ XÃ, THÀNH PHỐ THUỘC TỈNH, THÀNH PHỐ THUỘC THÀNH PHỐ TRỰC THUỘC TRUNG ƯƠNG) {1}", KYQH.NAM, TENHUYEN);
+                            wsEstimate.Cells[1, 1].Value = String.Format("KẾ HOẠCH CHUYỂN MỤC ĐÍCH SỬ DỤNG ĐẤT NĂM {0} {1}", KYQH.NAM, TENHUYEN);
                         }
                         if (ID == 38)
                         {
-                            wsEstimate.Cells[1, 1].Value = String.Format("KẾ HOẠCH THU HỒI ĐẤT NĂM {0} HUYỆN(QUẬN, THỊ XÃ, THÀNH PHỐ THUỘC TỈNH, THÀNH PHỐ THUỘC THÀNH PHỐ TRỰC THUỘC TRUNG ƯƠNG) {1}", KYQH.NAM, TENHUYEN);
+                            wsEstimate.Cells[1, 1].Value = String.Format("KẾ HOẠCH THU HỒI ĐẤT NĂM {0} {1}", KYQH.NAM, TENHUYEN);
                         }
 
                         if (ID == 39)
                         {
-                            wsEstimate.Cells[1, 1].Value = String.Format("KẾ HOẠCH ĐƯA ĐẤT CHƯA SỬ DỤNG VÀO SỬ DỤNG NĂM {0} HUYỆN(QUẬN, THỊ XÃ, THÀNH PHỐ THUỘC TỈNH, THÀNH PHỐ THUỘC THÀNH PHỐ TRỰC THUỘC TRUNG ƯƠNG) {1}", KYQH.NAM, TENHUYEN);
+                            wsEstimate.Cells[1, 1].Value = String.Format("KẾ HOẠCH ĐƯA ĐẤT CHƯA SỬ DỤNG VÀO SỬ DỤNG NĂM {0} {1}", KYQH.NAM, TENHUYEN);
                         }
 
 
@@ -948,7 +957,7 @@ namespace KHQH.API
                     }
                     if (ID == 32)
                     {
-                        wsEstimate.Cells[1, 1].Value = String.Format("Kết quả thực hiện quy hoạch sử dụng đất kỳ trước/kế hoạch sử dụng đất năm trước huyện (quận, thị xã, thành phố thuộc tỉnh, thành phố thuộc thành phố trực thuộc Trung ương) {0}", TENHUYEN);
+                        wsEstimate.Cells[1, 1].Value = String.Format("KẾT QUẢ THỰC HIỆN QUY HOẠCH SỬ DỤNG ĐẤT KỲ TRƯỚC/KẾ HOẠCH SỬ DỤNG ĐẤT NĂM TRƯỚC {0}", TENHUYEN);
                         wsEstimate.Cells[7, 4].LoadFromCollection(data.Select(n => n.DIENTICH));
 
                     }
@@ -957,7 +966,7 @@ namespace KHQH.API
                     {
                         int ColHeader = 7;
 
-                        wsEstimate.Cells[1, 1].Value = String.Format("Quy hoạch (điều chỉnh) sử dụng đất đến năm {0} Huyện (quận, thị xã, thành phố thuộc tỉnh, thành phố thuộc thành phố trực thuộc Trung ương) {1}", KYQH.NAM, TENHUYEN);
+                        wsEstimate.Cells[1, 1].Value = String.Format("Quy hoạch (điều chỉnh) sử dụng đất đến năm {0} {1}", KYQH.TOINAM, TENHUYEN);
 
                         DataTable dt2 = DBOracleHelper.ExecuteProcedure("ST_BieuMau03CH_PHANBO", parameters);
 
@@ -1058,7 +1067,7 @@ namespace KHQH.API
                     if (ID == 41)
                     {
                         int ColHeader = 4;
-                        wsEstimate.Cells[1, 1].Value = String.Format("DIỆN TÍCH, CƠ CẤU SỬ DỤNG ĐẤT CÁC KHU CHỨC NĂNG HUYỆN (QUẬN, THỊ XÃ, THÀNH PHỐ THUỘC TỈNH, THÀNH PHỐ THUỘC THÀNH PHỐ TRỰC THUỘC TRUNG ƯƠNG) {0}", TENHUYEN);
+                        wsEstimate.Cells[1, 1].Value = String.Format("DIỆN TÍCH, CƠ CẤU SỬ DỤNG ĐẤT CÁC KHU CHỨC NĂNG {0}", TENHUYEN);
 
                         foreach (var item in DanhMucKCN)
                         {
@@ -1086,6 +1095,32 @@ namespace KHQH.API
                         int ColHeader = 5;
                         wsEstimate.Cells[6, 4].LoadFromCollection(data.Select(n => n.DIENTICH));
                         var DanhMucLoaiDat = dbEF.DM_MUCDICHSUDUNG.Where(n => n.STT !=null).OrderBy(n => n.STT);
+                        foreach (var item in DanhMucLoaiDat)
+                        {
+                            // wsEstimate.Cells[4, ColHeader].Value = item.TEN_KVHC;
+
+                            if (data2.Where(n => n.HIENTRANG == item.KIHIEU).FirstOrDefault() != null)
+                            {
+                                wsEstimate.Cells[6, ColHeader++].LoadFromCollection(data2.Where(n => n.HIENTRANG == item.KIHIEU).Select(n => n.DIENTICH));
+                            }
+
+
+                        }
+                    }
+
+                    if (ID == 43)
+                    {
+                        wsEstimate.Cells[1, 1].Value = String.Format("CHU CHUYỂN ĐẤT ĐAI TRONG KẾ HOẠCH SỬ DỤNG ĐẤT NĂM {0} {2}", KYQH.TUNAM, KYQH.TOINAM, TENHUYEN);
+                        wsEstimate.Cells[3, 4].Value = String.Format("Diện tích đầu kỳ năm {0}", KYQH.NAM);
+                        wsEstimate.Cells[3, 5].Value = String.Format("Chu chuyển đất đai đến năm {0} ", KYQH.TOINAM);
+
+                        DataTable dt2 = DBOracleHelper.ExecuteProcedure("ST_BieuMau13CH_LOAIDAT", parameters);
+
+                        List<BM11CT> data2 = new List<BM11CT>();
+                        data2 = DataHelper.ConvertDataTable<BM11CT>(dt2);
+                        int ColHeader = 5;
+                        wsEstimate.Cells[6, 4].LoadFromCollection(data.Select(n => n.DIENTICH));
+                        var DanhMucLoaiDat = dbEF.DM_MUCDICHSUDUNG.Where(n => n.STT != null).OrderBy(n => n.STT);
                         foreach (var item in DanhMucLoaiDat)
                         {
                             // wsEstimate.Cells[4, ColHeader].Value = item.TEN_KVHC;
@@ -1128,6 +1163,7 @@ namespace KHQH.API
             DBOracleHelper db = new DBOracleHelper();
 
             List<OracleParameter> parameters = new List<OracleParameter>();
+            var DanhMucMDSD = dbEF.DM_MUCDICHSUDUNG.Select(n => new { n.KIHIEU,n.ID });
             int dt = DBOracleHelper.ExecuteNonQuery("delete from TH_CHUCHUYENDATDAI", parameters);
 
             List <TH_CHUCHUYENDATDAI> lstChuChuyen = new List<TH_CHUCHUYENDATDAI>();
@@ -1135,6 +1171,7 @@ namespace KHQH.API
             // queryRanhThua.Token = GetToken(td.MaHuyen);
             var whereRanhThua = new Query(String.Format("1=1"));
             whereRanhThua.OutFields = OutFields.All;
+            
             //queryParams.ReturnGeometry = true;
             //queryParams.Where = String.Format("(SH_TO = {0} AND SH_THUA = {1})", td.SoTo, td.SoThua);
             //queryParams.OutFields.Add("SH_TO");
@@ -1143,6 +1180,7 @@ namespace KHQH.API
             var resultQH = await queryRanhThua.ExecuteAsync(whereRanhThua);
             var result = resultQH.FeatureSet.Features;
             var queryQuyHoach = new QueryTask(new Uri("http://192.169.3.157:6080/arcgis/rest/services/GD/Ky1Tong26680V6/MapServer/17"));
+
             foreach (var item in result)
             {
                 var queryParamsQH = new Query(item.Geometry.Extent);
@@ -1170,10 +1208,40 @@ namespace KHQH.API
                                 th.DIENTICH = Convert.ToDecimal(dtGiao) ;
                                 th.ID_KYQH = Convert.ToInt32(feature.Attributes["MAKY"]);
                                 //hiện trạng
-                                th.ID_MDSD= Convert.ToInt32(feature.Attributes["MALOAI"]);
-                              
+                                // th.ID_MDSD= Convert.ToInt32(feature.Attributes["LOAIDAT"]);
+                                String LoaiDatHT= Convert.ToString(feature.Attributes["LOAIDAT"]);
+
+                                if (LoaiDatHT != null)
+                                {
+                                    if (DanhMucMDSD.Where(n => n.KIHIEU == LoaiDatHT).FirstOrDefault() != null)
+                                    {
+                                        th.ID_MDSD = DanhMucMDSD.Where(n => n.KIHIEU == LoaiDatHT).FirstOrDefault().ID;
+
+                                    }
+                                    else
+                                    {
+                                        th.ID_MDSD = 0;
+                                    }
+
+
+                                }
+
                                 //Công trình
-                                th.ID_MDSD_CHUYEN = Convert.ToInt32(item.Attributes["MALOAI"]);
+                                String LoaiDatChuyen = Convert.ToString(item.Attributes["LOAIDAT"]);
+                                if (LoaiDatChuyen != null)
+                                {
+                                    if(DanhMucMDSD.Where(n => n.KIHIEU == LoaiDatChuyen).FirstOrDefault()!=null)
+                                    {
+                                        th.ID_MDSD_CHUYEN = DanhMucMDSD.Where(n => n.KIHIEU == LoaiDatChuyen).FirstOrDefault().ID;
+
+                                    }
+                                    else
+                                    {
+                                        th.ID_MDSD_CHUYEN = 0;
+                                    }
+
+
+                                }
                                 th.MAXA = Convert.ToString(feature.Attributes["MAKVHC"]);
                                 dbEF.TH_CHUCHUYENDATDAI.AddObject(th);
                                

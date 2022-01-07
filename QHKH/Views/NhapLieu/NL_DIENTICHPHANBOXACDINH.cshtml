@@ -102,7 +102,9 @@
                            columns.AddFor(m => m.CAPTINH).DataType(GridColumnDataType.Boolean).Caption("Cấp Tỉnh").AllowEditing(true);
 
 
-                       }).OnEditingStart("onRowClick")
+                       })
+                       .OnInitNewRow("ChonHuyenXa")
+                       .OnEditingStart("onRowClick")
                            .Editing(e => e.Mode(GridEditMode.Batch)
                            .AllowUpdating(true)
                            .AllowAdding(true)
@@ -129,7 +131,12 @@
 <script>
     var host = API_HOST
 
+    function ChonHuyenXa(e) {
+        e.data.MAHUYEN = '@ViewData["MaHuyen"]';
+        e.data.MAXA = '@ViewData["MAXA"]';
+        e.data.CAPTINH = '@ViewData["ISCAPTINH"]' == 'True' ? true : false;
 
+    }
 
     var DataGirdCRUDModel = (function () {
         function DataGirdCRUDModel(key, actionLoad, actionInsert, actionUpdate, actionDelete) {
@@ -171,7 +178,7 @@
         if ($('#NameKYQH').dxSelectBox("instance").option().value == null)
         {
             alert("Vui lòng chọn kỳ quy hoạch")
-            window.setTimeout(function () { e.component.cancelEditData(); }, 0)  
+            window.setTimeout(function () { e.component.cancelEditData(); }, 0)
 
         }
 
@@ -214,9 +221,9 @@
     $(document).ready(function () {
 
 
-      
 
-      
+
+
 
 
 

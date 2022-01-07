@@ -33,3 +33,23 @@ a.button4 {
        
     }
 }
+
+.cardCus {
+    z-index: 1;
+    display: flex;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin:10px;
+
+}
+
+@media  (max-width: 767px) {
+    .cardCus {
+     
+    }
+}

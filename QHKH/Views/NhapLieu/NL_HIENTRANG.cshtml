@@ -498,7 +498,7 @@
                                 .AcceptCustomValue(true).IsValid(true)
                                 .ValueExpr("MA_KVHC")
                                 .DisplayExpr("TEN_KVHC").ID("IDHUYEN")
-                                .OnValueChanged("GetIDHUYEN")
+                                .OnValueChanged("GetIDHUYEN").Value(Convert.ToString(@ViewData["MaHuyen"]))
                               )
                         </div>
                         <div class="col-sm">
@@ -509,7 +509,7 @@
                             .SearchEnabled(true).Placeholder("Xã")
                             .AcceptCustomValue(true)
                             .ValueExpr("MA_KVHC").IsValid(true)
-                            .DisplayExpr("TEN_KVHC").ID("IDXA")
+                            .DisplayExpr("TEN_KVHC").ID("IDXA").Value(Convert.ToString(@ViewData["MaXa"]))
                             )
                         </div>
                     </div>
@@ -531,7 +531,7 @@
                             {
                                 <label style="text-align:left" class="SRBody">Cấp tỉnh</label>
                                 <br />
-                                @(Html.DevExtreme().CheckBoxFor(n => n.HienTrang.CAPTINH).OnValueChanged("CapTinhCheck"))
+                                @(Html.DevExtreme().CheckBoxFor(n => n.HienTrang.CAPTINH).OnValueChanged("CapTinhCheck").Value(Convert.ToBoolean(@ViewData["ISCAPTINH"])))
                             }
 
 

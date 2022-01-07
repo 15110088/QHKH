@@ -41,7 +41,8 @@
                    columns.AddFor(m => m.CAPTINH).DataType(GridColumnDataType.Boolean).Caption("Cấp Tỉnh").AllowEditing(true);
 
 
-               }).Editing(e => e.Mode(GridEditMode.Popup)
+               })
+               .Editing(e => e.Mode(GridEditMode.Popup)
            .AllowUpdating(true)
            .AllowAdding(true)
            .AllowDeleting(true)
@@ -71,3 +72,11 @@
 
            }))
         ))
+<script>
+     function ChonHuyenXa(e) {
+        e.data.MAHUYEN = '@ViewData["MaHuyen"]';
+        e.data.MAXA = '@ViewData["MAXA"]';
+        e.data.CAPTINH = '@ViewData["ISCAPTINH"]' == 'True' ? true : false;
+
+    }
+</script>

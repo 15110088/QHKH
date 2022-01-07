@@ -106,7 +106,9 @@
                            columns.AddFor(m => m.CAPTINH).DataType(GridColumnDataType.Boolean).Caption("Cấp Tỉnh").AllowEditing(true);
 
 
-                       }).OnEditingStart("onRowClick")
+                       })
+                       .OnInitNewRow("ChonHuyenXa")
+                       .OnEditingStart("onRowClick")
                            .Editing(e => e.Mode(GridEditMode.Batch)
                            .AllowUpdating(true)
                            .AllowAdding(true)
@@ -198,7 +200,9 @@
                            columns.AddFor(m => m.CAPTINH).DataType(GridColumnDataType.Boolean).Caption("Cấp Tỉnh").AllowEditing(true);
 
 
-                       }).OnEditingStart("onRowClick")
+                       })
+                        .OnInitNewRow("ChonHuyenXa")
+                       .OnEditingStart("onRowClick")
                            .Editing(e => e.Mode(GridEditMode.Batch)
                            .AllowUpdating(true)
                            .AllowAdding(true)
@@ -253,7 +257,9 @@
                                   .ValueExpr("MA_KVHC"));
 
 
-                       }).OnEditingStart("onRowClick")
+                       })
+                       .OnInitNewRow("ChonHuyenXa")
+                       .OnEditingStart("onRowClick")
                            .Editing(e => e.Mode(GridEditMode.Batch)
                            .AllowUpdating(true)
                            .AllowAdding(true)
@@ -310,7 +316,12 @@
 <script>
     // var apiRootUrl = "http://localhost:63563/"
     var host = '//' + window.location.host
+    function ChonHuyenXa(e) {
+        e.data.MAHUYEN = '@ViewData["MaHuyen"]';
+        e.data.MAXA = '@ViewData["MAXA"]';
+        e.data.CAPTINH = '@ViewData["ISCAPTINH"]' == 'True' ? true : false;
 
+    }
 
 
     var DataGirdCRUDModel = (function () {

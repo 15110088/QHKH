@@ -23,6 +23,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -272,8 +273,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Compile Include="API\BanDoController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Interface\IBase.cs" />
+    <Compile Include="Models\DB\DuLieuBanDo.cs" />
     <Compile Include="Models\DB\MAPCONFIG_DAPPER.cs" />
     <Compile Include="Models\Excel\BM03CT.cs" />
     <Content Include="Scripts\aspnet\dx.aspnet.data.js" />
@@ -306,6 +309,10 @@
     <Content Include="Scripts\globalize\message.min.js" />
     <Content Include="Scripts\globalize\number.js" />
     <Content Include="Scripts\globalize\number.min.js" />
+    <Content Include="BIEUMAUEXCEL\BM06CT.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM11CT.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM12CH.xlsx" />
+    <Content Include="BIEUMAUEXCEL\BM13CH.xlsx" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />

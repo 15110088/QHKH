@@ -15,25 +15,31 @@ namespace QHKH.Controllers
         protected  KHQHEntities dbEF = new KHQHEntities();
 
 
-        //protected override void OnActionExecuting(ActionExecutingContext filterContext)
-        //{
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+
+            base.OnActionExecuting(filterContext);
+            if (LoginInfo == null)
+            {
+                string actionName = ControllerContext.RouteData.Values["action"].ToString();
+                string homeName = ControllerContext.RouteData.Values["controller"].ToString();
+                if (homeName == "Home" && actionName == "Index")
+                {
+
+                }
+                else if(homeName == "Home" && actionName == "SignIn")
+                {
+
+                }
+                else
+                {
+                    filterContext.Result = Redirect("/");
+
+                }
+            }
 
 
-        //    string controllerName = filterContext.Controller.GetType().Name;
-        //    string actionName = filterContext.ActionDescriptor.ActionName;
-
-        //    if (LoginInfo == null)
-        //    {
-        //        if (!controllerName.Equals(typeof(HomeController).Name, StringComparison.InvariantCultureIgnoreCase)
-        //        || !actionName.Equals("Index", StringComparison.InvariantCultureIgnoreCase))
-        //filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary {
-        //        { "Controller", "Home" },
-        //        { "Action", "Index" }
-        //});
-        //    }
-
-
-        //}
+        }
 
 
 

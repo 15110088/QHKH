@@ -28,19 +28,24 @@ namespace KHQH.Controllers {
             return View(cb);
         }
 
-        public ActionResult Map(string Huyen,string Xa,bool IsCapTinh)
+        public ActionResult Map(string Huyen,string Xa,bool IsCapTinh=false)
         {
             if(LoginInfo==null)
             {
                 return Redirect("/");
             }
-            Session["MaHuyen"] = Huyen;
-            Session["MaXa"] = Xa;
-            Session["TenHuyen"] = dbEF.DM_KVHC.FirstOrDefault(n=>n.MA_KVHC==Huyen).TEN_KVHC;
-            Session["TenXa"] = dbEF.DM_KVHC.FirstOrDefault(n => n.MA_KVHC == Xa).TEN_KVHC; ;
-            Session["ISCAPTINH"] = IsCapTinh;
+            if(Huyen!=null)
+            {
+                Session["MaHuyen"] = Huyen;
+                Session["MaXa"] = Xa;
+                Session["TenHuyen"] = dbEF.DM_KVHC.FirstOrDefault(n => n.MA_KVHC == Huyen).TEN_KVHC;
+                Session["TenXa"] = dbEF.DM_KVHC.FirstOrDefault(n => n.MA_KVHC == Xa).TEN_KVHC; ;
+                Session["ISCAPTINH"] = IsCapTinh;
+                GhiLog("Đăng nhập HUYEN=" + Huyen + " Xa=" + Xa, "LOGIN");
 
-            GhiLog("Đăng nhập HUYEN="+Huyen+" Xa="+Xa, "LOGIN");
+            }
+
+
             CombineHienTrang cb = new CombineHienTrang();
             var dataKVHC = dbEF.DM_KVHC.Where(n => (n.DELETED == null || n.DELETED == false)).ToList();
             cb.LstHuyen = dataKVHC.Where(n => n.ID_CAP_KVHC == 2).ToList();

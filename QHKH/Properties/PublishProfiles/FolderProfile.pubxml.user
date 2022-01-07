@@ -8,69 +8,85 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <_NewBackgroundProfile>True</_NewBackgroundProfile>
     <_PublishTargetUrl>H:\Pub</_PublishTargetUrl>
+    <History>True|2021-12-02T04:41:38.6286711Z;True|2021-12-02T11:40:33.4851249+07:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="BIEUMAUEXCEL/BM01CH.xlsx">
-      <publishTime>11/21/2021 13:49:51</publishTime>
+      <publishTime>11/29/2021 21:38:21</publishTime>
     </File>
     <File Include="BIEUMAUEXCEL/BM01CT.xlsx">
-      <publishTime>11/20/2021 02:47:32</publishTime>
+      <publishTime>11/29/2021 21:39:04</publishTime>
     </File>
     <File Include="BIEUMAUEXCEL/BM02CH.xlsx">
-      <publishTime>11/21/2021 14:26:56</publishTime>
+      <publishTime>11/29/2021 21:39:45</publishTime>
     </File>
     <File Include="BIEUMAUEXCEL/BM02CT.xlsx">
-      <publishTime>11/20/2021 15:59:41</publishTime>
+      <publishTime>11/29/2021 21:40:55</publishTime>
     </File>
     <File Include="BIEUMAUEXCEL/BM03CH.xlsx">
-      <publishTime>11/23/2021 01:17:12</publishTime>
+      <publishTime>11/29/2021 21:41:31</publishTime>
     </File>
     <File Include="BIEUMAUEXCEL/BM03CT.xlsx">
-      <publishTime>11/22/2021 21:42:30</publishTime>
+      <publishTime>11/29/2021 21:41:54</publishTime>
     </File>
     <File Include="BIEUMAUEXCEL/BM04CH.xlsx">
-      <publishTime>11/21/2021 15:53:16</publishTime>
+      <publishTime>11/29/2021 21:42:15</publishTime>
     </File>
     <File Include="BIEUMAUEXCEL/BM04CT.xlsx">
-      <publishTime>11/22/2021 22:39:13</publishTime>
+      <publishTime>11/29/2021 21:43:02</publishTime>
     </File>
     <File Include="BIEUMAUEXCEL/BM05CH.xlsx">
-      <publishTime>11/21/2021 14:52:45</publishTime>
+      <publishTime>11/29/2021 21:43:26</publishTime>
     </File>
     <File Include="BIEUMAUEXCEL/BM05CT.xlsx">
-      <publishTime>11/20/2021 21:35:56</publishTime>
+      <publishTime>11/29/2021 21:43:51</publishTime>
     </File>
     <File Include="BIEUMAUEXCEL/BM06CH.xlsx">
-      <publishTime>11/21/2021 14:36:23</publishTime>
+      <publishTime>11/29/2021 21:44:12</publishTime>
+    </File>
+    <File Include="BIEUMAUEXCEL/BM06CT.xlsx">
+      <publishTime>11/29/2021 21:44:29</publishTime>
     </File>
     <File Include="BIEUMAUEXCEL/BM07CH.xlsx">
-      <publishTime>11/23/2021 23:14:58</publishTime>
+      <publishTime>11/29/2021 21:44:45</publishTime>
     </File>
     <File Include="BIEUMAUEXCEL/BM07CT.xlsx">
-      <publishTime>11/20/2021 20:49:02</publishTime>
+      <publishTime>11/29/2021 21:45:48</publishTime>
     </File>
     <File Include="BIEUMAUEXCEL/BM08CH.xlsx">
-      <publishTime>11/21/2021 16:08:05</publishTime>
+      <publishTime>11/29/2021 21:45:41</publishTime>
     </File>
     <File Include="BIEUMAUEXCEL/BM08CT.xlsx">
-      <publishTime>11/23/2021 00:22:29</publishTime>
+      <publishTime>11/29/2021 21:45:26</publishTime>
     </File>
     <File Include="BIEUMAUEXCEL/BM09CH.xlsx">
-      <publishTime>11/21/2021 16:08:20</publishTime>
+      <publishTime>11/29/2021 21:46:09</publishTime>
     </File>
     <File Include="BIEUMAUEXCEL/BM09CT.xlsx">
-      <publishTime>11/24/2021 01:51:25</publishTime>
+      <publishTime>11/29/2021 21:46:47</publishTime>
     </File>
     <File Include="BIEUMAUEXCEL/BM10CH.xlsx">
-      <publishTime>11/24/2021 02:03:33</publishTime>
+      <publishTime>11/29/2021 21:47:09</publishTime>
     </File>
     <File Include="BIEUMAUEXCEL/BM10CT.xlsx">
-      <publishTime>11/20/2021 20:51:41</publishTime>
+      <publishTime>11/29/2021 21:47:34</publishTime>
     </File>
     <File Include="BIEUMAUEXCEL/BM11CH.xlsx">
-      <publishTime>11/21/2021 17:07:22</publishTime>
+      <publishTime>11/29/2021 21:47:49</publishTime>
+    </File>
+    <File Include="BIEUMAUEXCEL/BM11CT.xlsx">
+      <publishTime>11/29/2021 21:39:59</publishTime>
+    </File>
+    <File Include="BIEUMAUEXCEL/BM12CH.xlsx">
+      <publishTime>11/29/2021 23:12:28</publishTime>
+    </File>
+    <File Include="BIEUMAUEXCEL/BM13CH.xlsx">
+      <publishTime>11/29/2021 23:12:28</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>09/10/2013 16:29:20</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.pdb">
       <publishTime>09/10/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/Dapper.Contrib.dll">
@@ -103,10 +119,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/ESRI.ArcGIS.Version.dll">
       <publishTime>02/13/2014 12:22:00</publishTime>
     </File>
+    <File Include="bin/Esri.ArcGISRuntime.dll">
+      <publishTime>11/29/2021 16:07:35</publishTime>
+    </File>
     <File Include="bin/ExcelDataReader.DataSet.dll">
       <publishTime>05/02/2019 04:39:58</publishTime>
     </File>
+    <File Include="bin/ExcelDataReader.DataSet.pdb">
+      <publishTime>05/02/2019 04:39:58</publishTime>
+    </File>
     <File Include="bin/ExcelDataReader.dll">
+      <publishTime>05/02/2019 04:39:52</publishTime>
+    </File>
+    <File Include="bin/ExcelDataReader.pdb">
       <publishTime>05/02/2019 04:39:52</publishTime>
     </File>
     <File Include="bin/KEHOACHQH.DAL.dll">
@@ -134,7 +159,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/13/2020 10:38:04</publishTime>
     </File>
     <File Include="bin/QHKH.dll">
-      <publishTime>11/29/2021 01:33:02</publishTime>
+      <publishTime>12/02/2021 17:40:26</publishTime>
+    </File>
+    <File Include="bin/QHKH.pdb">
+      <publishTime>12/02/2021 11:41:32</publishTime>
     </File>
     <File Include="bin/REIS.LIS.Connection.dll">
       <publishTime>11/11/2021 10:37:15</publishTime>
@@ -599,7 +627,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/09/2021 01:53:53</publishTime>
     </File>
     <File Include="Template/css/map.css">
-      <publishTime>11/25/2021 01:18:01</publishTime>
+      <publishTime>12/02/2021 17:39:00</publishTime>
     </File>
     <File Include="Template/css/SoraFont.css">
       <publishTime>10/14/2021 21:13:59</publishTime>
@@ -974,10 +1002,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/27/2021 09:18:20</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>11/28/2021 21:17:15</publishTime>
+      <publishTime>11/30/2021 00:42:07</publishTime>
     </File>
     <File Include="Views/Home/Map.cshtml">
-      <publishTime>11/29/2021 01:32:55</publishTime>
+      <publishTime>12/02/2021 17:36:32</publishTime>
     </File>
     <File Include="Views/NhapLieu/NL_CONGTRINH.cshtml">
       <publishTime>11/24/2021 21:46:33</publishTime>
@@ -986,10 +1014,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/27/2021 23:28:18</publishTime>
     </File>
     <File Include="Views/NhapLieu/NL_HIENTRANG.cshtml">
-      <publishTime>11/28/2021 19:57:54</publishTime>
+      <publishTime>12/01/2021 00:27:25</publishTime>
     </File>
     <File Include="Views/NhapLieu/NL_KEHOACH.cshtml">
-      <publishTime>11/27/2021 23:06:34</publishTime>
+      <publishTime>12/01/2021 00:30:39</publishTime>
     </File>
     <File Include="Views/NhapLieu/NL_QUYHOACH.cshtml">
       <publishTime>11/19/2021 13:50:28</publishTime>
@@ -1010,10 +1038,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/29/2021 00:24:23</publishTime>
     </File>
     <File Include="Views/TienIch/XuatBieuMau.cshtml">
-      <publishTime>11/28/2021 03:07:01</publishTime>
+      <publishTime>11/30/2021 01:17:38</publishTime>
     </File>
     <File Include="Views/TienIch/XuatBieuMauCapHuyen.cshtml">
-      <publishTime>11/28/2021 03:07:07</publishTime>
+      <publishTime>11/30/2021 08:51:00</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>11/19/2021 10:19:23</publishTime>
@@ -1022,7 +1050,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/19/2021 10:19:23</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/28/2021 22:27:37</publishTime>
+      <publishTime>11/30/2021 08:45:55</publishTime>
     </File>
   </ItemGroup>
 </Project>
