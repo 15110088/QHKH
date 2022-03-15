@@ -809,5 +809,11 @@
             $('#modalKVHC').modal('show');
 
         })
+
+        $('#btnKVHC').click(function () {
+
+        
+            window.location.href = host + "/Home/MapIsLogin?&Huyen=" + $('#IDHUYEN').dxSelectBox("instance").option().value + "&XA=" + $('#IDXA').dxSelectBox("instance").option().value;
+        })
     })
 </script>

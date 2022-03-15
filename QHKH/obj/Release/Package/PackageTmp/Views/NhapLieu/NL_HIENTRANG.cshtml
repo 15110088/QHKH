@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Template/css/theme.css" rel="stylesheet">
-@*@model KEHOACHQH.DAL.HIENTRANG*@
+@*@model QHKH.Models.HIENTRANG*@
 @model KHQH.Models.DB.CombineHienTrang
 <br />
 <br />
@@ -47,7 +47,7 @@
 
 
 
-@(Html.DevExtreme().DataGrid<KEHOACHQH.DAL.HIENTRANG>()
+@(Html.DevExtreme().DataGrid<QHKH.Models.HIENTRANG>()
                            .ID("grv")
                            .Selection(s => s.Mode(SelectionMode.Single))
                 
@@ -132,7 +132,7 @@
 
 @if (Model.SetupPage.TYPE == 3)
 {
-    @(Html.DevExtreme().DataGrid<KEHOACHQH.DAL.KHUCHUCNANG>()
+    @(Html.DevExtreme().DataGrid<QHKH.Models.KHUCHUCNANG>()
                            .ID("grv")
                            .Selection(s => s.Mode(SelectionMode.Single))
 
@@ -220,7 +220,7 @@
 
 
 
-    @(Html.DevExtreme().DataGrid<KEHOACHQH.DAL.QUYHOACH>()
+    @(Html.DevExtreme().DataGrid<QHKH.Models.QUYHOACH>()
                        .ID("grv")
                        .Selection(s => s.Mode(SelectionMode.Single))
                        .ShowBorders(true)
@@ -312,7 +312,7 @@
 
 
 
-    @(Html.DevExtreme().DataGrid<KEHOACHQH.DAL.KEHOACH>()
+    @(Html.DevExtreme().DataGrid<QHKH.Models.KEHOACH>()
                            .ID("grv")
                            .Selection(s => s.Mode(SelectionMode.Single))
                        //.DataSource(d => d.WebApi()
@@ -498,7 +498,7 @@
                                 .AcceptCustomValue(true).IsValid(true)
                                 .ValueExpr("MA_KVHC")
                                 .DisplayExpr("TEN_KVHC").ID("IDHUYEN")
-                                .OnValueChanged("GetIDHUYEN")
+                                .OnValueChanged("GetIDHUYEN").Value(Convert.ToString(@ViewData["MaHuyen"]))
                               )
                         </div>
                         <div class="col-sm">
@@ -509,7 +509,7 @@
                             .SearchEnabled(true).Placeholder("Xã")
                             .AcceptCustomValue(true)
                             .ValueExpr("MA_KVHC").IsValid(true)
-                            .DisplayExpr("TEN_KVHC").ID("IDXA")
+                            .DisplayExpr("TEN_KVHC").ID("IDXA").Value(Convert.ToString(@ViewData["MaXa"]))
                             )
                         </div>
                     </div>
@@ -531,7 +531,7 @@
                             {
                                 <label style="text-align:left" class="SRBody">Cấp tỉnh</label>
                                 <br />
-                                @(Html.DevExtreme().CheckBoxFor(n => n.HienTrang.CAPTINH).OnValueChanged("CapTinhCheck"))
+                                @(Html.DevExtreme().CheckBoxFor(n => n.HienTrang.CAPTINH).OnValueChanged("CapTinhCheck").Value(Convert.ToBoolean(@ViewData["ISCAPTINH"])))
                             }
 
 

@@ -2,13 +2,14 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Tasks.Query;
 using ExcelDataReader;
-using KEHOACHQH.DAL;
 using KHQH.Common;
 using KHQH.Models.DB;
 using KHQH.Models.JSONDATA;
 using OfficeOpenXml;
 using Oracle.ManagedDataAccess.Client;
 using QHKH.Common;
+using QHKH.DBFactory;
+using QHKH.Models;
 using QHKH.Models.Excel;
 using System;
 using System.Collections.Generic;
@@ -95,7 +96,7 @@ namespace KHQH.API
                                 if (ID == 1)
                                 {
                                     // kiểm tra mã vùng
-                                    if (dbEF.HIENTRANG.FirstOrDefault(n => n.MAHT == MaVung) != null)
+                                    if (dbEF.HIENTRANGs.FirstOrDefault(n => n.MAHT == MaVung) != null)
                                     {
                                         strErr += "Mã vũng đã tồn tại ";
                                     }
@@ -108,7 +109,7 @@ namespace KHQH.API
                                 if (ID == 2)
                                 {
                                     // kiểm tra mã vùng
-                                    if (dbEF.KEHOACH.FirstOrDefault(n => n.MAKH == MaVung) != null)
+                                    if (dbEF.KEHOACHes.FirstOrDefault(n => n.MAKH == MaVung) != null)
                                     {
                                         strErr += "Mã vũng đã tồn tại ";
                                     }
@@ -121,7 +122,7 @@ namespace KHQH.API
                                 if (ID == 4)
                                 {
                                     // kiểm tra mã vùng
-                                    if (dbEF.QUYHOACH.FirstOrDefault(n => n.MAQH == MaVung) != null)
+                                    if (dbEF.QUYHOACHes.FirstOrDefault(n => n.MAQH == MaVung) != null)
                                     {
                                         strErr += "Mã vũng đã tồn tại ";
                                     }
@@ -325,7 +326,7 @@ namespace KHQH.API
                                     {
                                         foreach (HIENTRANG s in lists)
                                         {
-                                            dbQH.HIENTRANG.AddObject(s);
+                                            dbQH.HIENTRANGs.Add(s);
                                         }
                                         dbQH.SaveChanges();
 
@@ -334,7 +335,7 @@ namespace KHQH.API
                                     {
                                         foreach (KEHOACH s in listsKH)
                                         {
-                                            dbQH.KEHOACH.AddObject(s);
+                                            dbQH.KEHOACHes.Add(s);
                                             dbQH.SaveChanges();
                                         }
                                     }
@@ -342,7 +343,7 @@ namespace KHQH.API
                                     {
                                         foreach (QUYHOACH s in listsQH)
                                         {
-                                            dbQH.QUYHOACH.AddObject(s);
+                                            dbQH.QUYHOACHes.Add(s);
                                             dbQH.SaveChanges();
                                         }
                                     }
@@ -390,14 +391,20 @@ namespace KHQH.API
         [HttpGet]
         public HttpResponseMessage XuatBieuMau(int ID=1,int IDKYQH=0)
         {
-            DBOracleHelper db = new DBOracleHelper();
-     
-            List<OracleParameter> parameters = new List<OracleParameter>();
-            OracleParameter p1 = new OracleParameter();
-            p1.ParameterName = "IDKYQH";
-            p1.Value = IDKYQH;
-            p1.OracleDbType = OracleDbType.Int32;
-            parameters.Add(p1);
+            //DBOracleHelper db = new DBOracleHelper();
+
+            //List<OracleParameter> parameters = new List<OracleParameter>();
+            //OracleParameter p1 = new OracleParameter();
+            //p1.ParameterName = "IDKYQH";
+            //p1.Value = IDKYQH;
+            //p1.OracleDbType = OracleDbType.Int32;
+            //parameters.Add(p1);
+
+            DBInteractiveSSMS dbssms = new DBInteractiveSSMS();
+
+            DynamicParameters parametersSQL = new DynamicParameters();
+            parametersSQL.Add("@IDKYQH", IDKYQH);
+
             string SQLBIEUMAU = "";
             string TEMPLATE = "";
 
@@ -460,9 +467,10 @@ namespace KHQH.API
                     break;
 
             }
-            DataTable dt = DBOracleHelper.ExecuteProcedure(SQLBIEUMAU, parameters);
-            List<BM01CT> data = new List<BM01CT>();
-            data = DataHelper.ConvertDataTable<BM01CT>(dt);
+
+            var data = dbssms.Get<BM01CT>("QUYHOACH2021." + SQLBIEUMAU, parametersSQL);
+
+            
             string timestamp = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture).ToUpper().Replace(':', '_').Replace('.', '_').Replace(' ', '_').Trim();
             var path = new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BIEUMAUEXCEL", TEMPLATE));
             // var stream = ExportToExcelHelper.UpdateDataIntoExcelTemplate<BM01CT>(data, path);
@@ -480,7 +488,7 @@ namespace KHQH.API
                     ExcelWorksheet wsEstimate = p.Workbook.Worksheets[0];
                     var DanhMucHuyen = dbEF.DM_KVHC.Where(n => n.ID_CAP_KVHC == 2).OrderBy(n=>n.MA_KVHC).ToList();
                     var DanhMucKCN = dbEF.DM_LOAIKHUCHUCNANG.Where(n => n.CAPTINH==true).OrderBy(n => n.ID).ToList();
-                    var KYQH = dbEF.KYQUYHOACHKEHOACH.FirstOrDefault(n => n.ID == IDKYQH);
+                    var KYQH = dbEF.KYQUYHOACHKEHOACHes.FirstOrDefault(n => n.ID == IDKYQH);
                     if (ID==11)
                     {
                         int ColHeader = 6;
@@ -502,10 +510,9 @@ namespace KHQH.API
 
                     if (ID == 13)
                     {
-                        DataTable dt2 = DBOracleHelper.ExecuteProcedure("ST_BieuMau03CT", parameters);
+                        var data2 = dbssms.Get<BM03CT>("QUYHOACH2021.ST_BieuMau03CT", parametersSQL);
 
-                        List<BM03CT> data2 = new List<BM03CT>();
-                        data2 = DataHelper.ConvertDataTable<BM03CT>(dt2);
+                        
                         int ColHeader = 7;
                         wsEstimate.Cells[1, 1].Value = String.Format("KẾ HOẠCH SỬ DỤNG ĐẤT ({0}-{1}) CỦA TỈNH (THÀNH PHỐ) …", KYQH.TUNAM,KYQH.TOINAM);
 
@@ -539,16 +546,15 @@ namespace KHQH.API
 
                     if (ID == 14)
                     {
-                        DataTable dt2 = DBOracleHelper.ExecuteProcedure("ST_BieuMau04CT_HIENTRANG", parameters);
+                        var data2 = dbssms.Get<BM01CT>("QUYHOACH2021.ST_BieuMau04CT_HIENTRANG", parametersSQL);
 
-                        List<BM01CT> data2 = new List<BM01CT>();
-                        data2 = DataHelper.ConvertDataTable<BM01CT>(dt2);
+
                         int ColHeader = 5;
                         wsEstimate.Cells[1, 1].Value = String.Format("KẾ HOẠCH SỬ DỤNG ĐẤT ({0}-{1}) PHÂN THEO NĂM CỦA TỈNH (THÀNH PHỐ) …", KYQH.TUNAM, KYQH.TOINAM);
 
                         // tìm danh mục theo năm kế hoạch
-                        var datanam = from n in dbEF.KEHOACH
-                                      join m in dbEF.KYQUYHOACHKEHOACH
+                        var datanam = from n in dbEF.KEHOACHes
+                                      join m in dbEF.KYQUYHOACHKEHOACHes
                                       on n.ID_KYQH equals m.ID
                                       where n.NAM >= m.TUNAM && n.NAM <= m.TOINAM
                                       select new { n.NAM }
@@ -594,7 +600,7 @@ namespace KHQH.API
                         int ColHeader = 5;
                         wsEstimate.Cells[1, 1].Value = String.Format("KẾ HOẠCH CHUYỂN MỤC ĐÍCH SỬ DỤNG ĐẤT ({0}-{1}) PHÂN THEO NĂM CỦA TỈNH (THÀNH PHỐ) …", KYQH.TUNAM, KYQH.TOINAM);
                         var datanam = from n in dbEF.KEHOACH_CMD
-                                      join m in dbEF.KYQUYHOACHKEHOACH
+                                      join m in dbEF.KYQUYHOACHKEHOACHes
                                       on n.ID_KYQH equals m.ID
                                       where n.NAM >= m.TUNAM && n.NAM <= m.TOINAM
                                       select new { n.NAM }
@@ -640,7 +646,7 @@ namespace KHQH.API
 
                         // tìm danh mục theo năm kế hoạch
                         var datanam = from n in dbEF.KEHOACH_CSD
-                                      join m in dbEF.KYQUYHOACHKEHOACH
+                                      join m in dbEF.KYQUYHOACHKEHOACHes
                                       on n.ID_KYQH equals m.ID
                                       where n.NAM >= m.TUNAM && n.NAM <= m.TOINAM
                                       select new { n.NAM }
@@ -665,10 +671,9 @@ namespace KHQH.API
                     if (ID == 19)
                     {
 
-                        DataTable dt2 = DBOracleHelper.ExecuteProcedure("ST_BieuMau09CT", parameters);
+                        var data2 = dbssms.Get<BM09CT>("QUYHOACH2021.ST_BieuMau09CT", parametersSQL);
 
-                        List<BM09CT> data2 = new List<BM09CT>();
-                        data2 = DataHelper.ConvertDataTable<BM09CT>(dt2);
+                        
                         int ColHeader = 2;
                         int RowHeader = 6;
                         int ColChild = 3;
@@ -733,10 +738,10 @@ namespace KHQH.API
                         wsEstimate.Cells[3, 4].Value = String.Format("Diện tích đầu kỳ năm {0}", KYQH.NAM);
                         wsEstimate.Cells[3, 5].Value = String.Format("Chu chuyển đất đai ({0}-{1}) ", KYQH.TUNAM, KYQH.TOINAM);
 
-                        DataTable dt2 = DBOracleHelper.ExecuteProcedure("ST_BieuMau11CT_LOAIDAT", parameters);
 
-                        List<BM11CT> data2 = new List<BM11CT>();
-                        data2 = DataHelper.ConvertDataTable<BM11CT>(dt2);
+                        var data2 = dbssms.Get<BM11CT>("QUYHOACH2021.ST_BieuMau11CT_LOAIDAT", parametersSQL);
+
+                  
                         int ColHeader = 5;
                         wsEstimate.Cells[6, 4].LoadFromCollection(data.Select(n => n.DIENTICH));
                         var DanhMucLoaiDat = dbEF.DM_MUCDICHSUDUNG.Where(n => n.CAPTINH == true).OrderBy(n => n.STT);
@@ -782,28 +787,23 @@ namespace KHQH.API
         [HttpGet]
         public HttpResponseMessage XuatBieuMauCapHuyen(int ID = 1, int IDKYQH = 0, string MAHUYEN = "")
         {
-            DBOracleHelper db = new DBOracleHelper();
+            //DBOracleHelper db = new DBOracleHelper();
 
-            List<OracleParameter> parameters = new List<OracleParameter>();
-            OracleParameter p1 = new OracleParameter();
-            p1.ParameterName = "IDKYQH";
-            p1.Value = IDKYQH;
-            p1.OracleDbType = OracleDbType.Int32;
-            parameters.Add(p1);
-            OracleParameter p2 = new OracleParameter();
-            p2.ParameterName = "IDHUYEN";
-            p2.Value = MAHUYEN;
-            p2.OracleDbType = OracleDbType.Varchar2;
-            parameters.Add(p2);
-            var KYQH = dbEF.KYQUYHOACHKEHOACH.FirstOrDefault(n => n.ID == IDKYQH);
+
+            DBInteractiveSSMS dbssms = new DBInteractiveSSMS();
+
+            DynamicParameters parametersSQL = new DynamicParameters();
+            parametersSQL.Add("@IDKYQH", IDKYQH);
+            parametersSQL.Add("@IDHUYEN", MAHUYEN);
+
+
+            var KYQH = dbEF.KYQUYHOACHKEHOACHes.FirstOrDefault(n => n.ID == IDKYQH);
 
             if (ID==43|| ID == 36 || ID == 38 || ID == 33)
             {
-                OracleParameter p3 = new OracleParameter();
-                p3.ParameterName = "IDYEAR";
-                p3.Value = KYQH.NAM;
-                p3.OracleDbType = OracleDbType.Int32;
-                parameters.Add(p3);
+                parametersSQL.Add("@IDYEAR", KYQH.NAM);
+
+
             }
 
             string SQLBIEUMAU = "";
@@ -880,9 +880,12 @@ namespace KHQH.API
                     break;
 
             }
-            DataTable dt = DBOracleHelper.ExecuteProcedure(SQLBIEUMAU, parameters);
-            List<BM01CT> data = new List<BM01CT>();
-            data = DataHelper.ConvertDataTable<BM01CT>(dt);
+          //  dbssms.Get<BM01CT>("QUYHOACH2021."+SQLBIEUMAU, parametersSQL);
+            //DataTable dt = DBOracleHelper.ExecuteProcedure(SQLBIEUMAU, parameters);
+          //  List<BM01CT> data = new List<BM01CT>();
+            //data = DataHelper.ConvertDataTable<BM01CT>(dt);
+           var data = dbssms.Get<BM01CT>("QUYHOACH2021." + SQLBIEUMAU, parametersSQL);
+
             string timestamp = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture).ToUpper().Replace(':', '_').Replace('.', '_').Replace(' ', '_').Trim();
             var path = new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BIEUMAUEXCEL", TEMPLATE));
             // var stream = ExportToExcelHelper.UpdateDataIntoExcelTemplate<BM01CT>(data, path);
@@ -968,10 +971,8 @@ namespace KHQH.API
 
                         wsEstimate.Cells[1, 1].Value = String.Format("Quy hoạch (điều chỉnh) sử dụng đất đến năm {0} {1}", KYQH.TOINAM, TENHUYEN);
 
-                        DataTable dt2 = DBOracleHelper.ExecuteProcedure("ST_BieuMau03CH_PHANBO", parameters);
+                        var data2 = dbssms.Get<BM03CT>("QUYHOACH2021.ST_BieuMau03CH_PHANBO", parametersSQL);
 
-                        List<BM03CT> data2 = new List<BM03CT>();
-                        data2 = DataHelper.ConvertDataTable<BM03CT>(dt2);
 
                         wsEstimate.Cells[6, 5].LoadFromCollection(data2.Select(n => n.DT_PHANBO));
                         wsEstimate.Cells[6, 4].LoadFromCollection(data2.Select(n => n.DT_XACDINH));
@@ -1032,10 +1033,9 @@ namespace KHQH.API
                     if (ID == 40)
                     {
 
-                        DataTable dt2 = DBOracleHelper.ExecuteProcedure("ST_BieuMau10CH", parameters);
+                        var data2 = dbssms.Get<BM10CH>("QUYHOACH2021.ST_BieuMau10CH", parametersSQL);
 
-                        List<BM10CH> data2 = new List<BM10CH>();
-                        data2 = DataHelper.ConvertDataTable<BM10CH>(dt2);
+                        
                         int ColHeader = 2;
                         int RowHeader = 6;
                         int ColChild = 3;
@@ -1088,10 +1088,9 @@ namespace KHQH.API
                        wsEstimate.Cells[3, 4].Value = String.Format("Diện tích đầu kỳ năm {0}", KYQH.NAM);
                        wsEstimate.Cells[3, 5].Value = String.Format("Chu chuyển đất đai đến năm {0} ", KYQH.TOINAM);
 
-                        DataTable dt2 = DBOracleHelper.ExecuteProcedure("ST_BieuMau12CH_LOAIDAT", parameters);
+                        var data2 = dbssms.Get<BM11CT>("QUYHOACH2021.ST_BieuMau12CH_LOAIDAT", parametersSQL);
 
-                        List<BM11CT> data2 = new List<BM11CT>();
-                        data2 = DataHelper.ConvertDataTable<BM11CT>(dt2);
+
                         int ColHeader = 5;
                         wsEstimate.Cells[6, 4].LoadFromCollection(data.Select(n => n.DIENTICH));
                         var DanhMucLoaiDat = dbEF.DM_MUCDICHSUDUNG.Where(n => n.STT !=null).OrderBy(n => n.STT);
@@ -1114,10 +1113,8 @@ namespace KHQH.API
                         wsEstimate.Cells[3, 4].Value = String.Format("Diện tích đầu kỳ năm {0}", KYQH.NAM);
                         wsEstimate.Cells[3, 5].Value = String.Format("Chu chuyển đất đai đến năm {0} ", KYQH.TOINAM);
 
-                        DataTable dt2 = DBOracleHelper.ExecuteProcedure("ST_BieuMau13CH_LOAIDAT", parameters);
+                        var data2 = dbssms.Get<BM11CT>("QUYHOACH2021.ST_BieuMau13CH_LOAIDAT", parametersSQL);
 
-                        List<BM11CT> data2 = new List<BM11CT>();
-                        data2 = DataHelper.ConvertDataTable<BM11CT>(dt2);
                         int ColHeader = 5;
                         wsEstimate.Cells[6, 4].LoadFromCollection(data.Select(n => n.DIENTICH));
                         var DanhMucLoaiDat = dbEF.DM_MUCDICHSUDUNG.Where(n => n.STT != null).OrderBy(n => n.STT);
@@ -1157,114 +1154,6 @@ namespace KHQH.API
 
 
 
-        [HttpGet]
-        public async Task<object> TongHopChuChuyen()
-        {
-            DBOracleHelper db = new DBOracleHelper();
-
-            List<OracleParameter> parameters = new List<OracleParameter>();
-            var DanhMucMDSD = dbEF.DM_MUCDICHSUDUNG.Select(n => new { n.KIHIEU,n.ID });
-            int dt = DBOracleHelper.ExecuteNonQuery("delete from TH_CHUCHUYENDATDAI", parameters);
-
-            List <TH_CHUCHUYENDATDAI> lstChuChuyen = new List<TH_CHUCHUYENDATDAI>();
-            var queryRanhThua = new QueryTask(new Uri("http://192.169.3.157:6080/arcgis/rest/services/GD/Ky1Tong26680V6/MapServer/12"));
-            // queryRanhThua.Token = GetToken(td.MaHuyen);
-            var whereRanhThua = new Query(String.Format("1=1"));
-            whereRanhThua.OutFields = OutFields.All;
-            
-            //queryParams.ReturnGeometry = true;
-            //queryParams.Where = String.Format("(SH_TO = {0} AND SH_THUA = {1})", td.SoTo, td.SoThua);
-            //queryParams.OutFields.Add("SH_TO");
-            //queryParams.OutFields.Add("SH_THUA"); ;
-            int Index = 1;
-            var resultQH = await queryRanhThua.ExecuteAsync(whereRanhThua);
-            var result = resultQH.FeatureSet.Features;
-            var queryQuyHoach = new QueryTask(new Uri("http://192.169.3.157:6080/arcgis/rest/services/GD/Ky1Tong26680V6/MapServer/17"));
-
-            foreach (var item in result)
-            {
-                var queryParamsQH = new Query(item.Geometry.Extent);
-                queryParamsQH.Geometry = item.Geometry;
-                queryParamsQH.SpatialRelationship = SpatialRelationship.Intersects;
-                queryParamsQH.OutSpatialReference = resultQH.FeatureSet.SpatialReference;
-                queryParamsQH.ReturnGeometry = true;
-                queryParamsQH.OutFields = OutFields.All;
-                QueryResult queryResultQH = null;
-                queryResultQH = await queryQuyHoach.ExecuteAsync(queryParamsQH);
-                if (queryResultQH != null)
-                {
-
-                    if (queryResultQH != null)
-                    {
-                        var resultFeaturesQH = queryResultQH.FeatureSet.Features;
-                        foreach (var feature in resultFeaturesQH)
-                        {
-                            var geo2 = feature.Geometry;
-                            TH_CHUCHUYENDATDAI th = new TH_CHUCHUYENDATDAI();
-                            try
-                            {
-                                var dtGiao = GeometryEngine.Area(GeometryEngine.Intersection(item.Geometry, geo2));
-                                th.ID = Index++;
-                                th.DIENTICH = Convert.ToDecimal(dtGiao) ;
-                                th.ID_KYQH = Convert.ToInt32(feature.Attributes["MAKY"]);
-                                //hiện trạng
-                                // th.ID_MDSD= Convert.ToInt32(feature.Attributes["LOAIDAT"]);
-                                String LoaiDatHT= Convert.ToString(feature.Attributes["LOAIDAT"]);
-
-                                if (LoaiDatHT != null)
-                                {
-                                    if (DanhMucMDSD.Where(n => n.KIHIEU == LoaiDatHT).FirstOrDefault() != null)
-                                    {
-                                        th.ID_MDSD = DanhMucMDSD.Where(n => n.KIHIEU == LoaiDatHT).FirstOrDefault().ID;
-
-                                    }
-                                    else
-                                    {
-                                        th.ID_MDSD = 0;
-                                    }
-
-
-                                }
-
-                                //Công trình
-                                String LoaiDatChuyen = Convert.ToString(item.Attributes["LOAIDAT"]);
-                                if (LoaiDatChuyen != null)
-                                {
-                                    if(DanhMucMDSD.Where(n => n.KIHIEU == LoaiDatChuyen).FirstOrDefault()!=null)
-                                    {
-                                        th.ID_MDSD_CHUYEN = DanhMucMDSD.Where(n => n.KIHIEU == LoaiDatChuyen).FirstOrDefault().ID;
-
-                                    }
-                                    else
-                                    {
-                                        th.ID_MDSD_CHUYEN = 0;
-                                    }
-
-
-                                }
-                                th.MAXA = Convert.ToString(feature.Attributes["MAKVHC"]);
-                                dbEF.TH_CHUCHUYENDATDAI.AddObject(th);
-                               
-                                lstChuChuyen.Add(th);
-                            }
-                            catch (Exception e)
-                            {
-                                return false;
-                            }
-                        }
-                    }
-
-                            
-               
-                }
-            }
-
-            dbEF.SaveChanges();
-            if (dbEF.Connection.State == ConnectionState.Open)
-            {
-                dbEF.Connection.Close();
-            }
-            return true;
-        }
+     
     }
 }

@@ -1,9 +1,9 @@
-﻿using KEHOACHQH.DAL;
-using KHQH.Common;
+﻿using KHQH.Common;
 
 using KHQH.Models.DB;
 using QHKH.Controllers;
 using QHKH.Interface;
+using QHKH.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -63,6 +63,41 @@ namespace KHQH.Controllers {
             //ViewData["URL"] = "http://192.169.3.157:6080/arcgis/rest/services/GD/Ky1Tong26680V6/MapServer";
             return View(cb);
         }
+
+        public ActionResult MapIsLogin(string Huyen, string Xa)
+        {
+            if (LoginInfo == null)
+            {
+                return Redirect("/");
+            }
+            if (Huyen != null)
+            {
+                Session["MaHuyen"] = Huyen;
+                Session["MaXa"] = Xa;
+                Session["TenHuyen"] = dbEF.DM_KVHC.FirstOrDefault(n => n.MA_KVHC == Huyen).TEN_KVHC;
+                Session["TenXa"] = dbEF.DM_KVHC.FirstOrDefault(n => n.MA_KVHC == Xa).TEN_KVHC; ;
+                GhiLog("Đăng nhập HUYEN=" + Huyen + " Xa=" + Xa, "LOGIN");
+
+            }
+
+
+            CombineHienTrang cb = new CombineHienTrang();
+            var dataKVHC = dbEF.DM_KVHC.Where(n => (n.DELETED == null || n.DELETED == false)).ToList();
+            cb.LstHuyen = dataKVHC.Where(n => n.ID_CAP_KVHC == 2).ToList();
+            cb.LstXa = dataKVHC.Where(n => n.ID_CAP_KVHC == 1).ToList();
+            if (dbEF.MAP_CONFIG.Where(n => n.MAKVHC == Xa).FirstOrDefault() != null)
+            {
+                ViewData["URL"] = dbEF.MAP_CONFIG.Where(n => n.MAKVHC == Xa).FirstOrDefault().MAP_SERVICES;
+
+            }
+            else
+            {
+                ViewData["URL"] = dbEF.MAP_CONFIG.Where(n => n.DEFAULT_VIEW == true).FirstOrDefault().MAP_SERVICES;
+
+            }
+            //ViewData["URL"] = "http://192.169.3.157:6080/arcgis/rest/services/GD/Ky1Tong26680V6/MapServer";
+            return View(cb);
+        }
         [HttpPost]
         public JsonResult SignIn(USERTABLE_DAPPER uSERTABLE)
         {
@@ -75,7 +110,7 @@ namespace KHQH.Controllers {
                 }
                 string strPass = FormsAuthentication.HashPasswordForStoringInConfigFile(uSERTABLE.MATKHAU, "MD5");
                 //  var CheckUser = db.EGetAll<USERTABLE_DAPPER>().FirstOrDefault(n => n.TENDANGNHAP.ToLower() == uSERTABLE.TENDANGNHAP.ToLower() && n.MATKHAU.ToLower() == strPass.ToLower());
-                var CheckUser = dbEF.USERTABLE.FirstOrDefault(n => n.TENDANGNHAP.ToLower() == uSERTABLE.TENDANGNHAP.ToLower() && n.MATKHAU.ToLower() == strPass.ToLower());
+                var CheckUser = dbEF.USERTABLEs.FirstOrDefault(n => n.TENDANGNHAP.ToLower() == uSERTABLE.TENDANGNHAP.ToLower() && n.MATKHAU.ToLower() == strPass.ToLower());
 
                 if (CheckUser != null)
                 {

@@ -10,7 +10,7 @@
 <br />
 <br />
 <p class="SRheader">DANH MỤC HÀNH CHÍNH</p>
-@(Html.DevExtreme().DataGrid<KEHOACHQH.DAL.DM_KVHC>()
+@(Html.DevExtreme().DataGrid<QHKH.Models.DM_KVHC>()
                    .ID("grvCMD")
                    .Selection(s => s.Mode(SelectionMode.Single))
      .DataSource(d => d.WebApi()

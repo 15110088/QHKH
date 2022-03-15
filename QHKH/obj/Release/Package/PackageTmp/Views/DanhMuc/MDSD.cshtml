@@ -8,7 +8,7 @@
 <br />
 <br />
 <p class="SRheader">DANH MỤC MỤC ĐÍCH SỬ DỤNG</p>
-@(Html.DevExtreme().DataGrid<KEHOACHQH.DAL.DM_MUCDICHSUDUNG>()
+@(Html.DevExtreme().DataGrid<QHKH.Models.DM_MUCDICHSUDUNG>()
                    .ID("grvMDSD")
                    .Selection(s => s.Mode(SelectionMode.Single))
      .DataSource(d => d.WebApi()

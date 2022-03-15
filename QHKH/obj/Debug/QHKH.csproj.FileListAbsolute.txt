@@ -13,7 +13,6 @@ H:\QHKH\QHKH\bin\EntityFramework.SqlServer.dll
 H:\QHKH\QHKH\bin\EPPlus.dll
 H:\QHKH\QHKH\bin\ExcelDataReader.DataSet.dll
 H:\QHKH\QHKH\bin\ExcelDataReader.dll
-H:\QHKH\QHKH\bin\KEHOACHQH.DAL.dll
 H:\QHKH\QHKH\bin\Microsoft.Bcl.AsyncInterfaces.dll
 H:\QHKH\QHKH\bin\Microsoft.IO.RecyclableMemoryStream.dll
 H:\QHKH\QHKH\bin\Microsoft.Web.Infrastructure.dll
@@ -89,3 +88,6 @@ H:\QHKH\QHKH\obj\Debug\QHKH.csprojResolveAssemblyReference.cache
 H:\QHKH\QHKH\obj\Debug\QHKH.dll
 H:\QHKH\QHKH\obj\Debug\QHKH.pdb
 H:\QHKH\QHKH\bin\Esri.ArcGISRuntime.dll
+H:\QHKH\QHKH\bin\System.Web.Cors.dll
+H:\QHKH\QHKH\bin\System.Web.Http.Cors.dll
+H:\QHKH\QHKH\bin\System.Web.Http.Cors.xml

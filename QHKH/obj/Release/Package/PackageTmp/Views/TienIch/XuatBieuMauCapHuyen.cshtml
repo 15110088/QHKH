@@ -13,7 +13,7 @@
             content: attr(data-badger);
             position: absolute;
             top: 0;
-            padding: 3px 7px;
+            padding: 6px 7px;
             font-size: 12px;
             font-weight: bold;
             background: #999;
@@ -107,18 +107,18 @@
     </div>
     
 }
-@for (int i = 1; i < Model.LstPage.Count(); i = i + 2)
+@for (int i = 1; i < Model.LstPage.Count()-2; i = i + 2)
 {
     <div class="row">
         <div class="col-sm">
             <div class="borderN">
                 <div class="badger-left badger-success" data-badger="@Model.LstPage.Where(n => n.TYPE == i+30).FirstOrDefault().TableSDE">
                     <br />
-                    <label class="SRbody" style="margin:10px">@Model.LstPage.Where(n => n.TYPE == i+30).FirstOrDefault().TITLE</label>
+                    <label class="SRbody" style="margin:10px" >@Model.LstPage.Where(n => n.TYPE == i+30).FirstOrDefault().TITLE</label>
                 </div>
 
             </div>
-            <a style="position:absolute;right:30px;top:20px" onclick="Xuat(@Model.LstPage.Where(n => n.TYPE == i+30).FirstOrDefault().TYPE)"><i class="bi bi-file-earmark-arrow-down-fill" style="width:50px"></i></a>
+            <a style="position:absolute;right:30px;top:20px;color:#198754"  class="SRtitle1" onclick="Xuat(@Model.LstPage.Where(n => n.TYPE == i+30).FirstOrDefault().TYPE)"><i class="bi bi-file-earmark-arrow-down-fill" style="width:50px"></i></a>
 
         </div>
         <div class="col-sm">
@@ -128,7 +128,7 @@
                     <label class="SRbody" style="margin:10px">@Model.LstPage.Where(n => n.TYPE == i + 31).FirstOrDefault().TITLE</label>
                 </div>
             </div>
-            <a style="position:absolute;right:30px;top:20px" onclick="Xuat(@Model.LstPage.Where(n => n.TYPE == i+31).FirstOrDefault().TYPE)"><i class="bi bi-file-earmark-arrow-down-fill" style="width:50px"></i></a>
+            <a style="position:absolute;right:30px;top:20px;color:#198754"  class="SRtitle1" onclick="Xuat(@Model.LstPage.Where(n => n.TYPE == i+31).FirstOrDefault().TYPE)"><i class="bi bi-file-earmark-arrow-down-fill" style="width:50px"></i></a>
 
         </div>
 
@@ -138,21 +138,56 @@
 <div class="row">
     <div class="col-sm">
         <div class="borderN">
-            <div class="badger-left badger-success" data-badger="@Model.LstPage.Where(n => n.TYPE == 43).FirstOrDefault().TableSDE">
+            <div class="badger-left badger-success" data-badger="@Model.LstPage.Where(n => n.TYPE == 41).FirstOrDefault().TableSDE">
                 <br />
-                <label class="SRbody" style="margin:10px">@Model.LstPage.Where(n => n.TYPE == 43).FirstOrDefault().TITLE</label>
+                <label class="SRbody" style="margin:15px">@Model.LstPage.Where(n => n.TYPE == 41).FirstOrDefault().TITLE</label>
+                <a style="position:absolute;right:20px;top:10px;color:#198754"  class="SRtitle1" onclick="Xuat(41)"><i class="bi bi-file-earmark-arrow-down-fill" style="width:50px"></i></a>
+
             </div>
         </div>
     </div>
     <div class="col-sm">
-
+       
     </div>
+
+</div>
+<div class="row">
+    <div class="col-sm">
+        <div class="borderN">
+            <div class="badger-left badger-success" data-badger="@Model.LstPage.Where(n => n.TYPE == 42).FirstOrDefault().TableSDE">
+                <br />
+                <label class="SRbody" style="margin:10px">@Model.LstPage.Where(n => n.TYPE == 42).FirstOrDefault().TITLE</label>
+            </div>
+            <a style="position:absolute;right:30px;top:20px; color:#198754" class="SRtitle1" onclick="Xuat(42)"><i class="bi bi-file-earmark-arrow-down-fill" style="width:15px"></i></a>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-success me-md-2" onclick="TongHopBanDo(42)">Xuất mới</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm">
+        <div class="borderN">
+            <div class="badger-left badger-success" data-badger="@Model.LstPage.Where(n => n.TYPE == 43).FirstOrDefault().TableSDE">
+                <br />
+                <label class="SRbody" style="margin:10px">@Model.LstPage.Where(n => n.TYPE == 43).FirstOrDefault().TITLE</label>
+            </div>
+            <a style="position:absolute;right:30px;top:20px; color:#198754" class="SRtitle1" onclick="Xuat(43)"><i class="bi bi-file-earmark-arrow-down-fill" style="width:15px"></i></a>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-success me-md-2" onclick="TongHopBanDo(43)">Xuất mới</button>
+            </div>
+        </div>
+    </div>
+    
 
 </div>
 
 
 
 
+<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    <img id="ImgLoading" class="unActiveLoading" src="~/Content/img/Spinner-1s-200px.gif" alt="">
+</div>
 
 
 
@@ -174,6 +209,42 @@
         
 
 
+    }
+    function TongHopBanDo(TYPE) {
+        if (!validateText()) {
+            alert('Vui lòng chọn thông tin kỳ kế hoạch quy hoạch')
+
+            return;
+        }
+        $("#ImgLoading").removeClass("unActiveLoading");
+
+        $("#ImgLoading").addClass("ActiveLoading");
+
+        $.ajax({
+            url: host + '/TienIch/TongHopChuChuyen',
+            type: 'GET',
+            success: function (data) {
+                if (data) {
+                    $("#ImgLoading").removeClass("ActiveLoading");
+                    $("#ImgLoading").addClass("unActiveLoading");
+                    Xuat(TYPE)
+                }
+                else {
+                    $("#ImgLoading").removeClass("ActiveLoading");
+                    $("#ImgLoading").addClass("unActiveLoading");
+                    alert('Lỗi tổng hợp chu chuyển')
+                }
+
+            },
+            error: function (err) {
+                console.log(err)
+                $("#ImgLoading").removeClass("ActiveLoading");
+                $("#ImgLoading").addClass("unActiveLoading");
+                alert('Lỗi tổng hợp chu chuyển')
+
+            }
+
+        });
     }
     $(document).on('click', '.panel-heading span.clickable', function (e) {
         var $this = $(this);

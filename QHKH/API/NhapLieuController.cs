@@ -14,9 +14,9 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Web;
 using System.Web.Http;
-using KEHOACHQH.DAL;
 using QHKH.Interface;
 using QHKH.Controllers;
+using QHKH.Models;
 
 namespace KHQH.API
 {
@@ -36,7 +36,7 @@ namespace KHQH.API
         public HttpResponseMessage GetHienTrangByID(DataSourceLoadOptions loadOptions, int ID)
         {
             //List<DM_CHUYENMUCDICH> data = db.EGetAll<DM_CHUYENMUCDICH>().Where(n => n.ENABLED == true).ToList();
-            var data = dbEF.HIENTRANG.Where(n => n.ID_KYQH == ID).Select(n => new { n.ID, n.ID_KYQH, n.ID_MDSD, n.MAHT, n.MAHUYEN, n.MAXA, n.NAM, n.DIENTICH, n.CAPTINH, n.TENVUNG }).ToList();
+            var data = dbEF.HIENTRANGs.Where(n => n.ID_KYQH == ID).Select(n => new { n.ID, n.ID_KYQH, n.ID_MDSD, n.MAHT, n.MAHUYEN, n.MAXA, n.NAM, n.DIENTICH, n.CAPTINH, n.TENVUNG }).ToList();
             return Request.CreateResponse(DataSourceLoader.Load(data, loadOptions));
         }
 
@@ -52,7 +52,7 @@ namespace KHQH.API
             info.ID_KYQH = IDKYQH;
 
 
-            dbEF.HIENTRANG.AddObject(info);
+            dbEF.HIENTRANGs.Add(info);
             dbEF.SaveChanges();
 
             Log.GhiLogAPI("Thêm hiện trạng " + info.MAHT + " Table = HIENTRANG", "NHAPLIEU");
@@ -66,7 +66,7 @@ namespace KHQH.API
             var key = Convert.ToInt32(form.Get("key"));
             var values = form.Get("values");
 
-            HIENTRANG info = dbEF.HIENTRANG.Where(n => n.ID == key).FirstOrDefault();
+            HIENTRANG info = dbEF.HIENTRANGs.Where(n => n.ID == key).FirstOrDefault();
 
             string MAHTOld = string.Copy(info.MAHT);
             JsonConvert.PopulateObject(values, info);
@@ -91,13 +91,13 @@ namespace KHQH.API
         {
             var key = Convert.ToInt32(form.Get("key"));
             var values = form.Get("values");
-            HIENTRANG info = dbEF.HIENTRANG.Where(n => n.ID == key).FirstOrDefault();
+            HIENTRANG info = dbEF.HIENTRANGs.Where(n => n.ID == key).FirstOrDefault();
 
             var clsUpdateShape = new clsUpdateShapeFile(_strConnect, EnvironmentAPI.ServerSDE, EnvironmentAPI.PortSDE, EnvironmentAPI.DbSDE, EnvironmentAPI.UserSDE, EnvironmentAPI.PassSDE);
 
             var xulySDE = clsUpdateShape.QuerySDE("Delete from HIENTRANG_VUNG where MAVUNG='" + info.MAHT + "'");
 
-            dbEF.HIENTRANG.DeleteObject(info);
+            dbEF.HIENTRANGs.Remove(info);
             dbEF.SaveChanges();
             Log.GhiLogAPI("Xóa hiện trạng " + info.MAHT + " ID=" + info.ID + " Table = HIENTRANG", "NHAPLIEU");
 
@@ -118,7 +118,7 @@ namespace KHQH.API
         public HttpResponseMessage GetKhuChucNangByID(DataSourceLoadOptions loadOptions, int ID)
         {
             //List<DM_CHUYENMUCDICH> data = db.EGetAll<DM_CHUYENMUCDICH>().Where(n => n.ENABLED == true).ToList();
-            var data = dbEF.KHUCHUCNANG.Where(n => n.ID_KYQH == ID).Select(n => new { n.ID, n.ID_KYQH, n.MALOAIKHUCN, n.MAKHUCN, n.MAHUYEN, n.MAXA, n.CAPTINH, n.TENVUNG }).ToList();
+            var data = dbEF.KHUCHUCNANGs.Where(n => n.ID_KYQH == ID).Select(n => new { n.ID, n.ID_KYQH, n.MALOAIKHUCN, n.MAKHUCN, n.MAHUYEN, n.MAXA, n.CAPTINH, n.TENVUNG }).ToList();
             return Request.CreateResponse(DataSourceLoader.Load(data, loadOptions));
         }
 
@@ -134,7 +134,7 @@ namespace KHQH.API
             info.ID_KYQH = IDKYQH;
 
 
-            dbEF.KHUCHUCNANG.AddObject(info);
+            dbEF.KHUCHUCNANGs.Add(info);
             dbEF.SaveChanges();
             Log.GhiLogAPI("Thêm Khu Chức Năng " + info.TENVUNG + " ID=" + info.ID + " Table = KHUCHUCNANG", "NHAPLIEU");
 
@@ -147,7 +147,7 @@ namespace KHQH.API
             var key = Convert.ToInt32(form.Get("key"));
             var values = form.Get("values");
 
-            KHUCHUCNANG info = dbEF.KHUCHUCNANG.Where(n => n.ID == key).FirstOrDefault();
+            KHUCHUCNANG info = dbEF.KHUCHUCNANGs.Where(n => n.ID == key).FirstOrDefault();
 
             string MAHTOld = string.Copy(info.MAKHUCN);
             JsonConvert.PopulateObject(values, info);
@@ -179,13 +179,13 @@ namespace KHQH.API
             var key = Convert.ToInt32(form.Get("key"));
             var values = form.Get("values");
 
-            KHUCHUCNANG info = dbEF.KHUCHUCNANG.Where(n => n.ID == key).FirstOrDefault();
+            KHUCHUCNANG info = dbEF.KHUCHUCNANGs.Where(n => n.ID == key).FirstOrDefault();
 
             // var clsUpdateShape = new clsUpdateShapeFile(_strConnect, EnvironmentAPI.ServerSDE, EnvironmentAPI.PortSDE, EnvironmentAPI.DbSDE, EnvironmentAPI.UserSDE, EnvironmentAPI.PassSDE);
 
             // var xulySDE = clsUpdateShape.QuerySDE("Delete from HIENTRANG_VUNG where MAVUNG='" + info.MAHT + "'");
 
-            dbEF.KHUCHUCNANG.DeleteObject(info);
+            dbEF.KHUCHUCNANGs.Remove(info);
             dbEF.SaveChanges();
             Log.GhiLogAPI("Xóa Khu Chức Năng " + info.TENVUNG + " ID=" + info.ID + " Table = KHUCHUCNANG", "NHAPLIEU");
 
@@ -199,7 +199,7 @@ namespace KHQH.API
         public HttpResponseMessage GetQuyHoachByID(DataSourceLoadOptions loadOptions, int ID)
         {
             //List<DM_CHUYENMUCDICH> data = db.EGetAll<DM_CHUYENMUCDICH>().Where(n => n.ENABLED == true).ToList();
-            var data = dbEF.QUYHOACH.Where(n => n.ID_KYQH == ID).Select(n => new { n.ID, n.ID_KYQH, n.ID_MDSD, n.MAQH, n.MAHUYEN, n.MAXA, n.NAM, n.DIENTICH, n.CAPTINH, n.TENVUNG, n.ID_KHUCN }).ToList();
+            var data = dbEF.QUYHOACHes.Where(n => n.ID_KYQH == ID).Select(n => new { n.ID, n.ID_KYQH, n.ID_MDSD, n.MAQH, n.MAHUYEN, n.MAXA, n.NAM, n.DIENTICH, n.CAPTINH, n.TENVUNG, n.ID_KHUCN }).ToList();
             return Request.CreateResponse(DataSourceLoader.Load(data, loadOptions));
         }
 
@@ -215,7 +215,7 @@ namespace KHQH.API
             info.ID_KYQH = IDKYQH;
 
 
-            dbEF.QUYHOACH.AddObject(info);
+            dbEF.QUYHOACHes.Add(info);
             dbEF.SaveChanges();
             Log.GhiLogAPI("Thêm quy hoạch" + info.TENVUNG + " ID=" + info.ID + " Table = QUYHOACH", "NHAPLIEU");
 
@@ -228,7 +228,7 @@ namespace KHQH.API
             var key = Convert.ToInt32(form.Get("key"));
             var values = form.Get("values");
 
-            QUYHOACH info = dbEF.QUYHOACH.Where(n => n.ID == key).FirstOrDefault();
+            QUYHOACH info = dbEF.QUYHOACHes.Where(n => n.ID == key).FirstOrDefault();
 
             string MAHTOld = string.Copy(info.MAQH);
             JsonConvert.PopulateObject(values, info);
@@ -255,13 +255,13 @@ namespace KHQH.API
             var key = Convert.ToInt32(form.Get("key"));
             var values = form.Get("values");
 
-            QUYHOACH info = dbEF.QUYHOACH.Where(n => n.ID == key).FirstOrDefault();
+            QUYHOACH info = dbEF.QUYHOACHes.Where(n => n.ID == key).FirstOrDefault();
 
             var clsUpdateShape = new clsUpdateShapeFile(_strConnect, EnvironmentAPI.ServerSDE, EnvironmentAPI.PortSDE, EnvironmentAPI.DbSDE, EnvironmentAPI.UserSDE, EnvironmentAPI.PassSDE);
 
             var xulySDE = clsUpdateShape.QuerySDE("Delete from QUYHOACH_VUNG where MAVUNG='" + info.MAQH + "'");
 
-            dbEF.QUYHOACH.DeleteObject(info);
+            dbEF.QUYHOACHes.Remove(info);
             dbEF.SaveChanges();
             Log.GhiLogAPI("Xóa quy hoạch" + info.TENVUNG + " ID=" + info.ID + " Table = QUYHOACH", "NHAPLIEU");
 
@@ -274,7 +274,7 @@ namespace KHQH.API
         public HttpResponseMessage GetKeHoachByID(DataSourceLoadOptions loadOptions, int ID)
         {
             //List<DM_CHUYENMUCDICH> data = db.EGetAll<DM_CHUYENMUCDICH>().Where(n => n.ENABLED == true).ToList();
-            var data = dbEF.KEHOACH.Where(n => n.ID_KYQH == ID).Select(n => new { n.ID, n.ID_KYQH, n.ID_MDSD, n.MAKH, n.MAHUYEN, n.MAXA, n.NAM, n.DIENTICH, n.CAPTINH, n.TENVUNG, n.ID_KHUCHUCNANG }).ToList();
+            var data = dbEF.KEHOACHes.Where(n => n.ID_KYQH == ID).Select(n => new { n.ID, n.ID_KYQH, n.ID_MDSD, n.MAKH, n.MAHUYEN, n.MAXA, n.NAM, n.DIENTICH, n.CAPTINH, n.TENVUNG, n.ID_KHUCHUCNANG }).ToList();
             return Request.CreateResponse(DataSourceLoader.Load(data, loadOptions));
         }
 
@@ -286,7 +286,7 @@ namespace KHQH.API
             JsonConvert.PopulateObject(values, info);
             info.ID_KYQH = IDKYQH;
 
-            dbEF.KEHOACH.AddObject(info);
+            dbEF.KEHOACHes.Add(info);
             dbEF.SaveChanges();
             Log.GhiLogAPI("Thêm kế hoạch " + info.TENVUNG + " ID=" + info.ID + " Table = KEHOACH", "NHAPLIEU");
 
@@ -301,7 +301,7 @@ namespace KHQH.API
             var key = Convert.ToInt32(form.Get("key"));
             var values = form.Get("values");
 
-            KEHOACH info = dbEF.KEHOACH.Where(n => n.ID == key).FirstOrDefault();
+            KEHOACH info = dbEF.KEHOACHes.Where(n => n.ID == key).FirstOrDefault();
 
             string MAHTOld = string.Copy(info.MAKH=="null"?"": info.MAKH);
             JsonConvert.PopulateObject(values, info);
@@ -327,13 +327,13 @@ namespace KHQH.API
             var key = Convert.ToInt32(form.Get("key"));
             var values = form.Get("values");
 
-            KEHOACH info = dbEF.KEHOACH.Where(n => n.ID == key).FirstOrDefault();
+            KEHOACH info = dbEF.KEHOACHes.Where(n => n.ID == key).FirstOrDefault();
 
             var clsUpdateShape = new clsUpdateShapeFile(_strConnect, EnvironmentAPI.ServerSDE, EnvironmentAPI.PortSDE, EnvironmentAPI.DbSDE, EnvironmentAPI.UserSDE, EnvironmentAPI.PassSDE);
 
             var xulySDE = clsUpdateShape.QuerySDE("Delete from KEHOACH_VUNG where MAVUNG='" + info.MAKH + "'");
 
-            dbEF.KEHOACH.DeleteObject(info);
+            dbEF.KEHOACHes.Remove(info);
             dbEF.SaveChanges();
             Log.GhiLogAPI("Xóa kế hoạch " + info.TENVUNG + " ID=" + info.ID + " Table = KEHOACH", "NHAPLIEU");
 
@@ -359,7 +359,7 @@ namespace KHQH.API
             JsonConvert.PopulateObject(values, info);
             info.ID_KYQH = IDKYQH;
 
-            dbEF.PHANBO_XACDINH.AddObject(info);
+            dbEF.PHANBO_XACDINH.Add(info);
             dbEF.SaveChanges();
             Log.GhiLogAPI("Thêm diện tích phân bổ xác định " +  " ID=" + info.ID + " Table = PHANBO_XACDINH", "NHAPLIEU");
 
@@ -393,7 +393,7 @@ namespace KHQH.API
             PHANBO_XACDINH info = dbEF.PHANBO_XACDINH.Where(n => n.ID == key).FirstOrDefault();
 
  
-            dbEF.PHANBO_XACDINH.DeleteObject(info);
+            dbEF.PHANBO_XACDINH.Remove(info);
             dbEF.SaveChanges();
             Log.GhiLogAPI("Xóa diện tích phân bổ xác định " + " ID=" + info.ID + " Table = PHANBO_XACDINH", "NHAPLIEU");
 
@@ -418,7 +418,7 @@ namespace KHQH.API
             JsonConvert.PopulateObject(values, info);
             info.ID_KYQH = IDKYQH;
 
-            dbEF.KEHOACH_CMD.AddObject(info);
+            dbEF.KEHOACH_CMD.Add(info);
             dbEF.SaveChanges();
             Log.GhiLogAPI("Thêm kế hoạch chuyển mục đích " + " ID=" + info.ID + " Table = KEHOACH_CMD", "NHAPLIEU");
 
@@ -447,7 +447,7 @@ namespace KHQH.API
             var key = Convert.ToInt32(form.Get("key"));
             var values = form.Get("values");
             KEHOACH_CMD info = dbEF.KEHOACH_CMD.Where(n => n.ID == key).FirstOrDefault();
-            dbEF.KEHOACH_CMD.DeleteObject(info);
+            dbEF.KEHOACH_CMD.Remove(info);
             dbEF.SaveChanges();
             Log.GhiLogAPI("Xóa kế hoạch chuyển mục đích " + " ID=" + info.ID + " Table = KEHOACH_CMD", "NHAPLIEU");
 
@@ -472,7 +472,7 @@ namespace KHQH.API
             JsonConvert.PopulateObject(values, info);
             info.ID_KYQH = IDKYQH;
 
-            dbEF.KEHOACH_CSD.AddObject(info);
+            dbEF.KEHOACH_CSD.Add(info);
             dbEF.SaveChanges();
             Log.GhiLogAPI("Thêm kế hoạch chưa sử dụng " + " ID=" + info.ID + " Table = KEHOACH_CSD", "NHAPLIEU");
 
@@ -501,7 +501,7 @@ namespace KHQH.API
             var key = Convert.ToInt32(form.Get("key"));
             var values = form.Get("values");
             KEHOACH_CSD info = dbEF.KEHOACH_CSD.Where(n => n.ID == key).FirstOrDefault();
-            dbEF.KEHOACH_CSD.DeleteObject(info);
+            dbEF.KEHOACH_CSD.Remove(info);
             dbEF.SaveChanges();
             Log.GhiLogAPI("Xóa kế hoạch chưa sử dụng " + " ID=" + info.ID + " Table = KEHOACH_CSD", "NHAPLIEU");
 
@@ -526,7 +526,7 @@ namespace KHQH.API
             JsonConvert.PopulateObject(values, info);
             info.ID_KYQH = IDKYQH;
 
-            dbEF.KEHOACH_THUHOI.AddObject(info);
+            dbEF.KEHOACH_THUHOI.Add(info);
             dbEF.SaveChanges();
             Log.GhiLogAPI("Thêm kế hoạch thu hồi "+ " ID=" + info.ID + " Table = KEHOACH_THUHOI", "NHAPLIEU");
 
@@ -555,7 +555,7 @@ namespace KHQH.API
             var key = Convert.ToInt32(form.Get("key"));
             var values = form.Get("values");
             KEHOACH_THUHOI info = dbEF.KEHOACH_THUHOI.Where(n => n.ID == key).FirstOrDefault();
-            dbEF.KEHOACH_THUHOI.DeleteObject(info);
+            dbEF.KEHOACH_THUHOI.Remove(info);
             dbEF.SaveChanges();
             Log.GhiLogAPI("Xóa kế hoạch thu hồi " + " ID=" + info.ID + " Table = KEHOACH_THUHOI", "NHAPLIEU");
 
@@ -580,7 +580,7 @@ namespace KHQH.API
             JsonConvert.PopulateObject(values, info);
             info.ID_KHUCN = ID_KHUCN;
 
-            dbEF.KHUCHUCNANG_MDSD.AddObject(info);
+            dbEF.KHUCHUCNANG_MDSD.Add(info);
             dbEF.SaveChanges();
             Log.GhiLogAPI("Thêm khu chức năng mục đích sử dụng " + " ID=" + info.ID + " Table = KHUCHUCNANG_MDSD", "NHAPLIEU");
 
@@ -608,7 +608,7 @@ namespace KHQH.API
             var key = Convert.ToInt32(form.Get("key"));
             var values = form.Get("values");
             KHUCHUCNANG_MDSD info = dbEF.KHUCHUCNANG_MDSD.Where(n => n.ID == key).FirstOrDefault();
-            dbEF.KHUCHUCNANG_MDSD.DeleteObject(info);
+            dbEF.KHUCHUCNANG_MDSD.Remove(info);
             dbEF.SaveChanges();
             Log.GhiLogAPI("Xóa khu chức năng mục đích sử dụng " + " ID=" + info.ID + " Table = KHUCHUCNANG_MDSD", "NHAPLIEU");
 
@@ -621,7 +621,7 @@ namespace KHQH.API
         public HttpResponseMessage GetCongTrinhByID(DataSourceLoadOptions loadOptions, int ID)
         {
             //List<DM_CHUYENMUCDICH> data = db.EGetAll<DM_CHUYENMUCDICH>().Where(n => n.ENABLED == true).ToList();
-            var data = dbEF.CONGTRINHDUAN.Where(n => n.ID_KYQH == ID).Select(n => new { n.ID, n.ID_KYQH, n.DIENTICH_TANGTHEM, n.MACT, n.MAHUYEN, n.MAXA, n.NAMTH, n.DIENTICH_KH,n.DIENTICH_HT, n.CAPTINH, n.TENCONGTRINH,n.TENDIADIEM, n.ID_LOAICT,n.VITRITRENBD,n.SUDUNGVAOLD }).ToList();
+            var data = dbEF.CONGTRINHDUANs.Where(n => n.ID_KYQH == ID).Select(n => new { n.ID, n.ID_KYQH, n.DIENTICH_TANGTHEM, n.MACT, n.MAHUYEN, n.MAXA, n.NAMTH, n.DIENTICH_KH,n.DIENTICH_HT, n.CAPTINH, n.TENCONGTRINH,n.TENDIADIEM, n.ID_LOAICT,n.VITRITRENBD,n.SUDUNGVAOLD }).ToList();
             return Request.CreateResponse(DataSourceLoader.Load(data, loadOptions));
         }
 
@@ -633,7 +633,7 @@ namespace KHQH.API
             JsonConvert.PopulateObject(values, info);
             info.ID_KYQH = IDKYQH;
 
-            dbEF.CONGTRINHDUAN.AddObject(info);
+            dbEF.CONGTRINHDUANs.Add(info);
             dbEF.SaveChanges();
             Log.GhiLogAPI("Thêm công trình " +info.TENCONGTRINH+ " ID=" + info.ID + " Table = CONGTRINHDUAN", "NHAPLIEU");
 
@@ -646,7 +646,7 @@ namespace KHQH.API
             var key = Convert.ToInt32(form.Get("key"));
             var values = form.Get("values");
 
-            CONGTRINHDUAN info = dbEF.CONGTRINHDUAN.Where(n => n.ID == key).FirstOrDefault();
+            CONGTRINHDUAN info = dbEF.CONGTRINHDUANs.Where(n => n.ID == key).FirstOrDefault();
 
             string MAHTOld = string.Copy(info.MACT);
             JsonConvert.PopulateObject(values, info);
@@ -672,13 +672,13 @@ namespace KHQH.API
             var key = Convert.ToInt32(form.Get("key"));
             var values = form.Get("values");
 
-            CONGTRINHDUAN info = dbEF.CONGTRINHDUAN.Where(n => n.ID == key).FirstOrDefault();
+            CONGTRINHDUAN info = dbEF.CONGTRINHDUANs.Where(n => n.ID == key).FirstOrDefault();
 
             var clsUpdateShape = new clsUpdateShapeFile(_strConnect, EnvironmentAPI.ServerSDE, EnvironmentAPI.PortSDE, EnvironmentAPI.DbSDE, EnvironmentAPI.UserSDE, EnvironmentAPI.PassSDE);
 
             var xulySDE = clsUpdateShape.QuerySDE("Delete from CONGTRINH_VUNG where MAVUNG='" + info.MACT + "'");
 
-            dbEF.CONGTRINHDUAN.DeleteObject(info);
+            dbEF.CONGTRINHDUANs.Remove(info);
             dbEF.SaveChanges();
             Log.GhiLogAPI("Xóa công trình " + info.TENCONGTRINH + " ID=" + info.ID + " Table = CONGTRINHDUAN", "NHAPLIEU");
             return Request.CreateResponse(HttpStatusCode.Created);
@@ -743,12 +743,12 @@ namespace KHQH.API
                 doc.MAXA = Convert.ToString(MAXA ?? "0");
                 doc.ID_KYQH = Convert.ToInt32(IDKYQH ?? "0");
                 doc.TENVUNG = Convert.ToString(TENVUNG ?? "");
-
+                doc.ROWID = Guid.NewGuid();
                 doc.MAHT = Convert.ToString(MAHT ?? "");
                 MALKSDE = doc.MAHT;
                 using (var dbQH = new KHQHEntities())
                 {
-                    dbQH.HIENTRANG.AddObject(doc);
+                    dbQH.HIENTRANGs.Add(doc);
                     dbQH.SaveChanges();
                     Log.GhiLogAPI("Thêm shape " + doc.MAHT + " Table = HIENTRANG_VUNG", "SHAPE");
 
@@ -775,7 +775,7 @@ namespace KHQH.API
                 MALKSDE = KCN.MAKHUCN;
                 using (var dbQH = new KHQHEntities())
                 {
-                    dbQH.KHUCHUCNANG.AddObject(KCN);
+                    dbQH.KHUCHUCNANGs.Add(KCN);
                     dbQH.SaveChanges();
                     Log.GhiLogAPI("Thêm shape " + KCN.MAKHUCN + " Table = KHUCHUCNANG_VUNG", "SHAPE");
 
@@ -812,7 +812,7 @@ namespace KHQH.API
 
                 using (var dbQH = new KHQHEntities())
                 {
-                    dbQH.QUYHOACH.AddObject(QH);
+                    dbQH.QUYHOACHes.Add(QH);
                     dbQH.SaveChanges();
                     Log.GhiLogAPI("Thêm shape " + QH.MAQH + " Table = QUYHOACH_VUNG", "SHAPE");
 
@@ -847,7 +847,7 @@ namespace KHQH.API
 
                 using (var dbQH = new KHQHEntities())
                 {
-                    dbQH.KEHOACH.AddObject(KH);
+                    dbQH.KEHOACHes.Add(KH);
                     dbQH.SaveChanges();
                     Log.GhiLogAPI("Thêm shape " + KH.MAKH + " Table = KEHOACH_VUNG", "SHAPE");
 
@@ -893,7 +893,7 @@ namespace KHQH.API
                 MALKSDE = CT.MACT;
                 using (var dbQH = new KHQHEntities())
                 {
-                    dbQH.CONGTRINHDUAN.AddObject(CT);
+                    dbQH.CONGTRINHDUANs.Add(CT);
                     dbQH.SaveChanges();
                     Log.GhiLogAPI("Thêm shape " + CT.MACT + " Table = CONGTRINH_VUNG", "SHAPE");
 

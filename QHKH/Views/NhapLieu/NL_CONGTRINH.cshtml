@@ -6,7 +6,7 @@
 
 
 <link href="~/Template/css/theme.css" rel="stylesheet">
-@*@model KEHOACHQH.DAL.HIENTRANG*@
+@*@model QHKH.Models.HIENTRANG*@
 @model KHQH.Models.DB.CombineHienTrang
 <br />
 <br />
@@ -48,7 +48,7 @@
 
 
 
-    @(Html.DevExtreme().DataGrid<KEHOACHQH.DAL.CONGTRINHDUAN>()
+    @(Html.DevExtreme().DataGrid<QHKH.Models.CONGTRINHDUAN>()
                            .ID("grv")
                            .Selection(s => s.Mode(SelectionMode.Single))
 

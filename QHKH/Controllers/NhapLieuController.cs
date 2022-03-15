@@ -1,7 +1,7 @@
-﻿using KEHOACHQH.DAL;
-using KHQH.Models.DB;
+﻿using KHQH.Models.DB;
 using KHQH.Models.JSONDATA;
 using QHKH.Controllers;
+using QHKH.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

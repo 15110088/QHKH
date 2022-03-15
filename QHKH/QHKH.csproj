@@ -83,9 +83,6 @@
     <Reference Include="ExcelDataReader.DataSet, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelDataReader.DataSet.3.6.0\lib\net35\ExcelDataReader.DataSet.dll</HintPath>
     </Reference>
-    <Reference Include="KEHOACHQH.DAL">
-      <HintPath>DLL\KEHOACHQH.DAL.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -153,8 +150,8 @@
       <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -166,6 +163,7 @@
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Threading.Channels, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Channels.5.0.0\lib\net461\System.Threading.Channels.dll</HintPath>
@@ -175,11 +173,17 @@
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
@@ -275,10 +279,48 @@
     <Content Include="Global.asax" />
     <Compile Include="API\BanDoController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="DBFactory\DBInteractiveSSMS.cs" />
     <Compile Include="Interface\IBase.cs" />
+    <Compile Include="Models\CONGTRINHDUAN.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DB\DuLieuBanDo.cs" />
     <Compile Include="Models\DB\MAPCONFIG_DAPPER.cs" />
+    <Compile Include="Models\db_error_list.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\db_LOB_output.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\db_storage.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DM_CHUYENMUCDICH.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DM_KVHC.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DM_LOAICONGTRINH.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DM_LOAIKHUCHUCNANG.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DM_MUCDICHSUDUNG.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Excel\BM03CT.cs" />
+    <Content Include="Models\KHQHEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KHQHEntities.edmx</DependentUpon>
+      <LastGenOutput>KHQHEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\KHQHEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KHQHEntities.edmx</DependentUpon>
+      <LastGenOutput>KHQHEntities.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\aspnet\dx.aspnet.data.js" />
     <Content Include="Scripts\aspnet\dx.aspnet.mvc.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -313,6 +355,13 @@
     <Content Include="BIEUMAUEXCEL\BM11CT.xlsx" />
     <Content Include="BIEUMAUEXCEL\BM12CH.xlsx" />
     <Content Include="BIEUMAUEXCEL\BM13CH.xlsx" />
+    <EntityDeploy Include="Models\KHQHEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>KHQHEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\KHQHEntities.edmx.diagram">
+      <DependentUpon>KHQHEntities.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
@@ -494,6 +543,7 @@
     <Content Include="Views\TienIch\KhoaKYQH.cshtml" />
     <Content Include="Views\TienIch\MapConfig.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\MapIsLogin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -601,15 +651,93 @@
     <Compile Include="Models\Excel\BM10CH.cs" />
     <Compile Include="Models\Excel\BM11CT.cs" />
     <Compile Include="Models\Helpper\DataAPI.cs" />
+    <Compile Include="Models\HIENTRANG.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\JSONDATA\PageDB.cs" />
+    <Compile Include="Models\KEHOACH.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KEHOACH_CMD.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KEHOACH_CSD.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KEHOACH_THUHOI.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KHQHEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KHQHEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KHQHEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KHQHEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KHQHEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KHUCHUCNANG.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KHUCHUCNANG_MDSD.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KYQUYHOACHKEHOACH.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MAP_CONFIG.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\PHANBO_XACDINH.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QUYHOACH.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SampleData.cs" />
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TH_CHUCHUYENDATDAI.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TH_KYTRUOC.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_dbms_sql_bind_variable.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_dbms_sql_cursor.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_dbms_sql_define_column.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_dbms_sql_recordset.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\USERTABLE.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\USERTABLE_LOG.cs">
+      <DependentUpon>KHQHEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dapper\" />
     <Folder Include="Uploads\" />
     <Folder Include="Views\Base\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

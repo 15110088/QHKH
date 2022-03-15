@@ -1,6 +1,6 @@
-﻿using KEHOACHQH.DAL;
-using KHQH.Controllers;
+﻿using KHQH.Controllers;
 using QHKH.Interface;
+using QHKH.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,7 +54,7 @@ namespace QHKH.Controllers
                 if (System.Web.HttpContext.Current.Session["UserName"] != null)
                 {
                     userName = Convert.ToString(System.Web.HttpContext.Current.Session["UserName"]);
-                    return dbEF.USERTABLE.FirstOrDefault(n => n.TENDANGNHAP == userName);
+                    return dbEF.USERTABLEs.FirstOrDefault(n => n.TENDANGNHAP == userName);
                 }
                 else
                     return null;
@@ -67,17 +67,23 @@ namespace QHKH.Controllers
 
         protected void GhiLog(string NoiDung, string KEY)
         {
-            USERTABLE_LOG log = new USERTABLE_LOG();
-            log.THOIGIAN = DateTime.Now;
-            log.NOIDUNG = NoiDung;
-            log.KEY = KEY;
-            log.ID_USER = LoginInfo.ID;
-            dbEF.USERTABLE_LOG.AddObject(log);
-            dbEF.SaveChanges();
-            if (dbEF.Connection.State != System.Data.ConnectionState.Open)
+
+            using (var dbEF2 = new KHQHEntities())
             {
-                dbEF.Connection.Close();
+                USERTABLE_LOG log = new USERTABLE_LOG();
+                log.THOIGIAN = DateTime.Now;
+                log.NOIDUNG = NoiDung;
+                log.KEY = KEY;
+                log.ID_USER = LoginInfo.ID;
+                log.ROWID = Guid.NewGuid();
+                dbEF2.USERTABLE_LOG.Add(log);
+                dbEF2.SaveChanges();
+                if (dbEF2.Database.Connection.State != System.Data.ConnectionState.Open)
+                {
+                    dbEF2.Database.Connection.Close();
+                }
             }
+               
         }
 
         void IBase.GhiLogAPI(string NoiDung, string KEY)

@@ -11,7 +11,7 @@
 <br />
 <br />
 <p class="SRheader">DANH MỤC CÔNG TRÌNH</p>
-@(Html.DevExtreme().DataGrid<KEHOACHQH.DAL.DM_LOAICONGTRINH>()
+@(Html.DevExtreme().DataGrid<QHKH.Models.DM_LOAICONGTRINH>()
                    .ID("grvCMD")
                    .Selection(s => s.Mode(SelectionMode.Single))
      .DataSource(d => d.WebApi()

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="36531a564c334bec828d398862247895" Name="Diagram1">
+        <EntityTypeShape EntityType="QUYHOACH2021Model.sysdiagram" Width="1.5" PointX="5.75" PointY="5.75" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.CONGTRINHDUAN" Width="1.5" PointX="9" PointY="25.375" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.DM_CHUYENMUCDICH" Width="1.5" PointX="6.75" PointY="36.25" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.DM_KVHC" Width="1.5" PointX="0.75" PointY="24.25" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.DM_LOAICONGTRINH" Width="1.5" PointX="6.75" PointY="40.625" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.DM_LOAIKHUCHUCNANG" Width="1.5" PointX="3.75" PointY="14.25" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.DM_MUCDICHSUDUNG" Width="1.5" PointX="0.75" PointY="17" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.HIENTRANG" Width="1.5" PointX="6" PointY="30.875" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.KEHOACH" Width="1.5" PointX="12" PointY="25.625" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.KEHOACH_CMD" Width="1.5" PointX="9" PointY="21.125" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.KEHOACH_CSD" Width="1.5" PointX="3" PointY="18.125" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.KEHOACH_THUHOI" Width="1.5" PointX="9" PointY="31.125" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.KHUCHUCNANG" Width="1.5" PointX="6" PointY="26" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.KHUCHUCNANG_MDSD" Width="1.5" PointX="11.25" PointY="21.625" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.KYQUYHOACHKEHOACH" Width="1.5" PointX="6.75" PointY="14.5" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.MAP_CONFIG" Width="1.5" PointX="3" PointY="22.5" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.PHANBO_XACDINH" Width="1.5" PointX="3" PointY="30.875" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.QUYHOACH" Width="1.5" PointX="6" PointY="20.625" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.TH_CHUCHUYENDATDAI" Width="1.5" PointX="3" PointY="25.875" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.TH_KYTRUOC" Width="1.5" PointX="9" PointY="15.75" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.USERTABLE" Width="1.5" PointX="5.75" PointY="1" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.USERTABLE_LOG" Width="1.5" PointX="8" PointY="1.375" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.db_error_list" Width="1.5" PointX="7.75" PointY="4.75" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.db_LOB_output" Width="1.5" PointX="7.75" PointY="7.75" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.db_storage" Width="1.5" PointX="9.75" PointY="4.75" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.t_dbms_sql_bind_variable" Width="1.5" PointX="3" PointY="1.25" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.t_dbms_sql_cursor" Width="1.5" PointX="0.75" PointY="3.875" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.t_dbms_sql_define_column" Width="1.5" PointX="3" PointY="4.375" />
+        <EntityTypeShape EntityType="QUYHOACH2021Model.t_dbms_sql_recordset" Width="1.5" PointX="3" PointY="6.875" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDKYQH_CTDA_KYQHKH" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDLOAICT_CTDA_DMLOAICT" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAHUYEN_CTDA_DMKVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAXA_CTDA_DMKVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDCMD_KHCMD_DMCMD" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAHUYEN_CHUCHUYEN_KVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAHUYEN_HT_DMKVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAHUYEN_KEHOACH_DMKVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAHUYEN_KHCMD_DMKVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAHUYEN_KHCSD_DMKVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAHUYEN_KHTHUHOI_DMKVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAHUYEN_KHUCN_DMKVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAHUYEN_PBXD_KVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAHUYEN_QUYHOACH_DMKVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAKVHC_MAPCONFIG_DMKVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAXA_CHUCHUYEN_KVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAXA_HT_DMKVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAXA_KEHOACH_DMKVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAXA_KHCMD_DMKVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAXA_KHCSD_DMKVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAXA_KHTHUHOI_DMKVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAXA_KHUCN_DMKVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAXA_PBXD_KVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.MAXA_QUYHOACH_DMKVHC" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDKHUCHUCNANG_KH_DMKCN" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDKHUCN_PBXD_DMKHUCN" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDKHUCN_QUYHOACH_DMLOAIKHUCN" />
+        <AssociationConnector Association="QUYHOACH2021Model.MALOAIKHUCN_KHUCN_DMLOAIKHUCN" />
+        <AssociationConnector Association="QUYHOACH2021Model.ID_MDSD_DM_MUCDICHSUDUNG" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDMDSD_KEHOACH_DMMDSD" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDMDSD_KHCSD_DMMDSD" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDMDSD_KHTHUHOI_DMMDSD" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDMDSD_KHUCN_DMMDSD" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDMDSD_QUYHOACH_DMMDSD" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDMDSD_THCHUCHUYENDD_DMMDSD" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDMDSD_THKYTRUOC_DMMDSD" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDMDSDCHUYEN_CCDD_DMMDSD" />
+        <AssociationConnector Association="QUYHOACH2021Model.MDSD_PHANBOXD_DMMDSD" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDKYQH_HIENTRANG_KYQHKH" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDKYQH_KEHOACH_KYQHKH" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDKYQH_KHCMD_KYQHKH" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDKYQH_KHTHUHOI_KYQHKH" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDKHUCN_KHUCNMDSD_KHUCN" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDKYQH_KCN_KYQHKH" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDKYQH_MAPCONFIG_KYQHKH" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDKYQH_PBXD_KYQHKH" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDKYQH_QUYHOACH_KYQHKH" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDKYQH_THCHUCHUYENDD_KYQHKH" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDKYQH_THKYTRUOC_KYQHKH" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDKYQHTRUOC_THKYTRUOC_KYQHKH" />
+        <AssociationConnector Association="QUYHOACH2021Model.IDUSER_LOG_USER" />
+        <AssociationConnector Association="QUYHOACH2021Model.FK_t_dbms_sql_bind_variable_t_dbms_sql_cursor" />
+        <AssociationConnector Association="QUYHOACH2021Model.FK_t_dbms_sql_define_column_t_dbms_sql_cursor" />
+        <AssociationConnector Association="QUYHOACH2021Model.FK_t_dbms_sql_recordset_t_dbms_sql_cursor" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

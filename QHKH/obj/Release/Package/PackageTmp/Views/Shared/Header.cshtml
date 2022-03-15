@@ -238,9 +238,9 @@
 </nav><!-- End Header/Navbar -->
 @if (Session["UserName"] != null)
 {
-<div class="card" style="position:absolute;margin:50px">
-    <p class="SRbutton" style="margin:5px"><i style="margin-left:5px" class="bi bi-person-circle"></i> @Session["UserName"]</p>
-    <p class="SRcaption" style="margin:5px;text-transform: uppercase;">@Session["TenHuyen"]</p>
-    <p class="SRcaption" style="margin:5px;text-transform: uppercase;">@Session["TenXa"]</p>
+<div class="cardCus">
+    <p class="SRbutton" style="margin:5px;color:#36C970"><i style="margin-left:5px" class="bi bi-person-circle"></i> @Session["UserName"]</p>
+    <p class="SRcaption" style="margin:5px;text-transform: uppercase;color:#36C970">@Session["TenHuyen"]</p>
+    <p class="SRcaption" style="margin:5px;text-transform: uppercase;color:#36C970">@Session["TenXa"]</p>
 </div>
 }

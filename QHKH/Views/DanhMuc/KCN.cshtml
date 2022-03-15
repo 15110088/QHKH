@@ -9,7 +9,7 @@
 <br />
 <br />
 <p class="SRheader">DANH MỤC LOẠI CHỨC NĂNG</p>
-@(Html.DevExtreme().DataGrid<KEHOACHQH.DAL.DM_LOAIKHUCHUCNANG>()
+@(Html.DevExtreme().DataGrid<QHKH.Models.DM_LOAIKHUCHUCNANG>()
                    .ID("grvCMD")
                    .Selection(s => s.Mode(SelectionMode.Single))
      .DataSource(d => d.WebApi()

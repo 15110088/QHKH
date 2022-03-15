@@ -105,7 +105,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/29/2021 00:29:12</publishTime>
     </File>
     <File Include="bin/DoThiBienHoa_DLL.dll">
-      <publishTime>11/14/2021 18:11:56</publishTime>
+      <publishTime>03/08/2022 00:30:20</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>04/16/2020 20:38:42</publishTime>
@@ -159,7 +159,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/13/2020 10:38:04</publishTime>
     </File>
     <File Include="bin/QHKH.dll">
-      <publishTime>12/02/2021 17:40:26</publishTime>
+      <publishTime>03/08/2022 21:28:06</publishTime>
     </File>
     <File Include="bin/QHKH.pdb">
       <publishTime>12/02/2021 11:41:32</publishTime>
@@ -201,7 +201,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/19/2020 10:05:18</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
-      <publishTime>01/28/2015 04:02:42</publishTime>
+      <publishTime>11/28/2018 13:00:36</publishTime>
     </File>
     <File Include="bin/System.Numerics.Vectors.dll">
       <publishTime>05/15/2018 13:29:44</publishTime>
@@ -218,11 +218,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/System.Threading.Tasks.Extensions.dll">
       <publishTime>02/19/2020 10:05:18</publishTime>
     </File>
+    <File Include="bin/System.Web.Cors.dll">
+      <publishTime>11/28/2018 12:58:44</publishTime>
+    </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>01/28/2015 04:04:30</publishTime>
     </File>
+    <File Include="bin/System.Web.Http.Cors.dll">
+      <publishTime>11/28/2018 13:01:26</publishTime>
+    </File>
     <File Include="bin/System.Web.Http.dll">
-      <publishTime>01/28/2015 04:02:54</publishTime>
+      <publishTime>11/28/2018 13:01:00</publishTime>
     </File>
     <File Include="bin/System.Web.Http.WebHost.dll">
       <publishTime>01/28/2015 04:03:46</publishTime>
@@ -434,8 +440,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Global.asax">
       <publishTime>11/19/2021 10:19:23</publishTime>
     </File>
+    <File Include="Models/KHQHEntities.edmx.diagram">
+      <publishTime>03/04/2022 23:04:10</publishTime>
+    </File>
     <File Include="packages.config">
-      <publishTime>11/20/2021 01:09:54</publishTime>
+      <publishTime>03/08/2022 15:13:41</publishTime>
     </File>
     <File Include="Scripts/aspnet/dx.aspnet.data.js">
       <publishTime>10/29/2021 00:29:10</publishTime>
@@ -627,7 +636,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/09/2021 01:53:53</publishTime>
     </File>
     <File Include="Template/css/map.css">
-      <publishTime>12/02/2021 17:39:00</publishTime>
+      <publishTime>01/07/2022 22:31:36</publishTime>
     </File>
     <File Include="Template/css/SoraFont.css">
       <publishTime>10/14/2021 21:13:59</publishTime>
@@ -636,7 +645,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/15/2021 00:55:14</publishTime>
     </File>
     <File Include="Template/css/theme.css">
-      <publishTime>11/14/2021 02:27:12</publishTime>
+      <publishTime>01/06/2022 23:30:48</publishTime>
     </File>
     <File Include="Template/font/Montserrat-Black.ttf">
       <publishTime>12/13/2011 00:00:00</publishTime>
@@ -984,46 +993,49 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/06/2021 11:50:22</publishTime>
     </File>
     <File Include="Views/DanhMuc/CMD.cshtml">
-      <publishTime>11/27/2021 09:20:31</publishTime>
+      <publishTime>03/04/2022 23:48:39</publishTime>
     </File>
     <File Include="Views/DanhMuc/CT.cshtml">
-      <publishTime>11/27/2021 09:43:14</publishTime>
+      <publishTime>03/04/2022 23:48:46</publishTime>
     </File>
     <File Include="Views/DanhMuc/KCN.cshtml">
-      <publishTime>11/19/2021 14:20:21</publishTime>
+      <publishTime>03/04/2022 23:19:52</publishTime>
     </File>
     <File Include="Views/DanhMuc/KVHC.cshtml">
-      <publishTime>11/19/2021 14:34:53</publishTime>
+      <publishTime>03/04/2022 23:48:55</publishTime>
     </File>
     <File Include="Views/DanhMuc/KYQH.cshtml">
       <publishTime>11/28/2021 03:08:33</publishTime>
     </File>
     <File Include="Views/DanhMuc/MDSD.cshtml">
-      <publishTime>11/27/2021 09:18:20</publishTime>
+      <publishTime>03/04/2022 23:14:25</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
       <publishTime>11/30/2021 00:42:07</publishTime>
     </File>
     <File Include="Views/Home/Map.cshtml">
-      <publishTime>12/02/2021 17:36:32</publishTime>
+      <publishTime>03/06/2022 17:07:47</publishTime>
+    </File>
+    <File Include="Views/Home/MapIsLogin.cshtml">
+      <publishTime>03/06/2022 17:11:03</publishTime>
     </File>
     <File Include="Views/NhapLieu/NL_CONGTRINH.cshtml">
-      <publishTime>11/24/2021 21:46:33</publishTime>
+      <publishTime>03/04/2022 23:52:02</publishTime>
     </File>
     <File Include="Views/NhapLieu/NL_DIENTICHPHANBOXACDINH.cshtml">
-      <publishTime>11/27/2021 23:28:18</publishTime>
+      <publishTime>01/07/2022 00:39:59</publishTime>
     </File>
     <File Include="Views/NhapLieu/NL_HIENTRANG.cshtml">
-      <publishTime>12/01/2021 00:27:25</publishTime>
+      <publishTime>03/04/2022 23:54:35</publishTime>
     </File>
     <File Include="Views/NhapLieu/NL_KEHOACH.cshtml">
-      <publishTime>12/01/2021 00:30:39</publishTime>
+      <publishTime>01/07/2022 22:36:51</publishTime>
     </File>
     <File Include="Views/NhapLieu/NL_QUYHOACH.cshtml">
       <publishTime>11/19/2021 13:50:28</publishTime>
     </File>
     <File Include="Views/Shared/Header.cshtml">
-      <publishTime>11/29/2021 00:41:54</publishTime>
+      <publishTime>01/06/2022 23:31:57</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
       <publishTime>11/25/2021 01:29:14</publishTime>
@@ -1038,10 +1050,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/29/2021 00:24:23</publishTime>
     </File>
     <File Include="Views/TienIch/XuatBieuMau.cshtml">
-      <publishTime>11/30/2021 01:17:38</publishTime>
+      <publishTime>03/06/2022 20:34:35</publishTime>
     </File>
     <File Include="Views/TienIch/XuatBieuMauCapHuyen.cshtml">
-      <publishTime>11/30/2021 08:51:00</publishTime>
+      <publishTime>03/06/2022 17:26:19</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>11/19/2021 10:19:23</publishTime>
@@ -1050,7 +1062,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/19/2021 10:19:23</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/30/2021 08:45:55</publishTime>
+      <publishTime>03/08/2022 21:28:06</publishTime>
     </File>
   </ItemGroup>
 </Project>

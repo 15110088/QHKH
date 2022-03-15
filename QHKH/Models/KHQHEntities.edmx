@@ -1,0 +1,3143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="QUYHOACH2021Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="CONGTRINHDUAN">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID_KYQH" Type="int" Nullable="false" />
+          <Property Name="TENCONGTRINH" Type="nvarchar" MaxLength="3000" />
+          <Property Name="MACT" Type="varchar" MaxLength="20" />
+          <Property Name="NAMTH" Type="numeric" Precision="4" Scale="0" />
+          <Property Name="DIENTICH_KH" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="DIENTICH_HT" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="DIENTICH_TANGTHEM" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="SUDUNGVAOLD" Type="nvarchar" MaxLength="50" />
+          <Property Name="TENDIADIEM" Type="nvarchar" MaxLength="1000" />
+          <Property Name="VITRITRENBD" Type="nvarchar" MaxLength="50" />
+          <Property Name="MAXA" Type="varchar" MaxLength="10" />
+          <Property Name="MAHUYEN" Type="varchar" MaxLength="10" />
+          <Property Name="ID_LOAICT" Type="int" />
+          <Property Name="CAPTINH" Type="bit" />
+          <Property Name="ROWID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DM_CHUYENMUCDICH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="KYHIEU" Type="varchar" MaxLength="20" />
+          <Property Name="TEN" Type="nvarchar" MaxLength="500" />
+          <Property Name="ENABLED" Type="bit" />
+          <Property Name="CAPTINH" Type="bit" />
+          <Property Name="ID_CAPTREN" Type="int" />
+          <Property Name="CHIMUC" Type="varchar" MaxLength="20" />
+          <Property Name="CHIMUCTINH" Type="varchar" MaxLength="20" />
+          <Property Name="ROWID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DM_KVHC">
+          <Key>
+            <PropertyRef Name="MA_KVHC" />
+          </Key>
+          <Property Name="MA_KVHC" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ID_CAP_KVHC" Type="int" />
+          <Property Name="MA_KVHC_CHA" Type="varchar" MaxLength="5" />
+          <Property Name="TEN_KVHC" Type="nvarchar" MaxLength="100" />
+          <Property Name="STT_XA" Type="numeric" Precision="38" Scale="0" />
+          <Property Name="DIACHI" Type="nvarchar" MaxLength="250" />
+          <Property Name="DIENTICH" Type="numeric" Precision="20" Scale="4" />
+          <Property Name="DANGNONGNGHIEP" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="DANGPHINONGNGHIEP" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="DELETED" Type="bit" />
+          <Property Name="ID" Type="numeric" Precision="2" Scale="0" />
+        </EntityType>
+        <EntityType Name="DM_LOAICONGTRINH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="LOAIHANGMUC" Type="nvarchar" MaxLength="500" />
+          <Property Name="CAPTINH" Type="bit" />
+          <Property Name="CHIMUC" Type="varchar" MaxLength="20" />
+          <Property Name="ID_CAPTREN" Type="int" />
+          <Property Name="ROWID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DM_LOAIKHUCHUCNANG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="KYHIEU" Type="varchar" MaxLength="20" />
+          <Property Name="TEN" Type="nvarchar" MaxLength="250" />
+          <Property Name="NGAYTAO" Type="datetime" />
+          <Property Name="ENABLED" Type="bit" />
+          <Property Name="CAPTINH" Type="bit" />
+          <Property Name="ROWID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DM_MUCDICHSUDUNG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="KIHIEU" Type="varchar" MaxLength="5" />
+          <Property Name="TEN" Type="nvarchar" MaxLength="80" />
+          <Property Name="ID_CAPTREN" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="CHIMUC" Type="varchar" MaxLength="20" />
+          <Property Name="NGAYTAO" Type="datetime2" Precision="0" />
+          <Property Name="ENABLED" Type="bit" />
+          <Property Name="TT23" Type="bit" />
+          <Property Name="TT24" Type="bit" />
+          <Property Name="TT25" Type="bit" />
+          <Property Name="TT01" Type="bit" />
+          <Property Name="CAPTINH" Type="bit" />
+          <Property Name="STT" Type="int" />
+          <Property Name="ROWID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HIENTRANG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID_KYQH" Type="int" />
+          <Property Name="MAHT" Type="varchar" MaxLength="20" />
+          <Property Name="ID_MDSD" Type="int" />
+          <Property Name="DIENTICH" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="MAXA" Type="varchar" MaxLength="10" />
+          <Property Name="MAHUYEN" Type="varchar" MaxLength="10" />
+          <Property Name="CAPTINH" Type="bit" />
+          <Property Name="NAM" Type="int" />
+          <Property Name="TENVUNG" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ROWID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KEHOACH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID_KYQH" Type="int" />
+          <Property Name="NAM" Type="int" />
+          <Property Name="MAKH" Type="varchar" MaxLength="20" />
+          <Property Name="ID_MDSD" Type="int" />
+          <Property Name="DIENTICH" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="MAXA" Type="varchar" MaxLength="10" />
+          <Property Name="MAHUYEN" Type="varchar" MaxLength="10" />
+          <Property Name="ID_KHUCHUCNANG" Type="int" />
+          <Property Name="CAPTINH" Type="bit" />
+          <Property Name="TENVUNG" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ROWID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KEHOACH_CMD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID_KYQH" Type="int" />
+          <Property Name="NAM" Type="int" />
+          <Property Name="ID_CMD" Type="int" />
+          <Property Name="DIENTICH" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="MAXA" Type="varchar" MaxLength="10" />
+          <Property Name="MAHUYEN" Type="varchar" MaxLength="10" />
+          <Property Name="CAPTINH" Type="bit" />
+          <Property Name="ROWID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KEHOACH_CSD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID_KYQH" Type="int" />
+          <Property Name="NAM" Type="int" />
+          <Property Name="ID_MDSD" Type="int" />
+          <Property Name="DIENTICH" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="MAXA" Type="varchar" MaxLength="10" />
+          <Property Name="MAHUYEN" Type="varchar" MaxLength="10" />
+          <Property Name="CAPTINH" Type="bit" />
+          <Property Name="ROWID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KEHOACH_THUHOI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID_KYQH" Type="int" />
+          <Property Name="NAM" Type="int" />
+          <Property Name="ID_MDSD" Type="int" />
+          <Property Name="DIENTICH" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="MAXA" Type="varchar" MaxLength="10" />
+          <Property Name="MAHUYEN" Type="varchar" MaxLength="10" />
+          <Property Name="ROWID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KHUCHUCNANG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID_KYQH" Type="int" Nullable="false" />
+          <Property Name="MAKHUCN" Type="varchar" MaxLength="20" />
+          <Property Name="MAXA" Type="varchar" MaxLength="10" />
+          <Property Name="MAHUYEN" Type="varchar" MaxLength="10" />
+          <Property Name="MALOAIKHUCN" Type="int" />
+          <Property Name="CAPTINH" Type="bit" />
+          <Property Name="TENVUNG" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ROWID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KHUCHUCNANG_MDSD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID_KHUCN" Type="int" Nullable="false" />
+          <Property Name="ID_MDSD" Type="int" Nullable="false" />
+          <Property Name="DIENTICH" Type="numeric" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ROWID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KYQUYHOACHKEHOACH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="TEN" Type="nvarchar" MaxLength="500" />
+          <Property Name="NAM" Type="int" />
+          <Property Name="TUNAM" Type="int" />
+          <Property Name="TOINAM" Type="int" />
+          <Property Name="BIKHOA" Type="bit" />
+          <Property Name="IS_KEHOACH_DIEUCHINH" Type="int" />
+          <Property Name="ID_CHA" Type="int" />
+          <Property Name="ROWID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MAP_CONFIG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID_KYQH" Type="int" />
+          <Property Name="MAKVHC" Type="varchar" MaxLength="10" />
+          <Property Name="MAP_SERVICES" Type="varchar" MaxLength="200" />
+          <Property Name="DEFAULT_VIEW" Type="bit" />
+          <Property Name="DELETED" Type="bit" />
+        </EntityType>
+        <EntityType Name="PHANBO_XACDINH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID_KYQH" Type="int" />
+          <Property Name="ID_MDSD" Type="int" />
+          <Property Name="DT_PHANBO" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="DT_XACDINH" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="ID_KHUCHUCNANG" Type="int" />
+          <Property Name="CAPTINH" Type="bit" />
+          <Property Name="MAXA" Type="varchar" MaxLength="10" />
+          <Property Name="MAHUYEN" Type="varchar" MaxLength="10" />
+          <Property Name="ROWID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QUYHOACH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID_KYQH" Type="int" />
+          <Property Name="NAM" Type="int" />
+          <Property Name="MAQH" Type="varchar" MaxLength="20" />
+          <Property Name="ID_MDSD" Type="int" />
+          <Property Name="DIENTICH" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="MAXA" Type="varchar" MaxLength="10" />
+          <Property Name="MAHUYEN" Type="varchar" MaxLength="10" />
+          <Property Name="CAPTINH" Type="bit" />
+          <Property Name="ID_KHUCN" Type="int" />
+          <Property Name="TENVUNG" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ROWID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TH_CHUCHUYENDATDAI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID_KYQH" Type="int" Nullable="false" />
+          <Property Name="NAM" Type="int" />
+          <Property Name="ID_MDSD" Type="int" />
+          <Property Name="ID_MDSD_CHUYEN" Type="int" />
+          <Property Name="DIENTICH" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="CAPTINH" Type="bit" />
+          <Property Name="MAXA" Type="varchar" MaxLength="10" />
+          <Property Name="MAHUYEN" Type="varchar" MaxLength="10" />
+          <Property Name="ROWID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TH_KYTRUOC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID_KYQH" Type="int" />
+          <Property Name="ID_KYQHTRUOC" Type="int" />
+          <Property Name="ID_MDSD" Type="int" />
+          <Property Name="DT_PHEDUYET" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="DT_THUCHIEN" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="TANG_GIAM" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="TILE" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="MAHUYEN" Type="varchar" MaxLength="10" />
+          <Property Name="CAPTINH" Type="bit" />
+          <Property Name="ROWID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USERTABLE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="HOTEN" Type="nvarchar" MaxLength="500" />
+          <Property Name="TENDANGNHAP" Type="varchar" MaxLength="50" />
+          <Property Name="MATKHAU" Type="varchar" MaxLength="100" />
+          <Property Name="TENPHONGBAN" Type="nvarchar" MaxLength="500" />
+          <Property Name="MAPHONGBAN" Type="varchar" MaxLength="50" />
+          <Property Name="MAPHONGBANCHA" Type="int" />
+          <Property Name="ENABLE" Type="bit" Nullable="false" />
+          <Property Name="GHICHU" Type="nvarchar" MaxLength="1000" />
+          <Property Name="ROWID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USERTABLE_LOG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID_USER" Type="int" />
+          <Property Name="THOIGIAN" Type="datetime" />
+          <Property Name="NOIDUNG" Type="nvarchar" MaxLength="2000" />
+          <Property Name="KEY" Type="varchar" MaxLength="50" />
+          <Property Name="ROWID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="db_error_list">
+          <Key>
+            <PropertyRef Name="error_code" />
+          </Key>
+          <Property Name="error_full_name" Type="nvarchar" MaxLength="400" />
+          <Property Name="error_code" Type="numeric" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="error_message" Type="nvarchar" MaxLength="3000" />
+        </EntityType>
+        <EntityType Name="db_LOB_output">
+          <Key>
+            <PropertyRef Name="spid" />
+            <PropertyRef Name="ordinal" />
+          </Key>
+          <Property Name="spid" Type="int" Nullable="false" />
+          <Property Name="ordinal" Type="int" Nullable="false" />
+          <Property Name="c_value" Type="varchar(max)" />
+          <Property Name="nc_value" Type="nvarchar(max)" />
+          <Property Name="b_value" Type="varbinary(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type 'sql_variant' is currently not supported for the target Entity Framework version; the column 'v_value' in the table 'QUYHOACH2021.ssma_oracle.db_storage' was excluded.-->
+        <EntityType Name="db_storage">
+          <Key>
+            <PropertyRef Name="spid" />
+            <PropertyRef Name="login_time" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="spid" Type="smallint" Nullable="false" />
+          <Property Name="login_time" Type="datetime" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="323" Nullable="false" />
+          <Property Name="c_value" Type="varchar(max)" />
+          <Property Name="nc_value" Type="nvarchar(max)" />
+          <Property Name="b_value" Type="varbinary(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type 'sql_variant' is currently not supported for the target Entity Framework version; the column 'v_value' in the table 'QUYHOACH2021.ssma_oracle.t_dbms_sql_bind_variable' was excluded.-->
+        <EntityType Name="t_dbms_sql_bind_variable">
+          <Key>
+            <PropertyRef Name="cursor_id" />
+            <PropertyRef Name="_name" />
+          </Key>
+          <Property Name="cursor_id" Type="int" Nullable="false" />
+          <Property Name="_name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="_type" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="c_value" Type="varchar(max)" />
+          <Property Name="nc_value" Type="nvarchar(max)" />
+          <Property Name="b_value" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="t_dbms_sql_cursor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="spid" Type="int" Nullable="false" />
+          <Property Name="login_time" Type="datetime" Nullable="false" />
+          <Property Name="statement" Type="nvarchar(max)" />
+          <Property Name="current_row" Type="int" />
+          <Property Name="last_row" Type="int" />
+        </EntityType>
+        <EntityType Name="t_dbms_sql_define_column">
+          <Key>
+            <PropertyRef Name="cursor_id" />
+            <PropertyRef Name="position" />
+          </Key>
+          <Property Name="cursor_id" Type="int" Nullable="false" />
+          <Property Name="position" Type="int" Nullable="false" />
+          <Property Name="_type" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type 'sql_variant' is currently not supported for the target Entity Framework version; the column 'v_value' in the table 'QUYHOACH2021.ssma_oracle.t_dbms_sql_recordset' was excluded.-->
+        <EntityType Name="t_dbms_sql_recordset">
+          <Key>
+            <PropertyRef Name="cursor_id" />
+            <PropertyRef Name="_key" />
+            <PropertyRef Name="position" />
+          </Key>
+          <Property Name="cursor_id" Type="int" Nullable="false" />
+          <Property Name="_key" Type="int" Nullable="false" />
+          <Property Name="position" Type="int" Nullable="false" />
+          <Property Name="c_value" Type="varchar(max)" />
+          <Property Name="nc_value" Type="nvarchar(max)" />
+          <Property Name="b_value" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_t_dbms_sql_bind_variable_t_dbms_sql_cursor">
+          <End Role="t_dbms_sql_cursor" Type="Self.t_dbms_sql_cursor" Multiplicity="1" />
+          <End Role="t_dbms_sql_bind_variable" Type="Self.t_dbms_sql_bind_variable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_dbms_sql_cursor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_dbms_sql_bind_variable">
+              <PropertyRef Name="cursor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_dbms_sql_define_column_t_dbms_sql_cursor">
+          <End Role="t_dbms_sql_cursor" Type="Self.t_dbms_sql_cursor" Multiplicity="1" />
+          <End Role="t_dbms_sql_define_column" Type="Self.t_dbms_sql_define_column" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_dbms_sql_cursor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_dbms_sql_define_column">
+              <PropertyRef Name="cursor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_dbms_sql_recordset_t_dbms_sql_cursor">
+          <End Role="t_dbms_sql_cursor" Type="Self.t_dbms_sql_cursor" Multiplicity="1" />
+          <End Role="t_dbms_sql_recordset" Type="Self.t_dbms_sql_recordset" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_dbms_sql_cursor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_dbms_sql_recordset">
+              <PropertyRef Name="cursor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ID_MDSD_DM_MUCDICHSUDUNG">
+          <End Role="DM_MUCDICHSUDUNG" Type="Self.DM_MUCDICHSUDUNG" Multiplicity="0..1" />
+          <End Role="HIENTRANG" Type="Self.HIENTRANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HIENTRANG">
+              <PropertyRef Name="ID_MDSD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDCMD_KHCMD_DMCMD">
+          <End Role="DM_CHUYENMUCDICH" Type="Self.DM_CHUYENMUCDICH" Multiplicity="0..1" />
+          <End Role="KEHOACH_CMD" Type="Self.KEHOACH_CMD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_CHUYENMUCDICH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KEHOACH_CMD">
+              <PropertyRef Name="ID_CMD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKHUCHUCNANG_KH_DMKCN">
+          <End Role="DM_LOAIKHUCHUCNANG" Type="Self.DM_LOAIKHUCHUCNANG" Multiplicity="0..1" />
+          <End Role="KEHOACH" Type="Self.KEHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_LOAIKHUCHUCNANG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KEHOACH">
+              <PropertyRef Name="ID_KHUCHUCNANG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKHUCN_KHUCNMDSD_KHUCN">
+          <End Role="KHUCHUCNANG" Type="Self.KHUCHUCNANG" Multiplicity="1" />
+          <End Role="KHUCHUCNANG_MDSD" Type="Self.KHUCHUCNANG_MDSD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHUCHUCNANG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KHUCHUCNANG_MDSD">
+              <PropertyRef Name="ID_KHUCN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKHUCN_PBXD_DMKHUCN">
+          <End Role="DM_LOAIKHUCHUCNANG" Type="Self.DM_LOAIKHUCHUCNANG" Multiplicity="0..1" />
+          <End Role="PHANBO_XACDINH" Type="Self.PHANBO_XACDINH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_LOAIKHUCHUCNANG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PHANBO_XACDINH">
+              <PropertyRef Name="ID_KHUCHUCNANG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKHUCN_QUYHOACH_DMLOAIKHUCN">
+          <End Role="DM_LOAIKHUCHUCNANG" Type="Self.DM_LOAIKHUCHUCNANG" Multiplicity="0..1" />
+          <End Role="QUYHOACH" Type="Self.QUYHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_LOAIKHUCHUCNANG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUYHOACH">
+              <PropertyRef Name="ID_KHUCN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_CTDA_KYQHKH">
+          <End Role="KYQUYHOACHKEHOACH" Type="Self.KYQUYHOACHKEHOACH" Multiplicity="1" />
+          <End Role="CONGTRINHDUAN" Type="Self.CONGTRINHDUAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CONGTRINHDUAN">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_HIENTRANG_KYQHKH">
+          <End Role="KYQUYHOACHKEHOACH" Type="Self.KYQUYHOACHKEHOACH" Multiplicity="0..1" />
+          <End Role="HIENTRANG" Type="Self.HIENTRANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HIENTRANG">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_KCN_KYQHKH">
+          <End Role="KYQUYHOACHKEHOACH" Type="Self.KYQUYHOACHKEHOACH" Multiplicity="1" />
+          <End Role="KHUCHUCNANG" Type="Self.KHUCHUCNANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KHUCHUCNANG">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_KEHOACH_KYQHKH">
+          <End Role="KYQUYHOACHKEHOACH" Type="Self.KYQUYHOACHKEHOACH" Multiplicity="0..1" />
+          <End Role="KEHOACH" Type="Self.KEHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KEHOACH">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_KHCMD_KYQHKH">
+          <End Role="KYQUYHOACHKEHOACH" Type="Self.KYQUYHOACHKEHOACH" Multiplicity="0..1" />
+          <End Role="KEHOACH_CMD" Type="Self.KEHOACH_CMD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KEHOACH_CMD">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_KHTHUHOI_KYQHKH">
+          <End Role="KYQUYHOACHKEHOACH" Type="Self.KYQUYHOACHKEHOACH" Multiplicity="0..1" />
+          <End Role="KEHOACH_THUHOI" Type="Self.KEHOACH_THUHOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KEHOACH_THUHOI">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_MAPCONFIG_KYQHKH">
+          <End Role="KYQUYHOACHKEHOACH" Type="Self.KYQUYHOACHKEHOACH" Multiplicity="0..1" />
+          <End Role="MAP_CONFIG" Type="Self.MAP_CONFIG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MAP_CONFIG">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_PBXD_KYQHKH">
+          <End Role="KYQUYHOACHKEHOACH" Type="Self.KYQUYHOACHKEHOACH" Multiplicity="0..1" />
+          <End Role="PHANBO_XACDINH" Type="Self.PHANBO_XACDINH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PHANBO_XACDINH">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_QUYHOACH_KYQHKH">
+          <End Role="KYQUYHOACHKEHOACH" Type="Self.KYQUYHOACHKEHOACH" Multiplicity="0..1" />
+          <End Role="QUYHOACH" Type="Self.QUYHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUYHOACH">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_THCHUCHUYENDD_KYQHKH">
+          <End Role="KYQUYHOACHKEHOACH" Type="Self.KYQUYHOACHKEHOACH" Multiplicity="1" />
+          <End Role="TH_CHUCHUYENDATDAI" Type="Self.TH_CHUCHUYENDATDAI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TH_CHUCHUYENDATDAI">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_THKYTRUOC_KYQHKH">
+          <End Role="KYQUYHOACHKEHOACH" Type="Self.KYQUYHOACHKEHOACH" Multiplicity="0..1" />
+          <End Role="TH_KYTRUOC" Type="Self.TH_KYTRUOC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TH_KYTRUOC">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQHTRUOC_THKYTRUOC_KYQHKH">
+          <End Role="KYQUYHOACHKEHOACH" Type="Self.KYQUYHOACHKEHOACH" Multiplicity="0..1" />
+          <End Role="TH_KYTRUOC" Type="Self.TH_KYTRUOC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TH_KYTRUOC">
+              <PropertyRef Name="ID_KYQHTRUOC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDLOAICT_CTDA_DMLOAICT">
+          <End Role="DM_LOAICONGTRINH" Type="Self.DM_LOAICONGTRINH" Multiplicity="0..1" />
+          <End Role="CONGTRINHDUAN" Type="Self.CONGTRINHDUAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_LOAICONGTRINH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CONGTRINHDUAN">
+              <PropertyRef Name="ID_LOAICT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDMDSD_KEHOACH_DMMDSD">
+          <End Role="DM_MUCDICHSUDUNG" Type="Self.DM_MUCDICHSUDUNG" Multiplicity="0..1" />
+          <End Role="KEHOACH" Type="Self.KEHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KEHOACH">
+              <PropertyRef Name="ID_MDSD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDMDSD_KHCSD_DMMDSD">
+          <End Role="DM_MUCDICHSUDUNG" Type="Self.DM_MUCDICHSUDUNG" Multiplicity="0..1" />
+          <End Role="KEHOACH_CSD" Type="Self.KEHOACH_CSD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KEHOACH_CSD">
+              <PropertyRef Name="ID_MDSD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDMDSD_KHTHUHOI_DMMDSD">
+          <End Role="DM_MUCDICHSUDUNG" Type="Self.DM_MUCDICHSUDUNG" Multiplicity="0..1" />
+          <End Role="KEHOACH_THUHOI" Type="Self.KEHOACH_THUHOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KEHOACH_THUHOI">
+              <PropertyRef Name="ID_MDSD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDMDSD_KHUCN_DMMDSD">
+          <End Role="DM_MUCDICHSUDUNG" Type="Self.DM_MUCDICHSUDUNG" Multiplicity="1" />
+          <End Role="KHUCHUCNANG_MDSD" Type="Self.KHUCHUCNANG_MDSD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KHUCHUCNANG_MDSD">
+              <PropertyRef Name="ID_MDSD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDMDSD_QUYHOACH_DMMDSD">
+          <End Role="DM_MUCDICHSUDUNG" Type="Self.DM_MUCDICHSUDUNG" Multiplicity="0..1" />
+          <End Role="QUYHOACH" Type="Self.QUYHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUYHOACH">
+              <PropertyRef Name="ID_MDSD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDMDSD_THCHUCHUYENDD_DMMDSD">
+          <End Role="DM_MUCDICHSUDUNG" Type="Self.DM_MUCDICHSUDUNG" Multiplicity="0..1" />
+          <End Role="TH_CHUCHUYENDATDAI" Type="Self.TH_CHUCHUYENDATDAI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TH_CHUCHUYENDATDAI">
+              <PropertyRef Name="ID_MDSD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDMDSD_THKYTRUOC_DMMDSD">
+          <End Role="DM_MUCDICHSUDUNG" Type="Self.DM_MUCDICHSUDUNG" Multiplicity="0..1" />
+          <End Role="TH_KYTRUOC" Type="Self.TH_KYTRUOC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TH_KYTRUOC">
+              <PropertyRef Name="ID_MDSD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDMDSDCHUYEN_CCDD_DMMDSD">
+          <End Role="DM_MUCDICHSUDUNG" Type="Self.DM_MUCDICHSUDUNG" Multiplicity="0..1" />
+          <End Role="TH_CHUCHUYENDATDAI" Type="Self.TH_CHUCHUYENDATDAI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TH_CHUCHUYENDATDAI">
+              <PropertyRef Name="ID_MDSD_CHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDUSER_LOG_USER">
+          <End Role="USERTABLE" Type="Self.USERTABLE" Multiplicity="0..1" />
+          <End Role="USERTABLE_LOG" Type="Self.USERTABLE_LOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERTABLE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USERTABLE_LOG">
+              <PropertyRef Name="ID_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_CHUCHUYEN_KVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="TH_CHUCHUYENDATDAI" Type="Self.TH_CHUCHUYENDATDAI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="TH_CHUCHUYENDATDAI">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_CTDA_DMKVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="CONGTRINHDUAN" Type="Self.CONGTRINHDUAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="CONGTRINHDUAN">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_HT_DMKVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="HIENTRANG" Type="Self.HIENTRANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="HIENTRANG">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_KEHOACH_DMKVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="KEHOACH" Type="Self.KEHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KEHOACH">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_KHCMD_DMKVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="KEHOACH_CMD" Type="Self.KEHOACH_CMD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KEHOACH_CMD">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_KHCSD_DMKVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="KEHOACH_CSD" Type="Self.KEHOACH_CSD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KEHOACH_CSD">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_KHTHUHOI_DMKVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="KEHOACH_THUHOI" Type="Self.KEHOACH_THUHOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KEHOACH_THUHOI">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_KHUCN_DMKVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="KHUCHUCNANG" Type="Self.KHUCHUCNANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KHUCHUCNANG">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_PBXD_KVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="PHANBO_XACDINH" Type="Self.PHANBO_XACDINH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="PHANBO_XACDINH">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_QUYHOACH_DMKVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="QUYHOACH" Type="Self.QUYHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="QUYHOACH">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAKVHC_MAPCONFIG_DMKVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="MAP_CONFIG" Type="Self.MAP_CONFIG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="MAP_CONFIG">
+              <PropertyRef Name="MAKVHC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MALOAIKHUCN_KHUCN_DMLOAIKHUCN">
+          <End Role="DM_LOAIKHUCHUCNANG" Type="Self.DM_LOAIKHUCHUCNANG" Multiplicity="0..1" />
+          <End Role="KHUCHUCNANG" Type="Self.KHUCHUCNANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_LOAIKHUCHUCNANG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KHUCHUCNANG">
+              <PropertyRef Name="MALOAIKHUCN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_CHUCHUYEN_KVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="TH_CHUCHUYENDATDAI" Type="Self.TH_CHUCHUYENDATDAI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="TH_CHUCHUYENDATDAI">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_CTDA_DMKVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="CONGTRINHDUAN" Type="Self.CONGTRINHDUAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="CONGTRINHDUAN">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_HT_DMKVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="HIENTRANG" Type="Self.HIENTRANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="HIENTRANG">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_KEHOACH_DMKVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="KEHOACH" Type="Self.KEHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KEHOACH">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_KHCMD_DMKVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="KEHOACH_CMD" Type="Self.KEHOACH_CMD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KEHOACH_CMD">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_KHCSD_DMKVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="KEHOACH_CSD" Type="Self.KEHOACH_CSD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KEHOACH_CSD">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_KHTHUHOI_DMKVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="KEHOACH_THUHOI" Type="Self.KEHOACH_THUHOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KEHOACH_THUHOI">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_KHUCN_DMKVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="KHUCHUCNANG" Type="Self.KHUCHUCNANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KHUCHUCNANG">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_PBXD_KVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="PHANBO_XACDINH" Type="Self.PHANBO_XACDINH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="PHANBO_XACDINH">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_QUYHOACH_DMKVHC">
+          <End Role="DM_KVHC" Type="Self.DM_KVHC" Multiplicity="0..1" />
+          <End Role="QUYHOACH" Type="Self.QUYHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="QUYHOACH">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MDSD_PHANBOXD_DMMDSD">
+          <End Role="DM_MUCDICHSUDUNG" Type="Self.DM_MUCDICHSUDUNG" Multiplicity="0..1" />
+          <End Role="PHANBO_XACDINH" Type="Self.PHANBO_XACDINH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PHANBO_XACDINH">
+              <PropertyRef Name="ID_MDSD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QUYHOACH2021ModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CONGTRINHDUAN" EntityType="Self.CONGTRINHDUAN" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="DM_CHUYENMUCDICH" EntityType="Self.DM_CHUYENMUCDICH" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="DM_KVHC" EntityType="Self.DM_KVHC" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="DM_LOAICONGTRINH" EntityType="Self.DM_LOAICONGTRINH" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="DM_LOAIKHUCHUCNANG" EntityType="Self.DM_LOAIKHUCHUCNANG" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="DM_MUCDICHSUDUNG" EntityType="Self.DM_MUCDICHSUDUNG" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="HIENTRANG" EntityType="Self.HIENTRANG" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="KEHOACH" EntityType="Self.KEHOACH" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="KEHOACH_CMD" EntityType="Self.KEHOACH_CMD" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="KEHOACH_CSD" EntityType="Self.KEHOACH_CSD" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="KEHOACH_THUHOI" EntityType="Self.KEHOACH_THUHOI" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="KHUCHUCNANG" EntityType="Self.KHUCHUCNANG" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="KHUCHUCNANG_MDSD" EntityType="Self.KHUCHUCNANG_MDSD" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="KYQUYHOACHKEHOACH" EntityType="Self.KYQUYHOACHKEHOACH" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="MAP_CONFIG" EntityType="Self.MAP_CONFIG" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="PHANBO_XACDINH" EntityType="Self.PHANBO_XACDINH" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="QUYHOACH" EntityType="Self.QUYHOACH" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="TH_CHUCHUYENDATDAI" EntityType="Self.TH_CHUCHUYENDATDAI" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="TH_KYTRUOC" EntityType="Self.TH_KYTRUOC" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="USERTABLE" EntityType="Self.USERTABLE" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="USERTABLE_LOG" EntityType="Self.USERTABLE_LOG" Schema="QUYHOACH2021" store:Type="Tables" />
+          <EntitySet Name="db_error_list" EntityType="Self.db_error_list" Schema="ssma_oracle" store:Type="Tables" />
+          <EntitySet Name="db_LOB_output" EntityType="Self.db_LOB_output" Schema="ssma_oracle" store:Type="Tables" />
+          <EntitySet Name="db_storage" EntityType="Self.db_storage" Schema="ssma_oracle" store:Type="Tables" />
+          <EntitySet Name="t_dbms_sql_bind_variable" EntityType="Self.t_dbms_sql_bind_variable" Schema="ssma_oracle" store:Type="Tables" />
+          <EntitySet Name="t_dbms_sql_cursor" EntityType="Self.t_dbms_sql_cursor" Schema="ssma_oracle" store:Type="Tables" />
+          <EntitySet Name="t_dbms_sql_define_column" EntityType="Self.t_dbms_sql_define_column" Schema="ssma_oracle" store:Type="Tables" />
+          <EntitySet Name="t_dbms_sql_recordset" EntityType="Self.t_dbms_sql_recordset" Schema="ssma_oracle" store:Type="Tables" />
+          <AssociationSet Name="FK_t_dbms_sql_bind_variable_t_dbms_sql_cursor" Association="Self.FK_t_dbms_sql_bind_variable_t_dbms_sql_cursor">
+            <End Role="t_dbms_sql_cursor" EntitySet="t_dbms_sql_cursor" />
+            <End Role="t_dbms_sql_bind_variable" EntitySet="t_dbms_sql_bind_variable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_dbms_sql_define_column_t_dbms_sql_cursor" Association="Self.FK_t_dbms_sql_define_column_t_dbms_sql_cursor">
+            <End Role="t_dbms_sql_cursor" EntitySet="t_dbms_sql_cursor" />
+            <End Role="t_dbms_sql_define_column" EntitySet="t_dbms_sql_define_column" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_dbms_sql_recordset_t_dbms_sql_cursor" Association="Self.FK_t_dbms_sql_recordset_t_dbms_sql_cursor">
+            <End Role="t_dbms_sql_cursor" EntitySet="t_dbms_sql_cursor" />
+            <End Role="t_dbms_sql_recordset" EntitySet="t_dbms_sql_recordset" />
+          </AssociationSet>
+          <AssociationSet Name="ID_MDSD_DM_MUCDICHSUDUNG" Association="Self.ID_MDSD_DM_MUCDICHSUDUNG">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="HIENTRANG" EntitySet="HIENTRANG" />
+          </AssociationSet>
+          <AssociationSet Name="IDCMD_KHCMD_DMCMD" Association="Self.IDCMD_KHCMD_DMCMD">
+            <End Role="DM_CHUYENMUCDICH" EntitySet="DM_CHUYENMUCDICH" />
+            <End Role="KEHOACH_CMD" EntitySet="KEHOACH_CMD" />
+          </AssociationSet>
+          <AssociationSet Name="IDKHUCHUCNANG_KH_DMKCN" Association="Self.IDKHUCHUCNANG_KH_DMKCN">
+            <End Role="DM_LOAIKHUCHUCNANG" EntitySet="DM_LOAIKHUCHUCNANG" />
+            <End Role="KEHOACH" EntitySet="KEHOACH" />
+          </AssociationSet>
+          <AssociationSet Name="IDKHUCN_KHUCNMDSD_KHUCN" Association="Self.IDKHUCN_KHUCNMDSD_KHUCN">
+            <End Role="KHUCHUCNANG" EntitySet="KHUCHUCNANG" />
+            <End Role="KHUCHUCNANG_MDSD" EntitySet="KHUCHUCNANG_MDSD" />
+          </AssociationSet>
+          <AssociationSet Name="IDKHUCN_PBXD_DMKHUCN" Association="Self.IDKHUCN_PBXD_DMKHUCN">
+            <End Role="DM_LOAIKHUCHUCNANG" EntitySet="DM_LOAIKHUCHUCNANG" />
+            <End Role="PHANBO_XACDINH" EntitySet="PHANBO_XACDINH" />
+          </AssociationSet>
+          <AssociationSet Name="IDKHUCN_QUYHOACH_DMLOAIKHUCN" Association="Self.IDKHUCN_QUYHOACH_DMLOAIKHUCN">
+            <End Role="DM_LOAIKHUCHUCNANG" EntitySet="DM_LOAIKHUCHUCNANG" />
+            <End Role="QUYHOACH" EntitySet="QUYHOACH" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_CTDA_KYQHKH" Association="Self.IDKYQH_CTDA_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACH" />
+            <End Role="CONGTRINHDUAN" EntitySet="CONGTRINHDUAN" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_HIENTRANG_KYQHKH" Association="Self.IDKYQH_HIENTRANG_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACH" />
+            <End Role="HIENTRANG" EntitySet="HIENTRANG" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_KCN_KYQHKH" Association="Self.IDKYQH_KCN_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACH" />
+            <End Role="KHUCHUCNANG" EntitySet="KHUCHUCNANG" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_KEHOACH_KYQHKH" Association="Self.IDKYQH_KEHOACH_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACH" />
+            <End Role="KEHOACH" EntitySet="KEHOACH" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_KHCMD_KYQHKH" Association="Self.IDKYQH_KHCMD_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACH" />
+            <End Role="KEHOACH_CMD" EntitySet="KEHOACH_CMD" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_KHTHUHOI_KYQHKH" Association="Self.IDKYQH_KHTHUHOI_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACH" />
+            <End Role="KEHOACH_THUHOI" EntitySet="KEHOACH_THUHOI" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_MAPCONFIG_KYQHKH" Association="Self.IDKYQH_MAPCONFIG_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACH" />
+            <End Role="MAP_CONFIG" EntitySet="MAP_CONFIG" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_PBXD_KYQHKH" Association="Self.IDKYQH_PBXD_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACH" />
+            <End Role="PHANBO_XACDINH" EntitySet="PHANBO_XACDINH" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_QUYHOACH_KYQHKH" Association="Self.IDKYQH_QUYHOACH_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACH" />
+            <End Role="QUYHOACH" EntitySet="QUYHOACH" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_THCHUCHUYENDD_KYQHKH" Association="Self.IDKYQH_THCHUCHUYENDD_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACH" />
+            <End Role="TH_CHUCHUYENDATDAI" EntitySet="TH_CHUCHUYENDATDAI" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_THKYTRUOC_KYQHKH" Association="Self.IDKYQH_THKYTRUOC_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACH" />
+            <End Role="TH_KYTRUOC" EntitySet="TH_KYTRUOC" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQHTRUOC_THKYTRUOC_KYQHKH" Association="Self.IDKYQHTRUOC_THKYTRUOC_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACH" />
+            <End Role="TH_KYTRUOC" EntitySet="TH_KYTRUOC" />
+          </AssociationSet>
+          <AssociationSet Name="IDLOAICT_CTDA_DMLOAICT" Association="Self.IDLOAICT_CTDA_DMLOAICT">
+            <End Role="DM_LOAICONGTRINH" EntitySet="DM_LOAICONGTRINH" />
+            <End Role="CONGTRINHDUAN" EntitySet="CONGTRINHDUAN" />
+          </AssociationSet>
+          <AssociationSet Name="IDMDSD_KEHOACH_DMMDSD" Association="Self.IDMDSD_KEHOACH_DMMDSD">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="KEHOACH" EntitySet="KEHOACH" />
+          </AssociationSet>
+          <AssociationSet Name="IDMDSD_KHCSD_DMMDSD" Association="Self.IDMDSD_KHCSD_DMMDSD">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="KEHOACH_CSD" EntitySet="KEHOACH_CSD" />
+          </AssociationSet>
+          <AssociationSet Name="IDMDSD_KHTHUHOI_DMMDSD" Association="Self.IDMDSD_KHTHUHOI_DMMDSD">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="KEHOACH_THUHOI" EntitySet="KEHOACH_THUHOI" />
+          </AssociationSet>
+          <AssociationSet Name="IDMDSD_KHUCN_DMMDSD" Association="Self.IDMDSD_KHUCN_DMMDSD">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="KHUCHUCNANG_MDSD" EntitySet="KHUCHUCNANG_MDSD" />
+          </AssociationSet>
+          <AssociationSet Name="IDMDSD_QUYHOACH_DMMDSD" Association="Self.IDMDSD_QUYHOACH_DMMDSD">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="QUYHOACH" EntitySet="QUYHOACH" />
+          </AssociationSet>
+          <AssociationSet Name="IDMDSD_THCHUCHUYENDD_DMMDSD" Association="Self.IDMDSD_THCHUCHUYENDD_DMMDSD">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="TH_CHUCHUYENDATDAI" EntitySet="TH_CHUCHUYENDATDAI" />
+          </AssociationSet>
+          <AssociationSet Name="IDMDSD_THKYTRUOC_DMMDSD" Association="Self.IDMDSD_THKYTRUOC_DMMDSD">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="TH_KYTRUOC" EntitySet="TH_KYTRUOC" />
+          </AssociationSet>
+          <AssociationSet Name="IDMDSDCHUYEN_CCDD_DMMDSD" Association="Self.IDMDSDCHUYEN_CCDD_DMMDSD">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="TH_CHUCHUYENDATDAI" EntitySet="TH_CHUCHUYENDATDAI" />
+          </AssociationSet>
+          <AssociationSet Name="IDUSER_LOG_USER" Association="Self.IDUSER_LOG_USER">
+            <End Role="USERTABLE" EntitySet="USERTABLE" />
+            <End Role="USERTABLE_LOG" EntitySet="USERTABLE_LOG" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_CHUCHUYEN_KVHC" Association="Self.MAHUYEN_CHUCHUYEN_KVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="TH_CHUCHUYENDATDAI" EntitySet="TH_CHUCHUYENDATDAI" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_CTDA_DMKVHC" Association="Self.MAHUYEN_CTDA_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="CONGTRINHDUAN" EntitySet="CONGTRINHDUAN" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_HT_DMKVHC" Association="Self.MAHUYEN_HT_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="HIENTRANG" EntitySet="HIENTRANG" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_KEHOACH_DMKVHC" Association="Self.MAHUYEN_KEHOACH_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KEHOACH" EntitySet="KEHOACH" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_KHCMD_DMKVHC" Association="Self.MAHUYEN_KHCMD_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KEHOACH_CMD" EntitySet="KEHOACH_CMD" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_KHCSD_DMKVHC" Association="Self.MAHUYEN_KHCSD_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KEHOACH_CSD" EntitySet="KEHOACH_CSD" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_KHTHUHOI_DMKVHC" Association="Self.MAHUYEN_KHTHUHOI_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KEHOACH_THUHOI" EntitySet="KEHOACH_THUHOI" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_KHUCN_DMKVHC" Association="Self.MAHUYEN_KHUCN_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KHUCHUCNANG" EntitySet="KHUCHUCNANG" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_PBXD_KVHC" Association="Self.MAHUYEN_PBXD_KVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="PHANBO_XACDINH" EntitySet="PHANBO_XACDINH" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_QUYHOACH_DMKVHC" Association="Self.MAHUYEN_QUYHOACH_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="QUYHOACH" EntitySet="QUYHOACH" />
+          </AssociationSet>
+          <AssociationSet Name="MAKVHC_MAPCONFIG_DMKVHC" Association="Self.MAKVHC_MAPCONFIG_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="MAP_CONFIG" EntitySet="MAP_CONFIG" />
+          </AssociationSet>
+          <AssociationSet Name="MALOAIKHUCN_KHUCN_DMLOAIKHUCN" Association="Self.MALOAIKHUCN_KHUCN_DMLOAIKHUCN">
+            <End Role="DM_LOAIKHUCHUCNANG" EntitySet="DM_LOAIKHUCHUCNANG" />
+            <End Role="KHUCHUCNANG" EntitySet="KHUCHUCNANG" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_CHUCHUYEN_KVHC" Association="Self.MAXA_CHUCHUYEN_KVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="TH_CHUCHUYENDATDAI" EntitySet="TH_CHUCHUYENDATDAI" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_CTDA_DMKVHC" Association="Self.MAXA_CTDA_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="CONGTRINHDUAN" EntitySet="CONGTRINHDUAN" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_HT_DMKVHC" Association="Self.MAXA_HT_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="HIENTRANG" EntitySet="HIENTRANG" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_KEHOACH_DMKVHC" Association="Self.MAXA_KEHOACH_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KEHOACH" EntitySet="KEHOACH" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_KHCMD_DMKVHC" Association="Self.MAXA_KHCMD_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KEHOACH_CMD" EntitySet="KEHOACH_CMD" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_KHCSD_DMKVHC" Association="Self.MAXA_KHCSD_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KEHOACH_CSD" EntitySet="KEHOACH_CSD" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_KHTHUHOI_DMKVHC" Association="Self.MAXA_KHTHUHOI_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KEHOACH_THUHOI" EntitySet="KEHOACH_THUHOI" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_KHUCN_DMKVHC" Association="Self.MAXA_KHUCN_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KHUCHUCNANG" EntitySet="KHUCHUCNANG" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_PBXD_KVHC" Association="Self.MAXA_PBXD_KVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="PHANBO_XACDINH" EntitySet="PHANBO_XACDINH" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_QUYHOACH_DMKVHC" Association="Self.MAXA_QUYHOACH_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="QUYHOACH" EntitySet="QUYHOACH" />
+          </AssociationSet>
+          <AssociationSet Name="MDSD_PHANBOXD_DMMDSD" Association="Self.MDSD_PHANBOXD_DMMDSD">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="PHANBO_XACDINH" EntitySet="PHANBO_XACDINH" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QUYHOACH2021Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="KHQHEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="QUYHOACH2021Model.sysdiagram" />
+          <EntitySet Name="CONGTRINHDUANs" EntityType="QUYHOACH2021Model.CONGTRINHDUAN" />
+          <EntitySet Name="DM_CHUYENMUCDICH" EntityType="QUYHOACH2021Model.DM_CHUYENMUCDICH" />
+          <EntitySet Name="DM_KVHC" EntityType="QUYHOACH2021Model.DM_KVHC" />
+          <EntitySet Name="DM_LOAICONGTRINH" EntityType="QUYHOACH2021Model.DM_LOAICONGTRINH" />
+          <EntitySet Name="DM_LOAIKHUCHUCNANG" EntityType="QUYHOACH2021Model.DM_LOAIKHUCHUCNANG" />
+          <EntitySet Name="DM_MUCDICHSUDUNG" EntityType="QUYHOACH2021Model.DM_MUCDICHSUDUNG" />
+          <EntitySet Name="HIENTRANGs" EntityType="QUYHOACH2021Model.HIENTRANG" />
+          <EntitySet Name="KEHOACHes" EntityType="QUYHOACH2021Model.KEHOACH" />
+          <EntitySet Name="KEHOACH_CMD" EntityType="QUYHOACH2021Model.KEHOACH_CMD" />
+          <EntitySet Name="KEHOACH_CSD" EntityType="QUYHOACH2021Model.KEHOACH_CSD" />
+          <EntitySet Name="KEHOACH_THUHOI" EntityType="QUYHOACH2021Model.KEHOACH_THUHOI" />
+          <EntitySet Name="KHUCHUCNANGs" EntityType="QUYHOACH2021Model.KHUCHUCNANG" />
+          <EntitySet Name="KHUCHUCNANG_MDSD" EntityType="QUYHOACH2021Model.KHUCHUCNANG_MDSD" />
+          <EntitySet Name="KYQUYHOACHKEHOACHes" EntityType="QUYHOACH2021Model.KYQUYHOACHKEHOACH" />
+          <EntitySet Name="MAP_CONFIG" EntityType="QUYHOACH2021Model.MAP_CONFIG" />
+          <EntitySet Name="PHANBO_XACDINH" EntityType="QUYHOACH2021Model.PHANBO_XACDINH" />
+          <EntitySet Name="QUYHOACHes" EntityType="QUYHOACH2021Model.QUYHOACH" />
+          <EntitySet Name="TH_CHUCHUYENDATDAI" EntityType="QUYHOACH2021Model.TH_CHUCHUYENDATDAI" />
+          <EntitySet Name="TH_KYTRUOC" EntityType="QUYHOACH2021Model.TH_KYTRUOC" />
+          <EntitySet Name="USERTABLEs" EntityType="QUYHOACH2021Model.USERTABLE" />
+          <EntitySet Name="USERTABLE_LOG" EntityType="QUYHOACH2021Model.USERTABLE_LOG" />
+          <EntitySet Name="db_error_list" EntityType="QUYHOACH2021Model.db_error_list" />
+          <EntitySet Name="db_LOB_output" EntityType="QUYHOACH2021Model.db_LOB_output" />
+          <EntitySet Name="db_storage" EntityType="QUYHOACH2021Model.db_storage" />
+          <EntitySet Name="t_dbms_sql_bind_variable" EntityType="QUYHOACH2021Model.t_dbms_sql_bind_variable" />
+          <EntitySet Name="t_dbms_sql_cursor" EntityType="QUYHOACH2021Model.t_dbms_sql_cursor" />
+          <EntitySet Name="t_dbms_sql_define_column" EntityType="QUYHOACH2021Model.t_dbms_sql_define_column" />
+          <EntitySet Name="t_dbms_sql_recordset" EntityType="QUYHOACH2021Model.t_dbms_sql_recordset" />
+          <AssociationSet Name="IDKYQH_CTDA_KYQHKH" Association="QUYHOACH2021Model.IDKYQH_CTDA_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACHes" />
+            <End Role="CONGTRINHDUAN" EntitySet="CONGTRINHDUANs" />
+          </AssociationSet>
+          <AssociationSet Name="IDLOAICT_CTDA_DMLOAICT" Association="QUYHOACH2021Model.IDLOAICT_CTDA_DMLOAICT">
+            <End Role="DM_LOAICONGTRINH" EntitySet="DM_LOAICONGTRINH" />
+            <End Role="CONGTRINHDUAN" EntitySet="CONGTRINHDUANs" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_CTDA_DMKVHC" Association="QUYHOACH2021Model.MAHUYEN_CTDA_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="CONGTRINHDUAN" EntitySet="CONGTRINHDUANs" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_CTDA_DMKVHC" Association="QUYHOACH2021Model.MAXA_CTDA_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="CONGTRINHDUAN" EntitySet="CONGTRINHDUANs" />
+          </AssociationSet>
+          <AssociationSet Name="IDCMD_KHCMD_DMCMD" Association="QUYHOACH2021Model.IDCMD_KHCMD_DMCMD">
+            <End Role="DM_CHUYENMUCDICH" EntitySet="DM_CHUYENMUCDICH" />
+            <End Role="KEHOACH_CMD" EntitySet="KEHOACH_CMD" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_CHUCHUYEN_KVHC" Association="QUYHOACH2021Model.MAHUYEN_CHUCHUYEN_KVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="TH_CHUCHUYENDATDAI" EntitySet="TH_CHUCHUYENDATDAI" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_HT_DMKVHC" Association="QUYHOACH2021Model.MAHUYEN_HT_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="HIENTRANG" EntitySet="HIENTRANGs" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_KEHOACH_DMKVHC" Association="QUYHOACH2021Model.MAHUYEN_KEHOACH_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KEHOACH" EntitySet="KEHOACHes" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_KHCMD_DMKVHC" Association="QUYHOACH2021Model.MAHUYEN_KHCMD_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KEHOACH_CMD" EntitySet="KEHOACH_CMD" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_KHCSD_DMKVHC" Association="QUYHOACH2021Model.MAHUYEN_KHCSD_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KEHOACH_CSD" EntitySet="KEHOACH_CSD" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_KHTHUHOI_DMKVHC" Association="QUYHOACH2021Model.MAHUYEN_KHTHUHOI_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KEHOACH_THUHOI" EntitySet="KEHOACH_THUHOI" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_KHUCN_DMKVHC" Association="QUYHOACH2021Model.MAHUYEN_KHUCN_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KHUCHUCNANG" EntitySet="KHUCHUCNANGs" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_PBXD_KVHC" Association="QUYHOACH2021Model.MAHUYEN_PBXD_KVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="PHANBO_XACDINH" EntitySet="PHANBO_XACDINH" />
+          </AssociationSet>
+          <AssociationSet Name="MAHUYEN_QUYHOACH_DMKVHC" Association="QUYHOACH2021Model.MAHUYEN_QUYHOACH_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="QUYHOACH" EntitySet="QUYHOACHes" />
+          </AssociationSet>
+          <AssociationSet Name="MAKVHC_MAPCONFIG_DMKVHC" Association="QUYHOACH2021Model.MAKVHC_MAPCONFIG_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="MAP_CONFIG" EntitySet="MAP_CONFIG" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_CHUCHUYEN_KVHC" Association="QUYHOACH2021Model.MAXA_CHUCHUYEN_KVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="TH_CHUCHUYENDATDAI" EntitySet="TH_CHUCHUYENDATDAI" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_HT_DMKVHC" Association="QUYHOACH2021Model.MAXA_HT_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="HIENTRANG" EntitySet="HIENTRANGs" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_KEHOACH_DMKVHC" Association="QUYHOACH2021Model.MAXA_KEHOACH_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KEHOACH" EntitySet="KEHOACHes" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_KHCMD_DMKVHC" Association="QUYHOACH2021Model.MAXA_KHCMD_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KEHOACH_CMD" EntitySet="KEHOACH_CMD" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_KHCSD_DMKVHC" Association="QUYHOACH2021Model.MAXA_KHCSD_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KEHOACH_CSD" EntitySet="KEHOACH_CSD" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_KHTHUHOI_DMKVHC" Association="QUYHOACH2021Model.MAXA_KHTHUHOI_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KEHOACH_THUHOI" EntitySet="KEHOACH_THUHOI" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_KHUCN_DMKVHC" Association="QUYHOACH2021Model.MAXA_KHUCN_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="KHUCHUCNANG" EntitySet="KHUCHUCNANGs" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_PBXD_KVHC" Association="QUYHOACH2021Model.MAXA_PBXD_KVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="PHANBO_XACDINH" EntitySet="PHANBO_XACDINH" />
+          </AssociationSet>
+          <AssociationSet Name="MAXA_QUYHOACH_DMKVHC" Association="QUYHOACH2021Model.MAXA_QUYHOACH_DMKVHC">
+            <End Role="DM_KVHC" EntitySet="DM_KVHC" />
+            <End Role="QUYHOACH" EntitySet="QUYHOACHes" />
+          </AssociationSet>
+          <AssociationSet Name="IDKHUCHUCNANG_KH_DMKCN" Association="QUYHOACH2021Model.IDKHUCHUCNANG_KH_DMKCN">
+            <End Role="DM_LOAIKHUCHUCNANG" EntitySet="DM_LOAIKHUCHUCNANG" />
+            <End Role="KEHOACH" EntitySet="KEHOACHes" />
+          </AssociationSet>
+          <AssociationSet Name="IDKHUCN_PBXD_DMKHUCN" Association="QUYHOACH2021Model.IDKHUCN_PBXD_DMKHUCN">
+            <End Role="DM_LOAIKHUCHUCNANG" EntitySet="DM_LOAIKHUCHUCNANG" />
+            <End Role="PHANBO_XACDINH" EntitySet="PHANBO_XACDINH" />
+          </AssociationSet>
+          <AssociationSet Name="IDKHUCN_QUYHOACH_DMLOAIKHUCN" Association="QUYHOACH2021Model.IDKHUCN_QUYHOACH_DMLOAIKHUCN">
+            <End Role="DM_LOAIKHUCHUCNANG" EntitySet="DM_LOAIKHUCHUCNANG" />
+            <End Role="QUYHOACH" EntitySet="QUYHOACHes" />
+          </AssociationSet>
+          <AssociationSet Name="MALOAIKHUCN_KHUCN_DMLOAIKHUCN" Association="QUYHOACH2021Model.MALOAIKHUCN_KHUCN_DMLOAIKHUCN">
+            <End Role="DM_LOAIKHUCHUCNANG" EntitySet="DM_LOAIKHUCHUCNANG" />
+            <End Role="KHUCHUCNANG" EntitySet="KHUCHUCNANGs" />
+          </AssociationSet>
+          <AssociationSet Name="ID_MDSD_DM_MUCDICHSUDUNG" Association="QUYHOACH2021Model.ID_MDSD_DM_MUCDICHSUDUNG">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="HIENTRANG" EntitySet="HIENTRANGs" />
+          </AssociationSet>
+          <AssociationSet Name="IDMDSD_KEHOACH_DMMDSD" Association="QUYHOACH2021Model.IDMDSD_KEHOACH_DMMDSD">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="KEHOACH" EntitySet="KEHOACHes" />
+          </AssociationSet>
+          <AssociationSet Name="IDMDSD_KHCSD_DMMDSD" Association="QUYHOACH2021Model.IDMDSD_KHCSD_DMMDSD">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="KEHOACH_CSD" EntitySet="KEHOACH_CSD" />
+          </AssociationSet>
+          <AssociationSet Name="IDMDSD_KHTHUHOI_DMMDSD" Association="QUYHOACH2021Model.IDMDSD_KHTHUHOI_DMMDSD">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="KEHOACH_THUHOI" EntitySet="KEHOACH_THUHOI" />
+          </AssociationSet>
+          <AssociationSet Name="IDMDSD_KHUCN_DMMDSD" Association="QUYHOACH2021Model.IDMDSD_KHUCN_DMMDSD">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="KHUCHUCNANG_MDSD" EntitySet="KHUCHUCNANG_MDSD" />
+          </AssociationSet>
+          <AssociationSet Name="IDMDSD_QUYHOACH_DMMDSD" Association="QUYHOACH2021Model.IDMDSD_QUYHOACH_DMMDSD">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="QUYHOACH" EntitySet="QUYHOACHes" />
+          </AssociationSet>
+          <AssociationSet Name="IDMDSD_THCHUCHUYENDD_DMMDSD" Association="QUYHOACH2021Model.IDMDSD_THCHUCHUYENDD_DMMDSD">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="TH_CHUCHUYENDATDAI" EntitySet="TH_CHUCHUYENDATDAI" />
+          </AssociationSet>
+          <AssociationSet Name="IDMDSD_THKYTRUOC_DMMDSD" Association="QUYHOACH2021Model.IDMDSD_THKYTRUOC_DMMDSD">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="TH_KYTRUOC" EntitySet="TH_KYTRUOC" />
+          </AssociationSet>
+          <AssociationSet Name="IDMDSDCHUYEN_CCDD_DMMDSD" Association="QUYHOACH2021Model.IDMDSDCHUYEN_CCDD_DMMDSD">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="TH_CHUCHUYENDATDAI" EntitySet="TH_CHUCHUYENDATDAI" />
+          </AssociationSet>
+          <AssociationSet Name="MDSD_PHANBOXD_DMMDSD" Association="QUYHOACH2021Model.MDSD_PHANBOXD_DMMDSD">
+            <End Role="DM_MUCDICHSUDUNG" EntitySet="DM_MUCDICHSUDUNG" />
+            <End Role="PHANBO_XACDINH" EntitySet="PHANBO_XACDINH" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_HIENTRANG_KYQHKH" Association="QUYHOACH2021Model.IDKYQH_HIENTRANG_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACHes" />
+            <End Role="HIENTRANG" EntitySet="HIENTRANGs" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_KEHOACH_KYQHKH" Association="QUYHOACH2021Model.IDKYQH_KEHOACH_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACHes" />
+            <End Role="KEHOACH" EntitySet="KEHOACHes" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_KHCMD_KYQHKH" Association="QUYHOACH2021Model.IDKYQH_KHCMD_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACHes" />
+            <End Role="KEHOACH_CMD" EntitySet="KEHOACH_CMD" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_KHTHUHOI_KYQHKH" Association="QUYHOACH2021Model.IDKYQH_KHTHUHOI_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACHes" />
+            <End Role="KEHOACH_THUHOI" EntitySet="KEHOACH_THUHOI" />
+          </AssociationSet>
+          <AssociationSet Name="IDKHUCN_KHUCNMDSD_KHUCN" Association="QUYHOACH2021Model.IDKHUCN_KHUCNMDSD_KHUCN">
+            <End Role="KHUCHUCNANG" EntitySet="KHUCHUCNANGs" />
+            <End Role="KHUCHUCNANG_MDSD" EntitySet="KHUCHUCNANG_MDSD" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_KCN_KYQHKH" Association="QUYHOACH2021Model.IDKYQH_KCN_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACHes" />
+            <End Role="KHUCHUCNANG" EntitySet="KHUCHUCNANGs" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_MAPCONFIG_KYQHKH" Association="QUYHOACH2021Model.IDKYQH_MAPCONFIG_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACHes" />
+            <End Role="MAP_CONFIG" EntitySet="MAP_CONFIG" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_PBXD_KYQHKH" Association="QUYHOACH2021Model.IDKYQH_PBXD_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACHes" />
+            <End Role="PHANBO_XACDINH" EntitySet="PHANBO_XACDINH" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_QUYHOACH_KYQHKH" Association="QUYHOACH2021Model.IDKYQH_QUYHOACH_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACHes" />
+            <End Role="QUYHOACH" EntitySet="QUYHOACHes" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_THCHUCHUYENDD_KYQHKH" Association="QUYHOACH2021Model.IDKYQH_THCHUCHUYENDD_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACHes" />
+            <End Role="TH_CHUCHUYENDATDAI" EntitySet="TH_CHUCHUYENDATDAI" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQH_THKYTRUOC_KYQHKH" Association="QUYHOACH2021Model.IDKYQH_THKYTRUOC_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACHes" />
+            <End Role="TH_KYTRUOC" EntitySet="TH_KYTRUOC" />
+          </AssociationSet>
+          <AssociationSet Name="IDKYQHTRUOC_THKYTRUOC_KYQHKH" Association="QUYHOACH2021Model.IDKYQHTRUOC_THKYTRUOC_KYQHKH">
+            <End Role="KYQUYHOACHKEHOACH" EntitySet="KYQUYHOACHKEHOACHes" />
+            <End Role="TH_KYTRUOC" EntitySet="TH_KYTRUOC" />
+          </AssociationSet>
+          <AssociationSet Name="IDUSER_LOG_USER" Association="QUYHOACH2021Model.IDUSER_LOG_USER">
+            <End Role="USERTABLE" EntitySet="USERTABLEs" />
+            <End Role="USERTABLE_LOG" EntitySet="USERTABLE_LOG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_dbms_sql_bind_variable_t_dbms_sql_cursor" Association="QUYHOACH2021Model.FK_t_dbms_sql_bind_variable_t_dbms_sql_cursor">
+            <End Role="t_dbms_sql_cursor" EntitySet="t_dbms_sql_cursor" />
+            <End Role="t_dbms_sql_bind_variable" EntitySet="t_dbms_sql_bind_variable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_dbms_sql_define_column_t_dbms_sql_cursor" Association="QUYHOACH2021Model.FK_t_dbms_sql_define_column_t_dbms_sql_cursor">
+            <End Role="t_dbms_sql_cursor" EntitySet="t_dbms_sql_cursor" />
+            <End Role="t_dbms_sql_define_column" EntitySet="t_dbms_sql_define_column" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_dbms_sql_recordset_t_dbms_sql_cursor" Association="QUYHOACH2021Model.FK_t_dbms_sql_recordset_t_dbms_sql_cursor">
+            <End Role="t_dbms_sql_cursor" EntitySet="t_dbms_sql_cursor" />
+            <End Role="t_dbms_sql_recordset" EntitySet="t_dbms_sql_recordset" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="CONGTRINHDUAN">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID_KYQH" Type="Int32" Nullable="false" />
+          <Property Name="TENCONGTRINH" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
+          <Property Name="MACT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NAMTH" Type="Decimal" Precision="4" Scale="0" />
+          <Property Name="DIENTICH_KH" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DIENTICH_HT" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DIENTICH_TANGTHEM" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="SUDUNGVAOLD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TENDIADIEM" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="VITRITRENBD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MAXA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MAHUYEN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ID_LOAICT" Type="Int32" />
+          <Property Name="CAPTINH" Type="Boolean" />
+          <Property Name="ROWID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="KYQUYHOACHKEHOACH" Relationship="QUYHOACH2021Model.IDKYQH_CTDA_KYQHKH" FromRole="CONGTRINHDUAN" ToRole="KYQUYHOACHKEHOACH" />
+          <NavigationProperty Name="DM_LOAICONGTRINH" Relationship="QUYHOACH2021Model.IDLOAICT_CTDA_DMLOAICT" FromRole="CONGTRINHDUAN" ToRole="DM_LOAICONGTRINH" />
+          <NavigationProperty Name="DM_KVHC" Relationship="QUYHOACH2021Model.MAHUYEN_CTDA_DMKVHC" FromRole="CONGTRINHDUAN" ToRole="DM_KVHC" />
+          <NavigationProperty Name="DM_KVHC1" Relationship="QUYHOACH2021Model.MAXA_CTDA_DMKVHC" FromRole="CONGTRINHDUAN" ToRole="DM_KVHC" />
+        </EntityType>
+        <EntityType Name="DM_CHUYENMUCDICH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="KYHIEU" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TEN" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ENABLED" Type="Boolean" />
+          <Property Name="CAPTINH" Type="Boolean" />
+          <Property Name="ID_CAPTREN" Type="Int32" />
+          <Property Name="CHIMUC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CHIMUCTINH" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ROWID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="KEHOACH_CMD" Relationship="QUYHOACH2021Model.IDCMD_KHCMD_DMCMD" FromRole="DM_CHUYENMUCDICH" ToRole="KEHOACH_CMD" />
+        </EntityType>
+        <EntityType Name="DM_KVHC">
+          <Key>
+            <PropertyRef Name="MA_KVHC" />
+          </Key>
+          <Property Name="MA_KVHC" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ID_CAP_KVHC" Type="Int32" />
+          <Property Name="MA_KVHC_CHA" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="TEN_KVHC" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="STT_XA" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="DIACHI" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DIENTICH" Type="Decimal" Precision="20" Scale="4" />
+          <Property Name="DANGNONGNGHIEP" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="DANGPHINONGNGHIEP" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="DELETED" Type="Boolean" />
+          <Property Name="ID" Type="Decimal" Precision="2" Scale="0" />
+          <NavigationProperty Name="CONGTRINHDUANs" Relationship="QUYHOACH2021Model.MAHUYEN_CTDA_DMKVHC" FromRole="DM_KVHC" ToRole="CONGTRINHDUAN" />
+          <NavigationProperty Name="CONGTRINHDUANs1" Relationship="QUYHOACH2021Model.MAXA_CTDA_DMKVHC" FromRole="DM_KVHC" ToRole="CONGTRINHDUAN" />
+          <NavigationProperty Name="TH_CHUCHUYENDATDAI" Relationship="QUYHOACH2021Model.MAHUYEN_CHUCHUYEN_KVHC" FromRole="DM_KVHC" ToRole="TH_CHUCHUYENDATDAI" />
+          <NavigationProperty Name="HIENTRANGs" Relationship="QUYHOACH2021Model.MAHUYEN_HT_DMKVHC" FromRole="DM_KVHC" ToRole="HIENTRANG" />
+          <NavigationProperty Name="KEHOACHes" Relationship="QUYHOACH2021Model.MAHUYEN_KEHOACH_DMKVHC" FromRole="DM_KVHC" ToRole="KEHOACH" />
+          <NavigationProperty Name="KEHOACH_CMD" Relationship="QUYHOACH2021Model.MAHUYEN_KHCMD_DMKVHC" FromRole="DM_KVHC" ToRole="KEHOACH_CMD" />
+          <NavigationProperty Name="KEHOACH_CSD" Relationship="QUYHOACH2021Model.MAHUYEN_KHCSD_DMKVHC" FromRole="DM_KVHC" ToRole="KEHOACH_CSD" />
+          <NavigationProperty Name="KEHOACH_THUHOI" Relationship="QUYHOACH2021Model.MAHUYEN_KHTHUHOI_DMKVHC" FromRole="DM_KVHC" ToRole="KEHOACH_THUHOI" />
+          <NavigationProperty Name="KHUCHUCNANGs" Relationship="QUYHOACH2021Model.MAHUYEN_KHUCN_DMKVHC" FromRole="DM_KVHC" ToRole="KHUCHUCNANG" />
+          <NavigationProperty Name="PHANBO_XACDINH" Relationship="QUYHOACH2021Model.MAHUYEN_PBXD_KVHC" FromRole="DM_KVHC" ToRole="PHANBO_XACDINH" />
+          <NavigationProperty Name="QUYHOACHes" Relationship="QUYHOACH2021Model.MAHUYEN_QUYHOACH_DMKVHC" FromRole="DM_KVHC" ToRole="QUYHOACH" />
+          <NavigationProperty Name="MAP_CONFIG" Relationship="QUYHOACH2021Model.MAKVHC_MAPCONFIG_DMKVHC" FromRole="DM_KVHC" ToRole="MAP_CONFIG" />
+          <NavigationProperty Name="TH_CHUCHUYENDATDAI1" Relationship="QUYHOACH2021Model.MAXA_CHUCHUYEN_KVHC" FromRole="DM_KVHC" ToRole="TH_CHUCHUYENDATDAI" />
+          <NavigationProperty Name="HIENTRANGs1" Relationship="QUYHOACH2021Model.MAXA_HT_DMKVHC" FromRole="DM_KVHC" ToRole="HIENTRANG" />
+          <NavigationProperty Name="KEHOACHes1" Relationship="QUYHOACH2021Model.MAXA_KEHOACH_DMKVHC" FromRole="DM_KVHC" ToRole="KEHOACH" />
+          <NavigationProperty Name="KEHOACH_CMD1" Relationship="QUYHOACH2021Model.MAXA_KHCMD_DMKVHC" FromRole="DM_KVHC" ToRole="KEHOACH_CMD" />
+          <NavigationProperty Name="KEHOACH_CSD1" Relationship="QUYHOACH2021Model.MAXA_KHCSD_DMKVHC" FromRole="DM_KVHC" ToRole="KEHOACH_CSD" />
+          <NavigationProperty Name="KEHOACH_THUHOI1" Relationship="QUYHOACH2021Model.MAXA_KHTHUHOI_DMKVHC" FromRole="DM_KVHC" ToRole="KEHOACH_THUHOI" />
+          <NavigationProperty Name="KHUCHUCNANGs1" Relationship="QUYHOACH2021Model.MAXA_KHUCN_DMKVHC" FromRole="DM_KVHC" ToRole="KHUCHUCNANG" />
+          <NavigationProperty Name="PHANBO_XACDINH1" Relationship="QUYHOACH2021Model.MAXA_PBXD_KVHC" FromRole="DM_KVHC" ToRole="PHANBO_XACDINH" />
+          <NavigationProperty Name="QUYHOACHes1" Relationship="QUYHOACH2021Model.MAXA_QUYHOACH_DMKVHC" FromRole="DM_KVHC" ToRole="QUYHOACH" />
+        </EntityType>
+        <EntityType Name="DM_LOAICONGTRINH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="LOAIHANGMUC" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CAPTINH" Type="Boolean" />
+          <Property Name="CHIMUC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ID_CAPTREN" Type="Int32" />
+          <Property Name="ROWID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="CONGTRINHDUANs" Relationship="QUYHOACH2021Model.IDLOAICT_CTDA_DMLOAICT" FromRole="DM_LOAICONGTRINH" ToRole="CONGTRINHDUAN" />
+        </EntityType>
+        <EntityType Name="DM_LOAIKHUCHUCNANG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="KYHIEU" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TEN" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="NGAYTAO" Type="DateTime" Precision="3" />
+          <Property Name="ENABLED" Type="Boolean" />
+          <Property Name="CAPTINH" Type="Boolean" />
+          <Property Name="ROWID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="KEHOACHes" Relationship="QUYHOACH2021Model.IDKHUCHUCNANG_KH_DMKCN" FromRole="DM_LOAIKHUCHUCNANG" ToRole="KEHOACH" />
+          <NavigationProperty Name="PHANBO_XACDINH" Relationship="QUYHOACH2021Model.IDKHUCN_PBXD_DMKHUCN" FromRole="DM_LOAIKHUCHUCNANG" ToRole="PHANBO_XACDINH" />
+          <NavigationProperty Name="QUYHOACHes" Relationship="QUYHOACH2021Model.IDKHUCN_QUYHOACH_DMLOAIKHUCN" FromRole="DM_LOAIKHUCHUCNANG" ToRole="QUYHOACH" />
+          <NavigationProperty Name="KHUCHUCNANGs" Relationship="QUYHOACH2021Model.MALOAIKHUCN_KHUCN_DMLOAIKHUCN" FromRole="DM_LOAIKHUCHUCNANG" ToRole="KHUCHUCNANG" />
+        </EntityType>
+        <EntityType Name="DM_MUCDICHSUDUNG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="KIHIEU" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="TEN" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="ID_CAPTREN" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="CHIMUC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NGAYTAO" Type="DateTime" Precision="0" />
+          <Property Name="ENABLED" Type="Boolean" />
+          <Property Name="TT23" Type="Boolean" />
+          <Property Name="TT24" Type="Boolean" />
+          <Property Name="TT25" Type="Boolean" />
+          <Property Name="TT01" Type="Boolean" />
+          <Property Name="CAPTINH" Type="Boolean" />
+          <Property Name="STT" Type="Int32" />
+          <Property Name="ROWID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="HIENTRANGs" Relationship="QUYHOACH2021Model.ID_MDSD_DM_MUCDICHSUDUNG" FromRole="DM_MUCDICHSUDUNG" ToRole="HIENTRANG" />
+          <NavigationProperty Name="KEHOACHes" Relationship="QUYHOACH2021Model.IDMDSD_KEHOACH_DMMDSD" FromRole="DM_MUCDICHSUDUNG" ToRole="KEHOACH" />
+          <NavigationProperty Name="KEHOACH_CSD" Relationship="QUYHOACH2021Model.IDMDSD_KHCSD_DMMDSD" FromRole="DM_MUCDICHSUDUNG" ToRole="KEHOACH_CSD" />
+          <NavigationProperty Name="KEHOACH_THUHOI" Relationship="QUYHOACH2021Model.IDMDSD_KHTHUHOI_DMMDSD" FromRole="DM_MUCDICHSUDUNG" ToRole="KEHOACH_THUHOI" />
+          <NavigationProperty Name="KHUCHUCNANG_MDSD" Relationship="QUYHOACH2021Model.IDMDSD_KHUCN_DMMDSD" FromRole="DM_MUCDICHSUDUNG" ToRole="KHUCHUCNANG_MDSD" />
+          <NavigationProperty Name="QUYHOACHes" Relationship="QUYHOACH2021Model.IDMDSD_QUYHOACH_DMMDSD" FromRole="DM_MUCDICHSUDUNG" ToRole="QUYHOACH" />
+          <NavigationProperty Name="TH_CHUCHUYENDATDAI" Relationship="QUYHOACH2021Model.IDMDSD_THCHUCHUYENDD_DMMDSD" FromRole="DM_MUCDICHSUDUNG" ToRole="TH_CHUCHUYENDATDAI" />
+          <NavigationProperty Name="TH_KYTRUOC" Relationship="QUYHOACH2021Model.IDMDSD_THKYTRUOC_DMMDSD" FromRole="DM_MUCDICHSUDUNG" ToRole="TH_KYTRUOC" />
+          <NavigationProperty Name="TH_CHUCHUYENDATDAI1" Relationship="QUYHOACH2021Model.IDMDSDCHUYEN_CCDD_DMMDSD" FromRole="DM_MUCDICHSUDUNG" ToRole="TH_CHUCHUYENDATDAI" />
+          <NavigationProperty Name="PHANBO_XACDINH" Relationship="QUYHOACH2021Model.MDSD_PHANBOXD_DMMDSD" FromRole="DM_MUCDICHSUDUNG" ToRole="PHANBO_XACDINH" />
+        </EntityType>
+        <EntityType Name="HIENTRANG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID_KYQH" Type="Int32" />
+          <Property Name="MAHT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ID_MDSD" Type="Int32" />
+          <Property Name="DIENTICH" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="MAXA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MAHUYEN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CAPTINH" Type="Boolean" />
+          <Property Name="NAM" Type="Int32" />
+          <Property Name="TENVUNG" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="ROWID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="DM_KVHC" Relationship="QUYHOACH2021Model.MAHUYEN_HT_DMKVHC" FromRole="HIENTRANG" ToRole="DM_KVHC" />
+          <NavigationProperty Name="DM_KVHC1" Relationship="QUYHOACH2021Model.MAXA_HT_DMKVHC" FromRole="HIENTRANG" ToRole="DM_KVHC" />
+          <NavigationProperty Name="DM_MUCDICHSUDUNG" Relationship="QUYHOACH2021Model.ID_MDSD_DM_MUCDICHSUDUNG" FromRole="HIENTRANG" ToRole="DM_MUCDICHSUDUNG" />
+          <NavigationProperty Name="KYQUYHOACHKEHOACH" Relationship="QUYHOACH2021Model.IDKYQH_HIENTRANG_KYQHKH" FromRole="HIENTRANG" ToRole="KYQUYHOACHKEHOACH" />
+        </EntityType>
+        <EntityType Name="KEHOACH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID_KYQH" Type="Int32" />
+          <Property Name="NAM" Type="Int32" />
+          <Property Name="MAKH" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ID_MDSD" Type="Int32" />
+          <Property Name="DIENTICH" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="MAXA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MAHUYEN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ID_KHUCHUCNANG" Type="Int32" />
+          <Property Name="CAPTINH" Type="Boolean" />
+          <Property Name="TENVUNG" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="ROWID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="DM_KVHC" Relationship="QUYHOACH2021Model.MAHUYEN_KEHOACH_DMKVHC" FromRole="KEHOACH" ToRole="DM_KVHC" />
+          <NavigationProperty Name="DM_KVHC1" Relationship="QUYHOACH2021Model.MAXA_KEHOACH_DMKVHC" FromRole="KEHOACH" ToRole="DM_KVHC" />
+          <NavigationProperty Name="DM_LOAIKHUCHUCNANG" Relationship="QUYHOACH2021Model.IDKHUCHUCNANG_KH_DMKCN" FromRole="KEHOACH" ToRole="DM_LOAIKHUCHUCNANG" />
+          <NavigationProperty Name="DM_MUCDICHSUDUNG" Relationship="QUYHOACH2021Model.IDMDSD_KEHOACH_DMMDSD" FromRole="KEHOACH" ToRole="DM_MUCDICHSUDUNG" />
+          <NavigationProperty Name="KYQUYHOACHKEHOACH" Relationship="QUYHOACH2021Model.IDKYQH_KEHOACH_KYQHKH" FromRole="KEHOACH" ToRole="KYQUYHOACHKEHOACH" />
+        </EntityType>
+        <EntityType Name="KEHOACH_CMD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID_KYQH" Type="Int32" />
+          <Property Name="NAM" Type="Int32" />
+          <Property Name="ID_CMD" Type="Int32" />
+          <Property Name="DIENTICH" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="MAXA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MAHUYEN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CAPTINH" Type="Boolean" />
+          <Property Name="ROWID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="DM_CHUYENMUCDICH" Relationship="QUYHOACH2021Model.IDCMD_KHCMD_DMCMD" FromRole="KEHOACH_CMD" ToRole="DM_CHUYENMUCDICH" />
+          <NavigationProperty Name="DM_KVHC" Relationship="QUYHOACH2021Model.MAHUYEN_KHCMD_DMKVHC" FromRole="KEHOACH_CMD" ToRole="DM_KVHC" />
+          <NavigationProperty Name="DM_KVHC1" Relationship="QUYHOACH2021Model.MAXA_KHCMD_DMKVHC" FromRole="KEHOACH_CMD" ToRole="DM_KVHC" />
+          <NavigationProperty Name="KYQUYHOACHKEHOACH" Relationship="QUYHOACH2021Model.IDKYQH_KHCMD_KYQHKH" FromRole="KEHOACH_CMD" ToRole="KYQUYHOACHKEHOACH" />
+        </EntityType>
+        <EntityType Name="KEHOACH_CSD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID_KYQH" Type="Int32" />
+          <Property Name="NAM" Type="Int32" />
+          <Property Name="ID_MDSD" Type="Int32" />
+          <Property Name="DIENTICH" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="MAXA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MAHUYEN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CAPTINH" Type="Boolean" />
+          <Property Name="ROWID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="DM_KVHC" Relationship="QUYHOACH2021Model.MAHUYEN_KHCSD_DMKVHC" FromRole="KEHOACH_CSD" ToRole="DM_KVHC" />
+          <NavigationProperty Name="DM_KVHC1" Relationship="QUYHOACH2021Model.MAXA_KHCSD_DMKVHC" FromRole="KEHOACH_CSD" ToRole="DM_KVHC" />
+          <NavigationProperty Name="DM_MUCDICHSUDUNG" Relationship="QUYHOACH2021Model.IDMDSD_KHCSD_DMMDSD" FromRole="KEHOACH_CSD" ToRole="DM_MUCDICHSUDUNG" />
+        </EntityType>
+        <EntityType Name="KEHOACH_THUHOI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID_KYQH" Type="Int32" />
+          <Property Name="NAM" Type="Int32" />
+          <Property Name="ID_MDSD" Type="Int32" />
+          <Property Name="DIENTICH" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="MAXA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MAHUYEN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ROWID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="DM_KVHC" Relationship="QUYHOACH2021Model.MAHUYEN_KHTHUHOI_DMKVHC" FromRole="KEHOACH_THUHOI" ToRole="DM_KVHC" />
+          <NavigationProperty Name="DM_KVHC1" Relationship="QUYHOACH2021Model.MAXA_KHTHUHOI_DMKVHC" FromRole="KEHOACH_THUHOI" ToRole="DM_KVHC" />
+          <NavigationProperty Name="DM_MUCDICHSUDUNG" Relationship="QUYHOACH2021Model.IDMDSD_KHTHUHOI_DMMDSD" FromRole="KEHOACH_THUHOI" ToRole="DM_MUCDICHSUDUNG" />
+          <NavigationProperty Name="KYQUYHOACHKEHOACH" Relationship="QUYHOACH2021Model.IDKYQH_KHTHUHOI_KYQHKH" FromRole="KEHOACH_THUHOI" ToRole="KYQUYHOACHKEHOACH" />
+        </EntityType>
+        <EntityType Name="KHUCHUCNANG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID_KYQH" Type="Int32" Nullable="false" />
+          <Property Name="MAKHUCN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MAXA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MAHUYEN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MALOAIKHUCN" Type="Int32" />
+          <Property Name="CAPTINH" Type="Boolean" />
+          <Property Name="TENVUNG" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="ROWID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="DM_KVHC" Relationship="QUYHOACH2021Model.MAHUYEN_KHUCN_DMKVHC" FromRole="KHUCHUCNANG" ToRole="DM_KVHC" />
+          <NavigationProperty Name="DM_KVHC1" Relationship="QUYHOACH2021Model.MAXA_KHUCN_DMKVHC" FromRole="KHUCHUCNANG" ToRole="DM_KVHC" />
+          <NavigationProperty Name="DM_LOAIKHUCHUCNANG" Relationship="QUYHOACH2021Model.MALOAIKHUCN_KHUCN_DMLOAIKHUCN" FromRole="KHUCHUCNANG" ToRole="DM_LOAIKHUCHUCNANG" />
+          <NavigationProperty Name="KHUCHUCNANG_MDSD" Relationship="QUYHOACH2021Model.IDKHUCN_KHUCNMDSD_KHUCN" FromRole="KHUCHUCNANG" ToRole="KHUCHUCNANG_MDSD" />
+          <NavigationProperty Name="KYQUYHOACHKEHOACH" Relationship="QUYHOACH2021Model.IDKYQH_KCN_KYQHKH" FromRole="KHUCHUCNANG" ToRole="KYQUYHOACHKEHOACH" />
+        </EntityType>
+        <EntityType Name="KHUCHUCNANG_MDSD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID_KHUCN" Type="Int32" Nullable="false" />
+          <Property Name="ID_MDSD" Type="Int32" Nullable="false" />
+          <Property Name="DIENTICH" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="ROWID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="DM_MUCDICHSUDUNG" Relationship="QUYHOACH2021Model.IDMDSD_KHUCN_DMMDSD" FromRole="KHUCHUCNANG_MDSD" ToRole="DM_MUCDICHSUDUNG" />
+          <NavigationProperty Name="KHUCHUCNANG" Relationship="QUYHOACH2021Model.IDKHUCN_KHUCNMDSD_KHUCN" FromRole="KHUCHUCNANG_MDSD" ToRole="KHUCHUCNANG" />
+        </EntityType>
+        <EntityType Name="KYQUYHOACHKEHOACH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="TEN" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="NAM" Type="Int32" />
+          <Property Name="TUNAM" Type="Int32" />
+          <Property Name="TOINAM" Type="Int32" />
+          <Property Name="BIKHOA" Type="Boolean" />
+          <Property Name="IS_KEHOACH_DIEUCHINH" Type="Int32" />
+          <Property Name="ID_CHA" Type="Int32" />
+          <Property Name="ROWID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="CONGTRINHDUANs" Relationship="QUYHOACH2021Model.IDKYQH_CTDA_KYQHKH" FromRole="KYQUYHOACHKEHOACH" ToRole="CONGTRINHDUAN" />
+          <NavigationProperty Name="HIENTRANGs" Relationship="QUYHOACH2021Model.IDKYQH_HIENTRANG_KYQHKH" FromRole="KYQUYHOACHKEHOACH" ToRole="HIENTRANG" />
+          <NavigationProperty Name="KEHOACHes" Relationship="QUYHOACH2021Model.IDKYQH_KEHOACH_KYQHKH" FromRole="KYQUYHOACHKEHOACH" ToRole="KEHOACH" />
+          <NavigationProperty Name="KEHOACH_CMD" Relationship="QUYHOACH2021Model.IDKYQH_KHCMD_KYQHKH" FromRole="KYQUYHOACHKEHOACH" ToRole="KEHOACH_CMD" />
+          <NavigationProperty Name="KEHOACH_THUHOI" Relationship="QUYHOACH2021Model.IDKYQH_KHTHUHOI_KYQHKH" FromRole="KYQUYHOACHKEHOACH" ToRole="KEHOACH_THUHOI" />
+          <NavigationProperty Name="KHUCHUCNANGs" Relationship="QUYHOACH2021Model.IDKYQH_KCN_KYQHKH" FromRole="KYQUYHOACHKEHOACH" ToRole="KHUCHUCNANG" />
+          <NavigationProperty Name="MAP_CONFIG" Relationship="QUYHOACH2021Model.IDKYQH_MAPCONFIG_KYQHKH" FromRole="KYQUYHOACHKEHOACH" ToRole="MAP_CONFIG" />
+          <NavigationProperty Name="PHANBO_XACDINH" Relationship="QUYHOACH2021Model.IDKYQH_PBXD_KYQHKH" FromRole="KYQUYHOACHKEHOACH" ToRole="PHANBO_XACDINH" />
+          <NavigationProperty Name="QUYHOACHes" Relationship="QUYHOACH2021Model.IDKYQH_QUYHOACH_KYQHKH" FromRole="KYQUYHOACHKEHOACH" ToRole="QUYHOACH" />
+          <NavigationProperty Name="TH_CHUCHUYENDATDAI" Relationship="QUYHOACH2021Model.IDKYQH_THCHUCHUYENDD_KYQHKH" FromRole="KYQUYHOACHKEHOACH" ToRole="TH_CHUCHUYENDATDAI" />
+          <NavigationProperty Name="TH_KYTRUOC" Relationship="QUYHOACH2021Model.IDKYQH_THKYTRUOC_KYQHKH" FromRole="KYQUYHOACHKEHOACH" ToRole="TH_KYTRUOC" />
+          <NavigationProperty Name="TH_KYTRUOC1" Relationship="QUYHOACH2021Model.IDKYQHTRUOC_THKYTRUOC_KYQHKH" FromRole="KYQUYHOACHKEHOACH" ToRole="TH_KYTRUOC" />
+        </EntityType>
+        <EntityType Name="MAP_CONFIG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID_KYQH" Type="Int32" />
+          <Property Name="MAKVHC" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MAP_SERVICES" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DEFAULT_VIEW" Type="Boolean" />
+          <Property Name="DELETED" Type="Boolean" />
+          <NavigationProperty Name="DM_KVHC" Relationship="QUYHOACH2021Model.MAKVHC_MAPCONFIG_DMKVHC" FromRole="MAP_CONFIG" ToRole="DM_KVHC" />
+          <NavigationProperty Name="KYQUYHOACHKEHOACH" Relationship="QUYHOACH2021Model.IDKYQH_MAPCONFIG_KYQHKH" FromRole="MAP_CONFIG" ToRole="KYQUYHOACHKEHOACH" />
+        </EntityType>
+        <EntityType Name="PHANBO_XACDINH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID_KYQH" Type="Int32" />
+          <Property Name="ID_MDSD" Type="Int32" />
+          <Property Name="DT_PHANBO" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DT_XACDINH" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="ID_KHUCHUCNANG" Type="Int32" />
+          <Property Name="CAPTINH" Type="Boolean" />
+          <Property Name="MAXA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MAHUYEN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ROWID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="DM_KVHC" Relationship="QUYHOACH2021Model.MAHUYEN_PBXD_KVHC" FromRole="PHANBO_XACDINH" ToRole="DM_KVHC" />
+          <NavigationProperty Name="DM_KVHC1" Relationship="QUYHOACH2021Model.MAXA_PBXD_KVHC" FromRole="PHANBO_XACDINH" ToRole="DM_KVHC" />
+          <NavigationProperty Name="DM_LOAIKHUCHUCNANG" Relationship="QUYHOACH2021Model.IDKHUCN_PBXD_DMKHUCN" FromRole="PHANBO_XACDINH" ToRole="DM_LOAIKHUCHUCNANG" />
+          <NavigationProperty Name="DM_MUCDICHSUDUNG" Relationship="QUYHOACH2021Model.MDSD_PHANBOXD_DMMDSD" FromRole="PHANBO_XACDINH" ToRole="DM_MUCDICHSUDUNG" />
+          <NavigationProperty Name="KYQUYHOACHKEHOACH" Relationship="QUYHOACH2021Model.IDKYQH_PBXD_KYQHKH" FromRole="PHANBO_XACDINH" ToRole="KYQUYHOACHKEHOACH" />
+        </EntityType>
+        <EntityType Name="QUYHOACH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID_KYQH" Type="Int32" />
+          <Property Name="NAM" Type="Int32" />
+          <Property Name="MAQH" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ID_MDSD" Type="Int32" />
+          <Property Name="DIENTICH" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="MAXA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MAHUYEN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CAPTINH" Type="Boolean" />
+          <Property Name="ID_KHUCN" Type="Int32" />
+          <Property Name="TENVUNG" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="ROWID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="DM_KVHC" Relationship="QUYHOACH2021Model.MAHUYEN_QUYHOACH_DMKVHC" FromRole="QUYHOACH" ToRole="DM_KVHC" />
+          <NavigationProperty Name="DM_KVHC1" Relationship="QUYHOACH2021Model.MAXA_QUYHOACH_DMKVHC" FromRole="QUYHOACH" ToRole="DM_KVHC" />
+          <NavigationProperty Name="DM_LOAIKHUCHUCNANG" Relationship="QUYHOACH2021Model.IDKHUCN_QUYHOACH_DMLOAIKHUCN" FromRole="QUYHOACH" ToRole="DM_LOAIKHUCHUCNANG" />
+          <NavigationProperty Name="DM_MUCDICHSUDUNG" Relationship="QUYHOACH2021Model.IDMDSD_QUYHOACH_DMMDSD" FromRole="QUYHOACH" ToRole="DM_MUCDICHSUDUNG" />
+          <NavigationProperty Name="KYQUYHOACHKEHOACH" Relationship="QUYHOACH2021Model.IDKYQH_QUYHOACH_KYQHKH" FromRole="QUYHOACH" ToRole="KYQUYHOACHKEHOACH" />
+        </EntityType>
+        <EntityType Name="TH_CHUCHUYENDATDAI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID_KYQH" Type="Int32" Nullable="false" />
+          <Property Name="NAM" Type="Int32" />
+          <Property Name="ID_MDSD" Type="Int32" />
+          <Property Name="ID_MDSD_CHUYEN" Type="Int32" />
+          <Property Name="DIENTICH" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="CAPTINH" Type="Boolean" />
+          <Property Name="MAXA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MAHUYEN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ROWID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="DM_KVHC" Relationship="QUYHOACH2021Model.MAHUYEN_CHUCHUYEN_KVHC" FromRole="TH_CHUCHUYENDATDAI" ToRole="DM_KVHC" />
+          <NavigationProperty Name="DM_KVHC1" Relationship="QUYHOACH2021Model.MAXA_CHUCHUYEN_KVHC" FromRole="TH_CHUCHUYENDATDAI" ToRole="DM_KVHC" />
+          <NavigationProperty Name="DM_MUCDICHSUDUNG" Relationship="QUYHOACH2021Model.IDMDSD_THCHUCHUYENDD_DMMDSD" FromRole="TH_CHUCHUYENDATDAI" ToRole="DM_MUCDICHSUDUNG" />
+          <NavigationProperty Name="DM_MUCDICHSUDUNG1" Relationship="QUYHOACH2021Model.IDMDSDCHUYEN_CCDD_DMMDSD" FromRole="TH_CHUCHUYENDATDAI" ToRole="DM_MUCDICHSUDUNG" />
+          <NavigationProperty Name="KYQUYHOACHKEHOACH" Relationship="QUYHOACH2021Model.IDKYQH_THCHUCHUYENDD_KYQHKH" FromRole="TH_CHUCHUYENDATDAI" ToRole="KYQUYHOACHKEHOACH" />
+        </EntityType>
+        <EntityType Name="TH_KYTRUOC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID_KYQH" Type="Int32" />
+          <Property Name="ID_KYQHTRUOC" Type="Int32" />
+          <Property Name="ID_MDSD" Type="Int32" />
+          <Property Name="DT_PHEDUYET" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DT_THUCHIEN" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="TANG_GIAM" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="TILE" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="MAHUYEN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CAPTINH" Type="Boolean" />
+          <Property Name="ROWID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="DM_MUCDICHSUDUNG" Relationship="QUYHOACH2021Model.IDMDSD_THKYTRUOC_DMMDSD" FromRole="TH_KYTRUOC" ToRole="DM_MUCDICHSUDUNG" />
+          <NavigationProperty Name="KYQUYHOACHKEHOACH" Relationship="QUYHOACH2021Model.IDKYQH_THKYTRUOC_KYQHKH" FromRole="TH_KYTRUOC" ToRole="KYQUYHOACHKEHOACH" />
+          <NavigationProperty Name="KYQUYHOACHKEHOACH1" Relationship="QUYHOACH2021Model.IDKYQHTRUOC_THKYTRUOC_KYQHKH" FromRole="TH_KYTRUOC" ToRole="KYQUYHOACHKEHOACH" />
+        </EntityType>
+        <EntityType Name="USERTABLE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="HOTEN" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TENDANGNHAP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MATKHAU" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TENPHONGBAN" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MAPHONGBAN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MAPHONGBANCHA" Type="Int32" />
+          <Property Name="ENABLE" Type="Boolean" Nullable="false" />
+          <Property Name="GHICHU" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ROWID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="USERTABLE_LOG" Relationship="QUYHOACH2021Model.IDUSER_LOG_USER" FromRole="USERTABLE" ToRole="USERTABLE_LOG" />
+        </EntityType>
+        <EntityType Name="USERTABLE_LOG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID_USER" Type="Int32" />
+          <Property Name="THOIGIAN" Type="DateTime" Precision="3" />
+          <Property Name="NOIDUNG" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="KEY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ROWID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="USERTABLE" Relationship="QUYHOACH2021Model.IDUSER_LOG_USER" FromRole="USERTABLE_LOG" ToRole="USERTABLE" />
+        </EntityType>
+        <EntityType Name="db_error_list">
+          <Key>
+            <PropertyRef Name="error_code" />
+          </Key>
+          <Property Name="error_full_name" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="error_code" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="error_message" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="db_LOB_output">
+          <Key>
+            <PropertyRef Name="spid" />
+            <PropertyRef Name="ordinal" />
+          </Key>
+          <Property Name="spid" Type="Int32" Nullable="false" />
+          <Property Name="ordinal" Type="Int32" Nullable="false" />
+          <Property Name="c_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="nc_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="b_value" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="db_storage">
+          <Key>
+            <PropertyRef Name="spid" />
+            <PropertyRef Name="login_time" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="spid" Type="Int16" Nullable="false" />
+          <Property Name="login_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="323" FixedLength="false" Unicode="true" />
+          <Property Name="c_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="nc_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="b_value" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="t_dbms_sql_bind_variable">
+          <Key>
+            <PropertyRef Name="cursor_id" />
+            <PropertyRef Name="C_name" />
+          </Key>
+          <Property Name="cursor_id" Type="Int32" Nullable="false" />
+          <Property Name="C_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="C_type" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="c_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="nc_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="b_value" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="t_dbms_sql_cursor" Relationship="QUYHOACH2021Model.FK_t_dbms_sql_bind_variable_t_dbms_sql_cursor" FromRole="t_dbms_sql_bind_variable" ToRole="t_dbms_sql_cursor" />
+        </EntityType>
+        <EntityType Name="t_dbms_sql_cursor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="spid" Type="Int32" Nullable="false" />
+          <Property Name="login_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="statement" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="current_row" Type="Int32" />
+          <Property Name="last_row" Type="Int32" />
+          <NavigationProperty Name="t_dbms_sql_bind_variable" Relationship="QUYHOACH2021Model.FK_t_dbms_sql_bind_variable_t_dbms_sql_cursor" FromRole="t_dbms_sql_cursor" ToRole="t_dbms_sql_bind_variable" />
+          <NavigationProperty Name="t_dbms_sql_define_column" Relationship="QUYHOACH2021Model.FK_t_dbms_sql_define_column_t_dbms_sql_cursor" FromRole="t_dbms_sql_cursor" ToRole="t_dbms_sql_define_column" />
+          <NavigationProperty Name="t_dbms_sql_recordset" Relationship="QUYHOACH2021Model.FK_t_dbms_sql_recordset_t_dbms_sql_cursor" FromRole="t_dbms_sql_cursor" ToRole="t_dbms_sql_recordset" />
+        </EntityType>
+        <EntityType Name="t_dbms_sql_define_column">
+          <Key>
+            <PropertyRef Name="cursor_id" />
+            <PropertyRef Name="position" />
+          </Key>
+          <Property Name="cursor_id" Type="Int32" Nullable="false" />
+          <Property Name="position" Type="Int32" Nullable="false" />
+          <Property Name="C_type" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="t_dbms_sql_cursor" Relationship="QUYHOACH2021Model.FK_t_dbms_sql_define_column_t_dbms_sql_cursor" FromRole="t_dbms_sql_define_column" ToRole="t_dbms_sql_cursor" />
+        </EntityType>
+        <EntityType Name="t_dbms_sql_recordset">
+          <Key>
+            <PropertyRef Name="cursor_id" />
+            <PropertyRef Name="C_key" />
+            <PropertyRef Name="position" />
+          </Key>
+          <Property Name="cursor_id" Type="Int32" Nullable="false" />
+          <Property Name="C_key" Type="Int32" Nullable="false" />
+          <Property Name="position" Type="Int32" Nullable="false" />
+          <Property Name="c_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="nc_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="b_value" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="t_dbms_sql_cursor" Relationship="QUYHOACH2021Model.FK_t_dbms_sql_recordset_t_dbms_sql_cursor" FromRole="t_dbms_sql_recordset" ToRole="t_dbms_sql_cursor" />
+        </EntityType>
+        <Association Name="IDKYQH_CTDA_KYQHKH">
+          <End Type="QUYHOACH2021Model.KYQUYHOACHKEHOACH" Role="KYQUYHOACHKEHOACH" Multiplicity="1" />
+          <End Type="QUYHOACH2021Model.CONGTRINHDUAN" Role="CONGTRINHDUAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CONGTRINHDUAN">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDLOAICT_CTDA_DMLOAICT">
+          <End Type="QUYHOACH2021Model.DM_LOAICONGTRINH" Role="DM_LOAICONGTRINH" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.CONGTRINHDUAN" Role="CONGTRINHDUAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_LOAICONGTRINH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CONGTRINHDUAN">
+              <PropertyRef Name="ID_LOAICT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_CTDA_DMKVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.CONGTRINHDUAN" Role="CONGTRINHDUAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="CONGTRINHDUAN">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_CTDA_DMKVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.CONGTRINHDUAN" Role="CONGTRINHDUAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="CONGTRINHDUAN">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDCMD_KHCMD_DMCMD">
+          <End Type="QUYHOACH2021Model.DM_CHUYENMUCDICH" Role="DM_CHUYENMUCDICH" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.KEHOACH_CMD" Role="KEHOACH_CMD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_CHUYENMUCDICH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KEHOACH_CMD">
+              <PropertyRef Name="ID_CMD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_CHUCHUYEN_KVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.TH_CHUCHUYENDATDAI" Role="TH_CHUCHUYENDATDAI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="TH_CHUCHUYENDATDAI">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_HT_DMKVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.HIENTRANG" Role="HIENTRANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="HIENTRANG">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_KEHOACH_DMKVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.KEHOACH" Role="KEHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KEHOACH">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_KHCMD_DMKVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.KEHOACH_CMD" Role="KEHOACH_CMD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KEHOACH_CMD">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_KHCSD_DMKVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.KEHOACH_CSD" Role="KEHOACH_CSD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KEHOACH_CSD">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_KHTHUHOI_DMKVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.KEHOACH_THUHOI" Role="KEHOACH_THUHOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KEHOACH_THUHOI">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_KHUCN_DMKVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.KHUCHUCNANG" Role="KHUCHUCNANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KHUCHUCNANG">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_PBXD_KVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.PHANBO_XACDINH" Role="PHANBO_XACDINH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="PHANBO_XACDINH">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAHUYEN_QUYHOACH_DMKVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.QUYHOACH" Role="QUYHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="QUYHOACH">
+              <PropertyRef Name="MAHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAKVHC_MAPCONFIG_DMKVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.MAP_CONFIG" Role="MAP_CONFIG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="MAP_CONFIG">
+              <PropertyRef Name="MAKVHC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_CHUCHUYEN_KVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.TH_CHUCHUYENDATDAI" Role="TH_CHUCHUYENDATDAI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="TH_CHUCHUYENDATDAI">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_HT_DMKVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.HIENTRANG" Role="HIENTRANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="HIENTRANG">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_KEHOACH_DMKVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.KEHOACH" Role="KEHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KEHOACH">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_KHCMD_DMKVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.KEHOACH_CMD" Role="KEHOACH_CMD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KEHOACH_CMD">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_KHCSD_DMKVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.KEHOACH_CSD" Role="KEHOACH_CSD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KEHOACH_CSD">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_KHTHUHOI_DMKVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.KEHOACH_THUHOI" Role="KEHOACH_THUHOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KEHOACH_THUHOI">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_KHUCN_DMKVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.KHUCHUCNANG" Role="KHUCHUCNANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="KHUCHUCNANG">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_PBXD_KVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.PHANBO_XACDINH" Role="PHANBO_XACDINH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="PHANBO_XACDINH">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MAXA_QUYHOACH_DMKVHC">
+          <End Type="QUYHOACH2021Model.DM_KVHC" Role="DM_KVHC" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.QUYHOACH" Role="QUYHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_KVHC">
+              <PropertyRef Name="MA_KVHC" />
+            </Principal>
+            <Dependent Role="QUYHOACH">
+              <PropertyRef Name="MAXA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKHUCHUCNANG_KH_DMKCN">
+          <End Type="QUYHOACH2021Model.DM_LOAIKHUCHUCNANG" Role="DM_LOAIKHUCHUCNANG" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.KEHOACH" Role="KEHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_LOAIKHUCHUCNANG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KEHOACH">
+              <PropertyRef Name="ID_KHUCHUCNANG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKHUCN_PBXD_DMKHUCN">
+          <End Type="QUYHOACH2021Model.DM_LOAIKHUCHUCNANG" Role="DM_LOAIKHUCHUCNANG" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.PHANBO_XACDINH" Role="PHANBO_XACDINH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_LOAIKHUCHUCNANG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PHANBO_XACDINH">
+              <PropertyRef Name="ID_KHUCHUCNANG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKHUCN_QUYHOACH_DMLOAIKHUCN">
+          <End Type="QUYHOACH2021Model.DM_LOAIKHUCHUCNANG" Role="DM_LOAIKHUCHUCNANG" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.QUYHOACH" Role="QUYHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_LOAIKHUCHUCNANG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUYHOACH">
+              <PropertyRef Name="ID_KHUCN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MALOAIKHUCN_KHUCN_DMLOAIKHUCN">
+          <End Type="QUYHOACH2021Model.DM_LOAIKHUCHUCNANG" Role="DM_LOAIKHUCHUCNANG" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.KHUCHUCNANG" Role="KHUCHUCNANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_LOAIKHUCHUCNANG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KHUCHUCNANG">
+              <PropertyRef Name="MALOAIKHUCN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ID_MDSD_DM_MUCDICHSUDUNG">
+          <End Type="QUYHOACH2021Model.DM_MUCDICHSUDUNG" Role="DM_MUCDICHSUDUNG" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.HIENTRANG" Role="HIENTRANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HIENTRANG">
+              <PropertyRef Name="ID_MDSD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDMDSD_KEHOACH_DMMDSD">
+          <End Type="QUYHOACH2021Model.DM_MUCDICHSUDUNG" Role="DM_MUCDICHSUDUNG" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.KEHOACH" Role="KEHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KEHOACH">
+              <PropertyRef Name="ID_MDSD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDMDSD_KHCSD_DMMDSD">
+          <End Type="QUYHOACH2021Model.DM_MUCDICHSUDUNG" Role="DM_MUCDICHSUDUNG" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.KEHOACH_CSD" Role="KEHOACH_CSD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KEHOACH_CSD">
+              <PropertyRef Name="ID_MDSD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDMDSD_KHTHUHOI_DMMDSD">
+          <End Type="QUYHOACH2021Model.DM_MUCDICHSUDUNG" Role="DM_MUCDICHSUDUNG" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.KEHOACH_THUHOI" Role="KEHOACH_THUHOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KEHOACH_THUHOI">
+              <PropertyRef Name="ID_MDSD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDMDSD_KHUCN_DMMDSD">
+          <End Type="QUYHOACH2021Model.DM_MUCDICHSUDUNG" Role="DM_MUCDICHSUDUNG" Multiplicity="1" />
+          <End Type="QUYHOACH2021Model.KHUCHUCNANG_MDSD" Role="KHUCHUCNANG_MDSD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KHUCHUCNANG_MDSD">
+              <PropertyRef Name="ID_MDSD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDMDSD_QUYHOACH_DMMDSD">
+          <End Type="QUYHOACH2021Model.DM_MUCDICHSUDUNG" Role="DM_MUCDICHSUDUNG" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.QUYHOACH" Role="QUYHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUYHOACH">
+              <PropertyRef Name="ID_MDSD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDMDSD_THCHUCHUYENDD_DMMDSD">
+          <End Type="QUYHOACH2021Model.DM_MUCDICHSUDUNG" Role="DM_MUCDICHSUDUNG" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.TH_CHUCHUYENDATDAI" Role="TH_CHUCHUYENDATDAI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TH_CHUCHUYENDATDAI">
+              <PropertyRef Name="ID_MDSD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDMDSD_THKYTRUOC_DMMDSD">
+          <End Type="QUYHOACH2021Model.DM_MUCDICHSUDUNG" Role="DM_MUCDICHSUDUNG" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.TH_KYTRUOC" Role="TH_KYTRUOC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TH_KYTRUOC">
+              <PropertyRef Name="ID_MDSD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDMDSDCHUYEN_CCDD_DMMDSD">
+          <End Type="QUYHOACH2021Model.DM_MUCDICHSUDUNG" Role="DM_MUCDICHSUDUNG" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.TH_CHUCHUYENDATDAI" Role="TH_CHUCHUYENDATDAI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TH_CHUCHUYENDATDAI">
+              <PropertyRef Name="ID_MDSD_CHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MDSD_PHANBOXD_DMMDSD">
+          <End Type="QUYHOACH2021Model.DM_MUCDICHSUDUNG" Role="DM_MUCDICHSUDUNG" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.PHANBO_XACDINH" Role="PHANBO_XACDINH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_MUCDICHSUDUNG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PHANBO_XACDINH">
+              <PropertyRef Name="ID_MDSD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_HIENTRANG_KYQHKH">
+          <End Type="QUYHOACH2021Model.KYQUYHOACHKEHOACH" Role="KYQUYHOACHKEHOACH" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.HIENTRANG" Role="HIENTRANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HIENTRANG">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_KEHOACH_KYQHKH">
+          <End Type="QUYHOACH2021Model.KYQUYHOACHKEHOACH" Role="KYQUYHOACHKEHOACH" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.KEHOACH" Role="KEHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KEHOACH">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_KHCMD_KYQHKH">
+          <End Type="QUYHOACH2021Model.KYQUYHOACHKEHOACH" Role="KYQUYHOACHKEHOACH" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.KEHOACH_CMD" Role="KEHOACH_CMD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KEHOACH_CMD">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_KHTHUHOI_KYQHKH">
+          <End Type="QUYHOACH2021Model.KYQUYHOACHKEHOACH" Role="KYQUYHOACHKEHOACH" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.KEHOACH_THUHOI" Role="KEHOACH_THUHOI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KEHOACH_THUHOI">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKHUCN_KHUCNMDSD_KHUCN">
+          <End Type="QUYHOACH2021Model.KHUCHUCNANG" Role="KHUCHUCNANG" Multiplicity="1" />
+          <End Type="QUYHOACH2021Model.KHUCHUCNANG_MDSD" Role="KHUCHUCNANG_MDSD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHUCHUCNANG">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KHUCHUCNANG_MDSD">
+              <PropertyRef Name="ID_KHUCN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_KCN_KYQHKH">
+          <End Type="QUYHOACH2021Model.KYQUYHOACHKEHOACH" Role="KYQUYHOACHKEHOACH" Multiplicity="1" />
+          <End Type="QUYHOACH2021Model.KHUCHUCNANG" Role="KHUCHUCNANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KHUCHUCNANG">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_MAPCONFIG_KYQHKH">
+          <End Type="QUYHOACH2021Model.KYQUYHOACHKEHOACH" Role="KYQUYHOACHKEHOACH" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.MAP_CONFIG" Role="MAP_CONFIG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MAP_CONFIG">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_PBXD_KYQHKH">
+          <End Type="QUYHOACH2021Model.KYQUYHOACHKEHOACH" Role="KYQUYHOACHKEHOACH" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.PHANBO_XACDINH" Role="PHANBO_XACDINH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PHANBO_XACDINH">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_QUYHOACH_KYQHKH">
+          <End Type="QUYHOACH2021Model.KYQUYHOACHKEHOACH" Role="KYQUYHOACHKEHOACH" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.QUYHOACH" Role="QUYHOACH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUYHOACH">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_THCHUCHUYENDD_KYQHKH">
+          <End Type="QUYHOACH2021Model.KYQUYHOACHKEHOACH" Role="KYQUYHOACHKEHOACH" Multiplicity="1" />
+          <End Type="QUYHOACH2021Model.TH_CHUCHUYENDATDAI" Role="TH_CHUCHUYENDATDAI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TH_CHUCHUYENDATDAI">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQH_THKYTRUOC_KYQHKH">
+          <End Type="QUYHOACH2021Model.KYQUYHOACHKEHOACH" Role="KYQUYHOACHKEHOACH" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.TH_KYTRUOC" Role="TH_KYTRUOC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TH_KYTRUOC">
+              <PropertyRef Name="ID_KYQH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDKYQHTRUOC_THKYTRUOC_KYQHKH">
+          <End Type="QUYHOACH2021Model.KYQUYHOACHKEHOACH" Role="KYQUYHOACHKEHOACH" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.TH_KYTRUOC" Role="TH_KYTRUOC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KYQUYHOACHKEHOACH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TH_KYTRUOC">
+              <PropertyRef Name="ID_KYQHTRUOC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDUSER_LOG_USER">
+          <End Type="QUYHOACH2021Model.USERTABLE" Role="USERTABLE" Multiplicity="0..1" />
+          <End Type="QUYHOACH2021Model.USERTABLE_LOG" Role="USERTABLE_LOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERTABLE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USERTABLE_LOG">
+              <PropertyRef Name="ID_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_dbms_sql_bind_variable_t_dbms_sql_cursor">
+          <End Type="QUYHOACH2021Model.t_dbms_sql_cursor" Role="t_dbms_sql_cursor" Multiplicity="1" />
+          <End Type="QUYHOACH2021Model.t_dbms_sql_bind_variable" Role="t_dbms_sql_bind_variable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_dbms_sql_cursor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_dbms_sql_bind_variable">
+              <PropertyRef Name="cursor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_dbms_sql_define_column_t_dbms_sql_cursor">
+          <End Type="QUYHOACH2021Model.t_dbms_sql_cursor" Role="t_dbms_sql_cursor" Multiplicity="1" />
+          <End Type="QUYHOACH2021Model.t_dbms_sql_define_column" Role="t_dbms_sql_define_column" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_dbms_sql_cursor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_dbms_sql_define_column">
+              <PropertyRef Name="cursor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_dbms_sql_recordset_t_dbms_sql_cursor">
+          <End Type="QUYHOACH2021Model.t_dbms_sql_cursor" Role="t_dbms_sql_cursor" Multiplicity="1" />
+          <End Type="QUYHOACH2021Model.t_dbms_sql_recordset" Role="t_dbms_sql_recordset" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_dbms_sql_cursor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_dbms_sql_recordset">
+              <PropertyRef Name="cursor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QUYHOACH2021ModelStoreContainer" CdmEntityContainer="KHQHEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONGTRINHDUANs">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.CONGTRINHDUAN">
+              <MappingFragment StoreEntitySet="CONGTRINHDUAN">
+                <ScalarProperty Name="ROWID" ColumnName="ROWID" />
+                <ScalarProperty Name="CAPTINH" ColumnName="CAPTINH" />
+                <ScalarProperty Name="ID_LOAICT" ColumnName="ID_LOAICT" />
+                <ScalarProperty Name="MAHUYEN" ColumnName="MAHUYEN" />
+                <ScalarProperty Name="MAXA" ColumnName="MAXA" />
+                <ScalarProperty Name="VITRITRENBD" ColumnName="VITRITRENBD" />
+                <ScalarProperty Name="TENDIADIEM" ColumnName="TENDIADIEM" />
+                <ScalarProperty Name="SUDUNGVAOLD" ColumnName="SUDUNGVAOLD" />
+                <ScalarProperty Name="DIENTICH_TANGTHEM" ColumnName="DIENTICH_TANGTHEM" />
+                <ScalarProperty Name="DIENTICH_HT" ColumnName="DIENTICH_HT" />
+                <ScalarProperty Name="DIENTICH_KH" ColumnName="DIENTICH_KH" />
+                <ScalarProperty Name="NAMTH" ColumnName="NAMTH" />
+                <ScalarProperty Name="MACT" ColumnName="MACT" />
+                <ScalarProperty Name="TENCONGTRINH" ColumnName="TENCONGTRINH" />
+                <ScalarProperty Name="ID_KYQH" ColumnName="ID_KYQH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DM_CHUYENMUCDICH">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.DM_CHUYENMUCDICH">
+              <MappingFragment StoreEntitySet="DM_CHUYENMUCDICH">
+                <ScalarProperty Name="ROWID" ColumnName="ROWID" />
+                <ScalarProperty Name="CHIMUCTINH" ColumnName="CHIMUCTINH" />
+                <ScalarProperty Name="CHIMUC" ColumnName="CHIMUC" />
+                <ScalarProperty Name="ID_CAPTREN" ColumnName="ID_CAPTREN" />
+                <ScalarProperty Name="CAPTINH" ColumnName="CAPTINH" />
+                <ScalarProperty Name="ENABLED" ColumnName="ENABLED" />
+                <ScalarProperty Name="TEN" ColumnName="TEN" />
+                <ScalarProperty Name="KYHIEU" ColumnName="KYHIEU" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DM_KVHC">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.DM_KVHC">
+              <MappingFragment StoreEntitySet="DM_KVHC">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="DANGPHINONGNGHIEP" ColumnName="DANGPHINONGNGHIEP" />
+                <ScalarProperty Name="DANGNONGNGHIEP" ColumnName="DANGNONGNGHIEP" />
+                <ScalarProperty Name="DIENTICH" ColumnName="DIENTICH" />
+                <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+                <ScalarProperty Name="STT_XA" ColumnName="STT_XA" />
+                <ScalarProperty Name="TEN_KVHC" ColumnName="TEN_KVHC" />
+                <ScalarProperty Name="MA_KVHC_CHA" ColumnName="MA_KVHC_CHA" />
+                <ScalarProperty Name="ID_CAP_KVHC" ColumnName="ID_CAP_KVHC" />
+                <ScalarProperty Name="MA_KVHC" ColumnName="MA_KVHC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DM_LOAICONGTRINH">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.DM_LOAICONGTRINH">
+              <MappingFragment StoreEntitySet="DM_LOAICONGTRINH">
+                <ScalarProperty Name="ROWID" ColumnName="ROWID" />
+                <ScalarProperty Name="ID_CAPTREN" ColumnName="ID_CAPTREN" />
+                <ScalarProperty Name="CHIMUC" ColumnName="CHIMUC" />
+                <ScalarProperty Name="CAPTINH" ColumnName="CAPTINH" />
+                <ScalarProperty Name="LOAIHANGMUC" ColumnName="LOAIHANGMUC" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DM_LOAIKHUCHUCNANG">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.DM_LOAIKHUCHUCNANG">
+              <MappingFragment StoreEntitySet="DM_LOAIKHUCHUCNANG">
+                <ScalarProperty Name="ROWID" ColumnName="ROWID" />
+                <ScalarProperty Name="CAPTINH" ColumnName="CAPTINH" />
+                <ScalarProperty Name="ENABLED" ColumnName="ENABLED" />
+                <ScalarProperty Name="NGAYTAO" ColumnName="NGAYTAO" />
+                <ScalarProperty Name="TEN" ColumnName="TEN" />
+                <ScalarProperty Name="KYHIEU" ColumnName="KYHIEU" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DM_MUCDICHSUDUNG">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.DM_MUCDICHSUDUNG">
+              <MappingFragment StoreEntitySet="DM_MUCDICHSUDUNG">
+                <ScalarProperty Name="ROWID" ColumnName="ROWID" />
+                <ScalarProperty Name="STT" ColumnName="STT" />
+                <ScalarProperty Name="CAPTINH" ColumnName="CAPTINH" />
+                <ScalarProperty Name="TT01" ColumnName="TT01" />
+                <ScalarProperty Name="TT25" ColumnName="TT25" />
+                <ScalarProperty Name="TT24" ColumnName="TT24" />
+                <ScalarProperty Name="TT23" ColumnName="TT23" />
+                <ScalarProperty Name="ENABLED" ColumnName="ENABLED" />
+                <ScalarProperty Name="NGAYTAO" ColumnName="NGAYTAO" />
+                <ScalarProperty Name="CHIMUC" ColumnName="CHIMUC" />
+                <ScalarProperty Name="ID_CAPTREN" ColumnName="ID_CAPTREN" />
+                <ScalarProperty Name="TEN" ColumnName="TEN" />
+                <ScalarProperty Name="KIHIEU" ColumnName="KIHIEU" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HIENTRANGs">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.HIENTRANG">
+              <MappingFragment StoreEntitySet="HIENTRANG">
+                <ScalarProperty Name="ROWID" ColumnName="ROWID" />
+                <ScalarProperty Name="TENVUNG" ColumnName="TENVUNG" />
+                <ScalarProperty Name="NAM" ColumnName="NAM" />
+                <ScalarProperty Name="CAPTINH" ColumnName="CAPTINH" />
+                <ScalarProperty Name="MAHUYEN" ColumnName="MAHUYEN" />
+                <ScalarProperty Name="MAXA" ColumnName="MAXA" />
+                <ScalarProperty Name="DIENTICH" ColumnName="DIENTICH" />
+                <ScalarProperty Name="ID_MDSD" ColumnName="ID_MDSD" />
+                <ScalarProperty Name="MAHT" ColumnName="MAHT" />
+                <ScalarProperty Name="ID_KYQH" ColumnName="ID_KYQH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KEHOACHes">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.KEHOACH">
+              <MappingFragment StoreEntitySet="KEHOACH">
+                <ScalarProperty Name="ROWID" ColumnName="ROWID" />
+                <ScalarProperty Name="TENVUNG" ColumnName="TENVUNG" />
+                <ScalarProperty Name="CAPTINH" ColumnName="CAPTINH" />
+                <ScalarProperty Name="ID_KHUCHUCNANG" ColumnName="ID_KHUCHUCNANG" />
+                <ScalarProperty Name="MAHUYEN" ColumnName="MAHUYEN" />
+                <ScalarProperty Name="MAXA" ColumnName="MAXA" />
+                <ScalarProperty Name="DIENTICH" ColumnName="DIENTICH" />
+                <ScalarProperty Name="ID_MDSD" ColumnName="ID_MDSD" />
+                <ScalarProperty Name="MAKH" ColumnName="MAKH" />
+                <ScalarProperty Name="NAM" ColumnName="NAM" />
+                <ScalarProperty Name="ID_KYQH" ColumnName="ID_KYQH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KEHOACH_CMD">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.KEHOACH_CMD">
+              <MappingFragment StoreEntitySet="KEHOACH_CMD">
+                <ScalarProperty Name="ROWID" ColumnName="ROWID" />
+                <ScalarProperty Name="CAPTINH" ColumnName="CAPTINH" />
+                <ScalarProperty Name="MAHUYEN" ColumnName="MAHUYEN" />
+                <ScalarProperty Name="MAXA" ColumnName="MAXA" />
+                <ScalarProperty Name="DIENTICH" ColumnName="DIENTICH" />
+                <ScalarProperty Name="ID_CMD" ColumnName="ID_CMD" />
+                <ScalarProperty Name="NAM" ColumnName="NAM" />
+                <ScalarProperty Name="ID_KYQH" ColumnName="ID_KYQH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KEHOACH_CSD">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.KEHOACH_CSD">
+              <MappingFragment StoreEntitySet="KEHOACH_CSD">
+                <ScalarProperty Name="ROWID" ColumnName="ROWID" />
+                <ScalarProperty Name="CAPTINH" ColumnName="CAPTINH" />
+                <ScalarProperty Name="MAHUYEN" ColumnName="MAHUYEN" />
+                <ScalarProperty Name="MAXA" ColumnName="MAXA" />
+                <ScalarProperty Name="DIENTICH" ColumnName="DIENTICH" />
+                <ScalarProperty Name="ID_MDSD" ColumnName="ID_MDSD" />
+                <ScalarProperty Name="NAM" ColumnName="NAM" />
+                <ScalarProperty Name="ID_KYQH" ColumnName="ID_KYQH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KEHOACH_THUHOI">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.KEHOACH_THUHOI">
+              <MappingFragment StoreEntitySet="KEHOACH_THUHOI">
+                <ScalarProperty Name="ROWID" ColumnName="ROWID" />
+                <ScalarProperty Name="MAHUYEN" ColumnName="MAHUYEN" />
+                <ScalarProperty Name="MAXA" ColumnName="MAXA" />
+                <ScalarProperty Name="DIENTICH" ColumnName="DIENTICH" />
+                <ScalarProperty Name="ID_MDSD" ColumnName="ID_MDSD" />
+                <ScalarProperty Name="NAM" ColumnName="NAM" />
+                <ScalarProperty Name="ID_KYQH" ColumnName="ID_KYQH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KHUCHUCNANGs">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.KHUCHUCNANG">
+              <MappingFragment StoreEntitySet="KHUCHUCNANG">
+                <ScalarProperty Name="ROWID" ColumnName="ROWID" />
+                <ScalarProperty Name="TENVUNG" ColumnName="TENVUNG" />
+                <ScalarProperty Name="CAPTINH" ColumnName="CAPTINH" />
+                <ScalarProperty Name="MALOAIKHUCN" ColumnName="MALOAIKHUCN" />
+                <ScalarProperty Name="MAHUYEN" ColumnName="MAHUYEN" />
+                <ScalarProperty Name="MAXA" ColumnName="MAXA" />
+                <ScalarProperty Name="MAKHUCN" ColumnName="MAKHUCN" />
+                <ScalarProperty Name="ID_KYQH" ColumnName="ID_KYQH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KHUCHUCNANG_MDSD">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.KHUCHUCNANG_MDSD">
+              <MappingFragment StoreEntitySet="KHUCHUCNANG_MDSD">
+                <ScalarProperty Name="ROWID" ColumnName="ROWID" />
+                <ScalarProperty Name="DIENTICH" ColumnName="DIENTICH" />
+                <ScalarProperty Name="ID_MDSD" ColumnName="ID_MDSD" />
+                <ScalarProperty Name="ID_KHUCN" ColumnName="ID_KHUCN" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KYQUYHOACHKEHOACHes">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.KYQUYHOACHKEHOACH">
+              <MappingFragment StoreEntitySet="KYQUYHOACHKEHOACH">
+                <ScalarProperty Name="ROWID" ColumnName="ROWID" />
+                <ScalarProperty Name="ID_CHA" ColumnName="ID_CHA" />
+                <ScalarProperty Name="IS_KEHOACH_DIEUCHINH" ColumnName="IS_KEHOACH_DIEUCHINH" />
+                <ScalarProperty Name="BIKHOA" ColumnName="BIKHOA" />
+                <ScalarProperty Name="TOINAM" ColumnName="TOINAM" />
+                <ScalarProperty Name="TUNAM" ColumnName="TUNAM" />
+                <ScalarProperty Name="NAM" ColumnName="NAM" />
+                <ScalarProperty Name="TEN" ColumnName="TEN" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MAP_CONFIG">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.MAP_CONFIG">
+              <MappingFragment StoreEntitySet="MAP_CONFIG">
+                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="DEFAULT_VIEW" ColumnName="DEFAULT_VIEW" />
+                <ScalarProperty Name="MAP_SERVICES" ColumnName="MAP_SERVICES" />
+                <ScalarProperty Name="MAKVHC" ColumnName="MAKVHC" />
+                <ScalarProperty Name="ID_KYQH" ColumnName="ID_KYQH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PHANBO_XACDINH">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.PHANBO_XACDINH">
+              <MappingFragment StoreEntitySet="PHANBO_XACDINH">
+                <ScalarProperty Name="ROWID" ColumnName="ROWID" />
+                <ScalarProperty Name="MAHUYEN" ColumnName="MAHUYEN" />
+                <ScalarProperty Name="MAXA" ColumnName="MAXA" />
+                <ScalarProperty Name="CAPTINH" ColumnName="CAPTINH" />
+                <ScalarProperty Name="ID_KHUCHUCNANG" ColumnName="ID_KHUCHUCNANG" />
+                <ScalarProperty Name="DT_XACDINH" ColumnName="DT_XACDINH" />
+                <ScalarProperty Name="DT_PHANBO" ColumnName="DT_PHANBO" />
+                <ScalarProperty Name="ID_MDSD" ColumnName="ID_MDSD" />
+                <ScalarProperty Name="ID_KYQH" ColumnName="ID_KYQH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QUYHOACHes">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.QUYHOACH">
+              <MappingFragment StoreEntitySet="QUYHOACH">
+                <ScalarProperty Name="ROWID" ColumnName="ROWID" />
+                <ScalarProperty Name="TENVUNG" ColumnName="TENVUNG" />
+                <ScalarProperty Name="ID_KHUCN" ColumnName="ID_KHUCN" />
+                <ScalarProperty Name="CAPTINH" ColumnName="CAPTINH" />
+                <ScalarProperty Name="MAHUYEN" ColumnName="MAHUYEN" />
+                <ScalarProperty Name="MAXA" ColumnName="MAXA" />
+                <ScalarProperty Name="DIENTICH" ColumnName="DIENTICH" />
+                <ScalarProperty Name="ID_MDSD" ColumnName="ID_MDSD" />
+                <ScalarProperty Name="MAQH" ColumnName="MAQH" />
+                <ScalarProperty Name="NAM" ColumnName="NAM" />
+                <ScalarProperty Name="ID_KYQH" ColumnName="ID_KYQH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TH_CHUCHUYENDATDAI">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.TH_CHUCHUYENDATDAI">
+              <MappingFragment StoreEntitySet="TH_CHUCHUYENDATDAI">
+                <ScalarProperty Name="ROWID" ColumnName="ROWID" />
+                <ScalarProperty Name="MAHUYEN" ColumnName="MAHUYEN" />
+                <ScalarProperty Name="MAXA" ColumnName="MAXA" />
+                <ScalarProperty Name="CAPTINH" ColumnName="CAPTINH" />
+                <ScalarProperty Name="DIENTICH" ColumnName="DIENTICH" />
+                <ScalarProperty Name="ID_MDSD_CHUYEN" ColumnName="ID_MDSD_CHUYEN" />
+                <ScalarProperty Name="ID_MDSD" ColumnName="ID_MDSD" />
+                <ScalarProperty Name="NAM" ColumnName="NAM" />
+                <ScalarProperty Name="ID_KYQH" ColumnName="ID_KYQH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TH_KYTRUOC">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.TH_KYTRUOC">
+              <MappingFragment StoreEntitySet="TH_KYTRUOC">
+                <ScalarProperty Name="ROWID" ColumnName="ROWID" />
+                <ScalarProperty Name="CAPTINH" ColumnName="CAPTINH" />
+                <ScalarProperty Name="MAHUYEN" ColumnName="MAHUYEN" />
+                <ScalarProperty Name="TILE" ColumnName="TILE" />
+                <ScalarProperty Name="TANG_GIAM" ColumnName="TANG_GIAM" />
+                <ScalarProperty Name="DT_THUCHIEN" ColumnName="DT_THUCHIEN" />
+                <ScalarProperty Name="DT_PHEDUYET" ColumnName="DT_PHEDUYET" />
+                <ScalarProperty Name="ID_MDSD" ColumnName="ID_MDSD" />
+                <ScalarProperty Name="ID_KYQHTRUOC" ColumnName="ID_KYQHTRUOC" />
+                <ScalarProperty Name="ID_KYQH" ColumnName="ID_KYQH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERTABLEs">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.USERTABLE">
+              <MappingFragment StoreEntitySet="USERTABLE">
+                <ScalarProperty Name="ROWID" ColumnName="ROWID" />
+                <ScalarProperty Name="GHICHU" ColumnName="GHICHU" />
+                <ScalarProperty Name="ENABLE" ColumnName="ENABLE" />
+                <ScalarProperty Name="MAPHONGBANCHA" ColumnName="MAPHONGBANCHA" />
+                <ScalarProperty Name="MAPHONGBAN" ColumnName="MAPHONGBAN" />
+                <ScalarProperty Name="TENPHONGBAN" ColumnName="TENPHONGBAN" />
+                <ScalarProperty Name="MATKHAU" ColumnName="MATKHAU" />
+                <ScalarProperty Name="TENDANGNHAP" ColumnName="TENDANGNHAP" />
+                <ScalarProperty Name="HOTEN" ColumnName="HOTEN" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERTABLE_LOG">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.USERTABLE_LOG">
+              <MappingFragment StoreEntitySet="USERTABLE_LOG">
+                <ScalarProperty Name="ROWID" ColumnName="ROWID" />
+                <ScalarProperty Name="KEY" ColumnName="KEY" />
+                <ScalarProperty Name="NOIDUNG" ColumnName="NOIDUNG" />
+                <ScalarProperty Name="THOIGIAN" ColumnName="THOIGIAN" />
+                <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="db_error_list">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.db_error_list">
+              <MappingFragment StoreEntitySet="db_error_list">
+                <ScalarProperty Name="error_message" ColumnName="error_message" />
+                <ScalarProperty Name="error_code" ColumnName="error_code" />
+                <ScalarProperty Name="error_full_name" ColumnName="error_full_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="db_LOB_output">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.db_LOB_output">
+              <MappingFragment StoreEntitySet="db_LOB_output">
+                <ScalarProperty Name="b_value" ColumnName="b_value" />
+                <ScalarProperty Name="nc_value" ColumnName="nc_value" />
+                <ScalarProperty Name="c_value" ColumnName="c_value" />
+                <ScalarProperty Name="ordinal" ColumnName="ordinal" />
+                <ScalarProperty Name="spid" ColumnName="spid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="db_storage">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.db_storage">
+              <MappingFragment StoreEntitySet="db_storage">
+                <ScalarProperty Name="b_value" ColumnName="b_value" />
+                <ScalarProperty Name="nc_value" ColumnName="nc_value" />
+                <ScalarProperty Name="c_value" ColumnName="c_value" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="login_time" ColumnName="login_time" />
+                <ScalarProperty Name="spid" ColumnName="spid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_dbms_sql_bind_variable">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.t_dbms_sql_bind_variable">
+              <MappingFragment StoreEntitySet="t_dbms_sql_bind_variable">
+                <ScalarProperty Name="b_value" ColumnName="b_value" />
+                <ScalarProperty Name="nc_value" ColumnName="nc_value" />
+                <ScalarProperty Name="c_value" ColumnName="c_value" />
+                <ScalarProperty Name="C_type" ColumnName="_type" />
+                <ScalarProperty Name="C_name" ColumnName="_name" />
+                <ScalarProperty Name="cursor_id" ColumnName="cursor_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_dbms_sql_cursor">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.t_dbms_sql_cursor">
+              <MappingFragment StoreEntitySet="t_dbms_sql_cursor">
+                <ScalarProperty Name="last_row" ColumnName="last_row" />
+                <ScalarProperty Name="current_row" ColumnName="current_row" />
+                <ScalarProperty Name="statement" ColumnName="statement" />
+                <ScalarProperty Name="login_time" ColumnName="login_time" />
+                <ScalarProperty Name="spid" ColumnName="spid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_dbms_sql_define_column">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.t_dbms_sql_define_column">
+              <MappingFragment StoreEntitySet="t_dbms_sql_define_column">
+                <ScalarProperty Name="C_type" ColumnName="_type" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="cursor_id" ColumnName="cursor_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_dbms_sql_recordset">
+            <EntityTypeMapping TypeName="QUYHOACH2021Model.t_dbms_sql_recordset">
+              <MappingFragment StoreEntitySet="t_dbms_sql_recordset">
+                <ScalarProperty Name="b_value" ColumnName="b_value" />
+                <ScalarProperty Name="nc_value" ColumnName="nc_value" />
+                <ScalarProperty Name="c_value" ColumnName="c_value" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="C_key" ColumnName="_key" />
+                <ScalarProperty Name="cursor_id" ColumnName="cursor_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

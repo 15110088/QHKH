@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Template/css/theme.css" rel="stylesheet">
-@*@model KEHOACHQH.DAL.HIENTRANG*@
+@*@model QHKH.Models.HIENTRANG*@
 @model KHQH.Models.DB.CombineHienTrang
 <br />
 <br />
@@ -47,7 +47,7 @@
 
 
 
-@(Html.DevExtreme().DataGrid<KEHOACHQH.DAL.HIENTRANG>()
+@(Html.DevExtreme().DataGrid<QHKH.Models.HIENTRANG>()
                            .ID("grv")
                            .Selection(s => s.Mode(SelectionMode.Single))
                 
@@ -132,7 +132,7 @@
 
 @if (Model.SetupPage.TYPE == 3)
 {
-    @(Html.DevExtreme().DataGrid<KEHOACHQH.DAL.KHUCHUCNANG>()
+    @(Html.DevExtreme().DataGrid<QHKH.Models.KHUCHUCNANG>()
                            .ID("grv")
                            .Selection(s => s.Mode(SelectionMode.Single))
 
@@ -220,7 +220,7 @@
 
 
 
-    @(Html.DevExtreme().DataGrid<KEHOACHQH.DAL.QUYHOACH>()
+    @(Html.DevExtreme().DataGrid<QHKH.Models.QUYHOACH>()
                        .ID("grv")
                        .Selection(s => s.Mode(SelectionMode.Single))
                        .ShowBorders(true)
@@ -312,7 +312,7 @@
 
 
 
-    @(Html.DevExtreme().DataGrid<KEHOACHQH.DAL.KEHOACH>()
+    @(Html.DevExtreme().DataGrid<QHKH.Models.KEHOACH>()
                            .ID("grv")
                            .Selection(s => s.Mode(SelectionMode.Single))
                        //.DataSource(d => d.WebApi()
